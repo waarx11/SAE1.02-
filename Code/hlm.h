@@ -26,3 +26,18 @@ typedef struct liste
  
 /*Piles*/
 
+
+
+/* Menu */
+
+void afficheMenu(void);
+
+void afficheMenuLogement(void);
+
+void afficheMenuLocataire(void);
+
+void afficheMenuLocatairePrecis(void);
+
+void afficheMenuDemLog(void);
+
+void menu(void);

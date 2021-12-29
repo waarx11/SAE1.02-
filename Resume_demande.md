@@ -7,6 +7,7 @@
     * suppression d'un logement (vente d'un logement)
     * afficher les logements possédés par des HLM63 (trié)
     * afficher les types de logements (T1/T2/.../Nombre)
+    * afficher les types de logements disponible
 
 * Locataire :
     * Afficher tout les locataire (trié) :
