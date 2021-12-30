@@ -24,7 +24,7 @@ void afficheMenuLogement(void)
 	printf("| 3. Afficher posséder par des HLM63 \t\t |\n");
 	printf("| 4. Afficher les types de logement \t\t |\n");
 	printf("| 5. Afficher les types de logement disponuble   |\n");
-	printf("| 9. Quitter \t\t\t\t\t |\n");
+	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
 
@@ -34,7 +34,7 @@ void afficheMenuLocataire(void)
 	printf("+------------------------------------------------+\n");
 	printf("| 1. Afficher la liste des locataires \t\t |\n");
 	printf("| 2. Recherche d'un locataire \t\t\t |\n");
-	printf("| 9. Quitter \t\t\t\t\t |\n");
+	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
 
@@ -61,7 +61,7 @@ void afficheMenuDemLog(void)
 	printf("| 3. Supprimer une demande\t\t\t |\n");
 	printf("| 4. Afficher toute les demandes\t\t |\n");
 	printf("| 5. Traité les demandes en attente\t\t |\n");
-	printf("| 9. Quitter \t\t\t\t\t |\n");
+	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
 
@@ -83,66 +83,66 @@ while (choix != 1 && choix != 2 && choix != 3 && choix != 9)
 	switch (choix)
 	{
 		case 1:
-		afficheMenuLocataire();
-		scanf("%d%*c", &choix2);
-
-		while (choix2 != 1 && choix2 != 2 && choix2 != 9)
-		{
-			printf("Choix doit être égale à 1, 2 ou 9. Retapez : ");
+			afficheMenuLocataire();
 			scanf("%d%*c", &choix2);
-		}
 
-		while (choix != 9)
-		{
-			switch (choix2)
+			while (choix2 != 1 && choix2 != 2 && choix2 != 9)
 			{
-			case 1:
-			// Affichage de la liste de locataire
-			break;
-
-			case 2:
-			// Fonction recherche locataire
-			//scanf("%d", &locataire);
-			afficheMenuLocatairePrecis();
-			scanf("%d%*c", &choix3);
-
-			while (choix3 != 1 && choix3 != 2 && choix3 != 3 && choix3 != 4 && choix3 != 5 && choix3 != 6 && choix3 != 9)
-			{
-				printf("Choix doit être égale à 1, 2, 3, 4, 5, 6 ou 9. Retapez : ");
-				scanf("%d%*c", &choix3);
+				printf("Choix doit être égale à 1, 2 ou 9. Retapez : ");
+				scanf("%d%*c", &choix2);
 			}
-
-			while (choix3 != 9)
+			while (choix != 9)
 			{
-				switch (choix3)
+				switch (choix2)
 				{
-					case 1:
-					// Fonction d'affichage de toutes les informations du locataire
-					break;
+				case 1:
+					// Affichage de la liste de locataire
+				break;
 
-					case 2:
-					// Fonction d'affichage de la nationnalité ou carnet visite
-					break;
+				case 2:
+					// Fonction recherche locataire
+					//scanf("%d", &locataire);
+					afficheMenuLocatairePrecis();
+					scanf("%d%*c", &choix3);
 
-					case 3:
-					// Fonction d'affichage n° plafond atteint par le locataire
-					break;
+					while (choix3 != 1 && choix3 != 2 && choix3 != 3 && choix3 != 4 && choix3 != 5 && choix3 != 6 && choix3 != 9)
+					{
+						printf("Choix doit être égale à 1, 2, 3, 4, 5, 6 ou 9. Retapez : ");
+						scanf("%d%*c", &choix3);
+					}
 
-					case 4:
-					// Fonction d'affiche du nombre d'individu à la charge du locataire
-					break;
+					while (choix3 != 9)
+					{
+						switch (choix3)
+						{
+							case 1:
+								// Fonction d'affichage de toutes les informations du locataire
+							break;
 
-					case 5:
-					// Fonction d'affichage du nombre de points attribuer au locataire
-					break;
+							case 2:
+								// Fonction d'affichage de la nationnalité ou carnet visite
+							break;
 
-					case 6:
-					// Fonction d'affichage du revenu annuel du locataire
-					break;
+							case 3:
+								// Fonction d'affichage n° plafond atteint par le locataire
+							break;
+
+							case 4:
+								// Fonction d'affiche du nombre d'individu à la charge du locataire
+							break;
+
+							case 5:
+								// Fonction d'affichage du nombre de points attribuer au locataire
+							break;
+
+							case 6:
+								// Fonction d'affichage du revenu annuel du locataire
+							break;
+						}
 				}
+				break;
 			}
 			break;
-			}
 		}
 		break;
 
