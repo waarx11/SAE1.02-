@@ -14,9 +14,6 @@
 * void Menu (void)
     * Cette fonction aura pour but de facilité la transition entre les fonctions menu précédement cité
 
-## Structure :
-
-
 
 ## Logement :
 
@@ -39,10 +36,14 @@
     * Cette fonction va chargé tout les logement dans un fichier
 
 
+* AffichPrixLogement()
+    * Cette fonction permet d'afficher le prix du logement avec un prix fixe du m^2
+
+
 ## Locataire :
 
 * AffichLocataire() -> doit être triée
-    * Cette fonction affichera l'ensemble des locataire avec sa nationalité ou carte de séjour, sous quel plafond il se trouve, nombre d'individu à charge et le nombre de points attribué
+    * Cette fonction affichera l'ensemble des locataire avec sa nationalité, sous quel plafond il se trouve et dans quel logement il se trouve
 
 * RechLocataire()
     * Cette fonction aura pour but de rechercher un locataire dans le fichier / liste
@@ -56,11 +57,11 @@
 * AffichPlafond()
     * Cette fonction affichera le numéro du plafond que l'individu atteint
 
-* AffichCharge()
-    * Cette fonction affichera le nombre d'individu a la charge du locataire
+* Affichlogement()
+    * Cette fonction affichera les information de logement attribuer au locataire
 
-* AffichPoint()
-    * Cette fonction affichera le nombre de points attribué au locataire
+* AffichDateLoge()
+    * Cette fonction affichera depuis quand le locataire est propriétaire du logement
 
 * AffichRevenu()
     * Cette fonction affichera les revenu annuel/mensuel du locataire
@@ -82,4 +83,6 @@
 
 * TraitementDemande()
     * Cette fonction nous permet de traiter les demande et d'affecter automatiquement un demandeurs de logement dans un logement disponible
+
+
 

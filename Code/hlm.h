@@ -9,7 +9,7 @@ typedef enum
     Vrai
 } Booleen;
 
-/*Liste Chainer 
+/*Liste Chainée
 Seules les demandes de demandeurs ayant leur papier en règle et ne dépassant pas le plafond de ressources sont enregistrées*/
 
 typedef struct {int jours, mois, annee, heure, minute, seconde;} Date;
@@ -33,6 +33,14 @@ typedef struct liste
 
 /*Files*/
 
+typedef struct{
+    char prenom[31];
+    char nom[31];
+    char nationalité[3];
+    int plafond;
+    float revenu;
+    int numlogement;
+} Locataire;
  
 /*Piles*/
 
