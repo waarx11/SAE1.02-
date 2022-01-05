@@ -11,13 +11,12 @@ ListeDem lireMenage(FILE *fDem, ListeDem l)
 {
     MaillonDem *m;
     m=(MaillonDem *)malloc(sizeof(MaillonDem));
-    m->demandeurs.dateDemande = (DateDem *) malloc(sizeof(DateDem));
-    if(m==NULL || m->demandeurs.dateDemande==NULL)
+    if(m==NULL)
     {
         printf("Problème malloc\n");
         exit(1);
     }
-    fscanf(fDem, "%d %d %d %f %s %d %d %d %d %d %d %d", &m->demandeurs.numDemande, &m->demandeurs.nbPoint, &m->demandeurs.nbPersonne, &m->demandeurs.revenueBrut, m->demandeurs.nomDeFamille, &m->demandeurs.numTel, &m->demandeurs.dateDemande->jours, &m->demandeurs.dateDemande->mois, &m->demandeurs.dateDemande->annee, &m->demandeurs.dateDemande->heure, &m->demandeurs.dateDemande->minute, &m->demandeurs.dateDemande->seconde);
+    fscanf(fDem, "%d %d %d %f %s %d %d %d %d %d %d %d", &m->demandeurs.numDemande, &m->demandeurs.nbPoint, &m->demandeurs.nbPersonne, &m->demandeurs.revenueBrut, m->demandeurs.nomDeFamille, &m->demandeurs.numTel, &m->demandeurs.dateDemande.jours, &m->demandeurs.dateDemande.mois, &m->demandeurs.dateDemande.annee, &m->demandeurs.dateDemande.heure, &m->demandeurs.dateDemande.minute, &m->demandeurs.dateDemande.seconde);
     m->suivant=l;
     return m;
 }
@@ -29,14 +28,14 @@ void chargementDem(ListeDem l, FILE *fDem, int *nbD)
         l=lireMenage(fDem,l);
 }
 
-void affichage(Liste l)
+void affichageDem(ListeDem l)
 {
     if (l==NULL)
         return;
     printf("-----------------------------------------------------------------------------------------------------\n\n");
     printf("Numero de dossier : %d\n\n", l->demandeurs.numDemande);
     printf("%d %d %f %s %d\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.numTel);
-    printf("Le %d/%d/%d a %d:%d:%d\n", l->demandeurs.dateDemande->jours, l->demandeurs.dateDemande->mois, l->demandeurs.dateDemande->annee, l->demandeurs.dateDemande->heure, l->demandeurs.dateDemande->minute, l->demandeurs.dateDemande->seconde);
+    printf("Le %d/%d/%d a %d:%d:%d\n", l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde);
     printf("-----------------------------------------------------------------------------------------------------\n\n");
     affichage(l->suivant);
 }
@@ -46,8 +45,7 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     int jours, mois, an, h, min, s, numDemande;
     MaillonDem *m;
     m=(MaillonDem *)malloc(sizeof(MaillonDem));
-    m->demandeurs.dateDemande = (DateDem *) malloc(sizeof(DateDem));
-    if(m==NULL || m->demandeurs.dateDemande==NULL)
+    if(m==NULL)
     {
         printf("Problème malloc\n");
         exit(1);
@@ -70,12 +68,12 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     m->demandeurs.revenueBrut=revenueBrut;
     strcpy(m->demandeurs.nomDeFamille,nomDeFamille);
     m->demandeurs.numTel=numTel;
-    m->demandeurs.dateDemande->jours=jours;
-    m->demandeurs.dateDemande->mois=mois;
-    m->demandeurs.dateDemande->annee=an;
-    m->demandeurs.dateDemande->heure=h;
-    m->demandeurs.dateDemande->minute=min;
-    m->demandeurs.dateDemande->seconde=s;
+    m->demandeurs.dateDemande.jours=jours;
+    m->demandeurs.dateDemande.mois=mois;
+    m->demandeurs.dateDemande.annee=an;
+    m->demandeurs.dateDemande.heure=h;
+    m->demandeurs.dateDemande.minute=min;
+    m->demandeurs.dateDemande.seconde=s;
     m->suivant=l;
     return m;
 }
