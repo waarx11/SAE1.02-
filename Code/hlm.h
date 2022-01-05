@@ -27,10 +27,10 @@ typedef struct
     DateDem dateDemande;
 } Menage;
 
-typedef struct liste
+typedef struct listeDem
 {
     Menage demandeurs;
-    struct liste *suivant;
+    struct listeDem *suivant;
 }MaillonDem, *ListeDem;
 
 /*Files*/
@@ -56,10 +56,10 @@ typedef struct
     Date dateAchat;
 } Logement;
 
-typedef struct maillon
+typedef struct maillonLog
 {
     Logement logement;
-    struct maillon *suivant;
+    struct maillonLog *suivant;
 } MaillonLog, *PileLog;
 
 
@@ -84,7 +84,7 @@ ListeDem lireMenage(FILE *fDem, ListeDem l);
 
 void chargementDem(ListeDem l, FILE *fDem, int *nbD);
 
-void affichage(Liste l);
+void affichage(ListeDem l);
 
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
 
