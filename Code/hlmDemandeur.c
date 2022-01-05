@@ -2,27 +2,27 @@
 
 //Ce fichier s'occupe des demandes
 
-Liste initliste(void)
+ListeDem initliste(void)
 {
     return NULL;
 }
 
-Liste lireMenage(FILE *fDem, Liste l)
+ListeDem lireMenage(FILE *fDem, ListeDem l)
 {
-    Maillon *m;
-    m=(Maillon *)malloc(sizeof(Maillon));
-    m->demandeurs.dateDemande = (Date *) malloc(sizeof(Date));
+    MaillonDem *m;
+    m=(MaillonDem *)malloc(sizeof(MaillonDem));
+    m->demandeurs.dateDemande = (DateDem *) malloc(sizeof(DateDem));
     if(m==NULL || m->demandeurs.dateDemande==NULL)
     {
-        printf("Problème malloc");
+        printf("Problème malloc\n");
         exit(1);
     }
-    fscanf(fDem, "%d %d %d %f %s %d %d %d %d %d %d %d", &m->demandeurs.numDemande, &m->demandeurs.nbPoint, &m->demandeurs.nbPersonne, &m->demandeurs.ressourceAnnuel, m->demandeurs.nomDeFamille, &m->demandeurs.numTel, &m->demandeurs.dateDemande->jours, &m->demandeurs.dateDemande->mois, &m->demandeurs.dateDemande->annee, &m->demandeurs.dateDemande->heure, &m->demandeurs.dateDemande->minute, &m->demandeurs.dateDemande->seconde);
+    fscanf(fDem, "%d %d %d %f %s %d %d %d %d %d %d %d", &m->demandeurs.numDemande, &m->demandeurs.nbPoint, &m->demandeurs.nbPersonne, &m->demandeurs.revenueBrut, m->demandeurs.nomDeFamille, &m->demandeurs.numTel, &m->demandeurs.dateDemande->jours, &m->demandeurs.dateDemande->mois, &m->demandeurs.dateDemande->annee, &m->demandeurs.dateDemande->heure, &m->demandeurs.dateDemande->minute, &m->demandeurs.dateDemande->seconde);
     m->suivant=l;
-    return m; 
+    return m;
 }
 
-void chargementDem(Liste l, FILE *fDem, int *nbD)
+void chargementDem(ListeDem l, FILE *fDem, int *nbD)
 {
     fscanf(fDem, "%d", nbD);
     for(int i=0;i<*nbD;i++)
@@ -34,22 +34,22 @@ void affichage(Liste l)
     if (l==NULL)
         return;
     printf("-----------------------------------------------------------------------------------------------------\n\n");
-    printf("Numero de dossier : %d", l->demandeurs.numDemande);
-    printf("%d %d %f %s %d", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.ressourceAnnuel, l->demandeurs.nomDeFamille, l->demandeurs.numTel);
-    printf("Le %d/%d/%d a %d:%d:%d", l->demandeurs.dateDemande->jours, l->demandeurs.dateDemande->mois, l->demandeurs.dateDemande->annee, l->demandeurs.dateDemande->heure, l->demandeurs.dateDemande->minute, l->demandeurs.dateDemande->seconde);
+    printf("Numero de dossier : %d\n\n", l->demandeurs.numDemande);
+    printf("%d %d %f %s %d\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.numTel);
+    printf("Le %d/%d/%d a %d:%d:%d\n", l->demandeurs.dateDemande->jours, l->demandeurs.dateDemande->mois, l->demandeurs.dateDemande->annee, l->demandeurs.dateDemande->heure, l->demandeurs.dateDemande->minute, l->demandeurs.dateDemande->seconde);
     printf("-----------------------------------------------------------------------------------------------------\n\n");
     affichage(l->suivant);
 }
 
-Liste insertionEnTeteDem(Liste l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel)
+ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, int numTel)
 {
     int jours, mois, an, h, min, s, numDemande;
-    Maillon *m;
-    m=(Maillon *)malloc(sizeof(Maillon));
-    m->demandeurs.dateDemande = (Date *) malloc(sizeof(Date));
+    MaillonDem *m;
+    m=(MaillonDem *)malloc(sizeof(MaillonDem));
+    m->demandeurs.dateDemande = (DateDem *) malloc(sizeof(DateDem));
     if(m==NULL || m->demandeurs.dateDemande==NULL)
     {
-        printf("Problème malloc");
+        printf("Problème malloc\n");
         exit(1);
     }
     //Valeur aléatoire compris entre 0 et 5000
@@ -67,7 +67,7 @@ Liste insertionEnTeteDem(Liste l, int nbPoint, int nbPersonne, float ressourceAn
     m->demandeurs.numDemande=numDemande+1;
     m->demandeurs.nbPoint=nbPoint;
     m->demandeurs.nbPersonne=nbPersonne;
-    m->demandeurs.ressourceAnnuel=ressourceAnnuel;
+    m->demandeurs.revenueBrut=revenueBrut;
     strcpy(m->demandeurs.nomDeFamille,nomDeFamille);
     m->demandeurs.numTel=numTel;
     m->demandeurs.dateDemande->jours=jours;
@@ -80,13 +80,13 @@ Liste insertionEnTeteDem(Liste l, int nbPoint, int nbPersonne, float ressourceAn
     return m;
 }
 
-Liste insertionDem(Liste l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel)
+ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, int numTel)
 {
     if(l==NULL)
-        return insertionEnTeteDem(l, nbPoint, nbPersonne, ressourceAnnuel, nomDeFamille, numTel);
+        return insertionEnTeteDem(l, nbPoint, nbPersonne, revenueBrut, nomDeFamille, numTel);
     if (l->demandeurs.nbPoint<nbPoint) 
-        return insertionEnTeteDem(l, nbPoint, nbPersonne, ressourceAnnuel, nomDeFamille, numTel);
-    l->suivant=insertionDem(l->suivant, nbPoint, nbPersonne, ressourceAnnuel, nomDeFamille, numTel);
+        return insertionEnTeteDem(l, nbPoint, nbPersonne, revenueBrut, nomDeFamille, numTel);
+    l->suivant=insertionDem(l->suivant, nbPoint, nbPersonne, revenueBrut, nomDeFamille, numTel);
     return l;
 }
 
