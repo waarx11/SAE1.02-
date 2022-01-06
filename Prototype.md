@@ -1,4 +1,4 @@
-# Prototype des fonctions 
+ # Prototype des fonctions 
 
 ## Menu :
 
@@ -42,7 +42,7 @@
 
 ## Locataire :
 
-* AffichLocataire() -> doit être triée
+* AffichLocataire() -> doit être triée (nom / Numéro logement / prix logement / date d'arrivé au logement)
     * Cette fonction affichera l'ensemble des locataire avec sa nationalité, sous quel plafond il se trouve et dans quel logement il se trouve
 
 * RechLocataire()
@@ -50,21 +50,6 @@
 
 * AffichUnLocataire()
     * Cette fonction affichera les informations d'une seul locataire
-
-* AffichNationalité()
-    * Cette fonction affichera la nationalité du d'un locataire
-
-* AffichPlafond()
-    * Cette fonction affichera le numéro du plafond que l'individu atteint
-
-* Affichlogement()
-    * Cette fonction affichera les information de logement attribuer au locataire
-
-* AffichDateLoge()
-    * Cette fonction affichera depuis quand le locataire est propriétaire du logement
-
-* AffichRevenu()
-    * Cette fonction affichera les revenu annuel/mensuel du locataire
 
 
 ## DemandeLogement

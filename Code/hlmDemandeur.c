@@ -37,7 +37,7 @@ void affichageDem(ListeDem l)
     printf("%d %d %f %s %d\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.numTel);
     printf("Le %d/%d/%d a %d:%d:%d\n", l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde);
     printf("-----------------------------------------------------------------------------------------------------\n\n");
-    affichage(l->suivant);
+    affichageDem(l->suivant);
 }
 
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, int numTel)

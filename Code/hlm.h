@@ -35,14 +35,25 @@ typedef struct listeDem
 
 /*Files*/
 
-typedef struct{
+typedef struct {
     char prenom[31];
     char nom[31];
-    char nationalité[3];
+    char nationalite[3];
     int plafond;
     float revenu;
     int numlogement;
-} Locataire;
+    Date datedebutloca;
+}Locataire;
+
+typedef struct maillonloc {
+    Locataire loc;
+    struct maillonloc *suiv;
+}MaillonLoc, *FilesLoc;
+
+typedef struct {
+    MaillonLoc *tete;
+    MaillonLoc *queue;
+}Files;
 
 /*Piles*/
 
@@ -65,17 +76,33 @@ typedef struct maillonLog
 
 /* Menu */
 
-void afficheMenu(void);
-
-void afficheMenuLogement(void);
-
-void afficheMenuLocataire(void);
-
-void afficheMenuLocatairePrecis(void);
-
-void afficheMenuDemLog(void);
-
 void menu(void);
+
+void affichMenu(void);
+
+void MenuLogement(void);
+
+void affichMenuLogement(void);
+
+void MenuLocataire(void);
+
+void affichMenuLocataire(void);
+
+void MenuChoixTrie (void);
+
+void affichChoixTrieLoca(void);
+
+void MenuDemLog(void);
+
+void affichMenuDemLog(void);
+
+/* Locataire */
+
+FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
+
+FilesLoc AffichLocataire(FILE fLoca, Files f);
+
+FilesLoc AffichLocatairePrecis(FILE fLoca, Files f);
 
 /* Demandeur */
 ListeDem initliste(void);
