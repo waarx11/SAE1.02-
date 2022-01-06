@@ -21,11 +21,19 @@ ListeDem lireMenage(FILE *fDem, ListeDem l)
     return m;
 }
 
-void chargementDem(ListeDem l, FILE *fDem, int *nbD)
+void chargementDem(ListeDem l, int *nbD, char *fic)
 {
+    FILE *fDem;
+    fDem=fopen(fic,"r");
+    if (fDem == NULL)
+    {
+        printf("Problème ouverture fichier Dem");
+        return;
+    }
     fscanf(fDem, "%d", nbD);
     for(int i=0;i<*nbD;i++)
         l=lireMenage(fDem,l);
+    fclose(fDem);
 }
 
 void affichageDem(ListeDem l)

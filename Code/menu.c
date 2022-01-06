@@ -63,20 +63,20 @@ void affichMenuDemLog(void)
 void menu(void)
 {
 	int nbD, choix;
+	char ficDem[30]="FichierDemLoge.txt"
+	ListeDem ld;
+	// FilesLoc lc;
+	// ListeLoge lg;
 
-	// FILE *fDem;
-	// ListeDem ld;
-	// chargementDem(ld, fDem, nbD);
+	chargementDem(ld, &nbD, ficDem);
 
 	// FILE *fLoca;
-	// ListeLoc lc;
-	// lireLocataire();
+	// lireLocataire(fLoca, lc);
 
 	// FILE *fLoge;
-	// ListeLoge lg;
 	// chargementLoge();
 
-	afficheMenu();
+	affichMenu();
 	scanf("%d%*c", &choix);
 
 	while (choix != 1 && choix != 2 && choix != 3 && choix != 9)
@@ -102,7 +102,7 @@ void menu(void)
 			break;
 		}
 
-		afficheMenu();
+		affichMenu();
 		scanf("%d%*c", &choix);
 
 		while (choix != 1 && choix != 2 && choix != 3 && choix != 9)

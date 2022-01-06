@@ -109,7 +109,7 @@ ListeDem initliste(void);
 
 ListeDem lireMenage(FILE *fDem, ListeDem l);
 
-void chargementDem(ListeDem l, FILE *fDem, int *nbD);
+void chargementDem(ListeDem l, int *nbD, char *fic);
 
 void affichage(ListeDem l);
 
