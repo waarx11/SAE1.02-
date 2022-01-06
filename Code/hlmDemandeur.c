@@ -40,7 +40,7 @@ void affichageDem(ListeDem l)
 {
     if (l==NULL)
         return;
-    printf("-----------------------------------------------------------------------------------------------------\n\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
     printf("Numero de dossier : %d\n\n", l->demandeurs.numDemande);
     printf("%d %d %f %s %d\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.numTel);
     printf("Le %d/%d/%d a %d:%d:%d\n", l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde);
