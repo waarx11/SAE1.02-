@@ -63,12 +63,14 @@ void affichMenuDemLog(void)
 void menu(void)
 {
 	int nbD, choix;
-	char ficDem[30]="FichierDemLoge.txt"
-	ListeDem ld;
-	// FilesLoc lc;
-	// ListeLoge lg;
+	char ficDem[30] = "FichierDemLoge.txt";
 
-	chargementDem(ld, &nbD, ficDem);
+	ListeDem ld;
+	FilesLoc lc;
+	PileLog lg;
+
+	ld = initliste();
+	ld = chargementDem(ld, &nbD, ficDem);
 
 	// FILE *fLoca;
 	// lireLocataire(fLoca, lc);
@@ -90,15 +92,15 @@ void menu(void)
 		switch (choix)
 		{
 			case 1:
-				MenuLogement();
+				MenuLogement(lg);
 			break;
 
 			case 2:
-				MenuLocataire();
+				MenuLocataire(lc);
 			break;
 
 			case 3:
-				MenuDemLog();
+				MenuDemLog(ld);
 			break;
 		}
 
@@ -114,7 +116,7 @@ void menu(void)
 	
 }
 
-void MenuLocataire(void)
+void MenuLocataire(FilesLoc lc)
 {
 	int choixLoca, locataire;
 
@@ -158,9 +160,9 @@ void MenuChoixTrie (void)
 	affichMenuLocataire();
 	scanf("%d%*c", &choixTrie);
 
-	while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 9)
+	while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 5 && choixTrie != 9)
 	{
-		printf("Choix doit être égale à 1, 2, 3 ou 9. Retapez : ");
+		printf("Choix doit être égale à 1, 2, 3, 4, 5 ou 9. Retapez : ");
 		scanf("%d%*c", &choixTrie);
 	}
 
@@ -169,20 +171,28 @@ void MenuChoixTrie (void)
 		switch (choixTrie)
 		{
 			case 1:
+				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
 				// Afficher en fonction du nom
 			break;
 
 			case 2:
+				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
 				// Afficher en fonction du numéro de logement
 			break;
 
 			case 3:
+				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
 				// Afficher en fonction du prix du logement
 			break;
 
 			case 4:
+				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
 				// Afficher en fonction de la date d'arrivée au logement
 			break;
+
+			case 5:
+				
+			break
 		}
 		affichMenuLocataire();
 		scanf("%d%*c", &choixTrie);
@@ -195,7 +205,7 @@ void MenuChoixTrie (void)
 	 }
 }
 
-void MenuLogement (void)
+void MenuLogement (PileLog lg)
 {
 	int choixLoge;
 
@@ -243,7 +253,7 @@ void MenuLogement (void)
 	}
 }
 
-void MenuDemLog (void)
+void MenuDemLog (ListeDem ld)
 {
 	int choixDemLoge;
 
@@ -273,7 +283,7 @@ void MenuDemLog (void)
 			break;
 
 			case 4:
-				// Fonction d'affichage de toutes les demandes
+				affichageDem(ld);
 			break;
 
 			case 5:

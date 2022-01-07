@@ -50,10 +50,7 @@ typedef struct maillonloc {
     struct maillonloc *suiv;
 }MaillonLoc, *FilesLoc;
 
-typedef struct {
-    MaillonLoc *tete;
-    MaillonLoc *queue;
-}Files;
+typedef MaillonLoc *Files;
 
 /*Piles*/
 
@@ -80,11 +77,11 @@ void menu(void);
 
 void affichMenu(void);
 
-void MenuLogement(void);
+void MenuLogement(PileLog lg);
 
 void affichMenuLogement(void);
 
-void MenuLocataire(void);
+void MenuLocataire(FilesLoc lc);
 
 void affichMenuLocataire(void);
 
@@ -92,26 +89,36 @@ void MenuChoixTrie (void);
 
 void affichChoixTrieLoca(void);
 
-void MenuDemLog(void);
+void MenuDemLog(ListeDem ld);
 
 void affichMenuDemLog(void);
 
 /* Locataire */
 
-FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
+FilesLoc lireLocataire(FilesLoc lc, char *fic2);
 
-FilesLoc AffichLocataire(FILE fLoca, Files f);
+FilesLoc AffichLocataire(Files f);
 
-FilesLoc AffichLocatairePrecis(FILE fLoca, Files f);
+FilesLoc AffichLocatairePrecis(Files f);
+
+FilesLoc Enfiler (Files f, char *prenom, char *nom, char *nationalite, int plafond, float revenu, int numloge, int annee, int mois, int jour);
+
+FilesLoc Defiler (Files f);
+
+Files FileVide(void);
+
+void Vider (Files *f);
+
+Booleen EstVide (Files f);
 
 /* Demandeur */
 ListeDem initliste(void);
 
 ListeDem lireMenage(FILE *fDem, ListeDem l);
 
-void chargementDem(ListeDem l, int *nbD, char *fic);
+ListeDem chargementDem(ListeDem l, int *nbD, char *fic);
 
-void affichage(ListeDem l);
+void affichageDem(ListeDem l);
 
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
 
