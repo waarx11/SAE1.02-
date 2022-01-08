@@ -38,7 +38,7 @@ typedef struct listeDem
 typedef struct {
     char prenom[31];
     char nom[31];
-    char nationalite[3];
+    char nationalite[4];
     int plafond;
     float revenu;
     int numlogement;
@@ -95,13 +95,15 @@ void affichMenuDemLog(void);
 
 /* Locataire */
 
-FilesLoc lireLocataire(FilesLoc lc, char *fic2);
+FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
+
+FilesLoc chargementLoc(FilesLoc lc, char *fic2);
 
 FilesLoc AffichLocataire(Files f);
 
 FilesLoc AffichLocatairePrecis(Files f);
 
-FilesLoc Enfiler (Files f, char *prenom, char *nom, char *nationalite, int plafond, float revenu, int numloge, int annee, int mois, int jour);
+FilesLoc Enfiler (Files f, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour);
 
 FilesLoc Defiler (Files f);
 

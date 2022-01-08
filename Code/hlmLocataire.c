@@ -1,15 +1,7 @@
 #include "hlm.h"
 
-FilesLoc lireLocataire(FilesLoc lc, char *fic2)
+FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc)
 {
-	Files f;
-	FILE *fLoca;
-	fLoca=fopen(fic2,"r");
-	if (fLoca == NULL)
-	{
-		printf("Problème d'ouverture du fichier Locataire");
-		exit(2);
-	}
 	MaillonLoc *m;
 	m=(MaillonLoc *)malloc(sizeof(MaillonLoc));
 	if (m == NULL)
@@ -17,13 +9,28 @@ FilesLoc lireLocataire(FilesLoc lc, char *fic2)
 		printf("Problème de malloc\n");
 		exit(1);
 	}
-	while (fLoca != NULL)
-	{
-		fscanf(fLoca,"%s %s %s %d %f %d %d %d %d", m->loc.prenom, m->loc.prenom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
-		Enfiler(f, m->loc.prenom, m->loc.prenom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
-	}
-	fclose(fLoca);
+	fscanf(fLoca,"%s/%s/%s/%d/%f/%d/%d/%d/%d ", m->loc.prenom, m->loc.nom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
 	return m;
+}
+
+FilesLoc chargementLoc(FilesLoc lc, char *fic2)
+{
+	Files fc;
+	FILE *fLoca;
+	MaillonLoc *m;
+	fLoca=fopen(fic2,"r");
+	if (fLoca != NULL)
+	{
+		while (!feof(fLoca))
+			{
+				fscanf(fLoca,"%s/%s/%s/%d/%f/%d/%d/%d/%d ", m->loc.prenom, m->loc.nom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
+				Enfiler(fc, m->loc.prenom, m->loc.nom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
+			}
+	}	
+	else
+		printf("Problème d'ouverture du fichier Locataire");
+	fclose(fLoca);
+	 return lc;
 }
 
 Booleen EstVide (Files f)
@@ -40,7 +47,7 @@ Files FileVide(void)
 	return f;
 }
 
-FilesLoc Enfiler (Files f, char *prenom, char *nom, char *nationalite, int plafond, float revenu, int numloge, int annee, int mois, int jour)
+FilesLoc Enfiler (Files f, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour)
 {
 	MaillonLoc *m;
 	m = (MaillonLoc *)malloc(sizeof(MaillonLoc));
@@ -85,6 +92,27 @@ FilesLoc Defiler(Files f)
  free(tmp);
  return f;
 }
+
+// FilesLoc RechLoca(char caract[])
+// {
+// 	MaillonLoc *m;
+// 	while (m != NULL)
+// 	{
+		
+// 		m = m->suiv;
+// 	}
+// }
+
+// FilesLoc RechLoca(Files f)
+// {
+// 	MaillonLoc *m;
+// 	m = f;
+// 	while (m != NULL)
+// 	{
+		
+// 		m = m->suiv;
+// 	}
+// }
 
 FilesLoc AffichLocataire(Files f)
 {

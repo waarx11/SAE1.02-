@@ -64,6 +64,7 @@ void menu(void)
 {
 	int nbD, choix;
 	char ficDem[30] = "FichierDemLoge.txt";
+	char ficLoc[30] = "FichierLoca.txt";
 
 	ListeDem ld;
 	FilesLoc lc;
@@ -72,8 +73,9 @@ void menu(void)
 	ld = initliste();
 	ld = chargementDem(ld, &nbD, ficDem);
 
-	// FILE *fLoca;
-	// lireLocataire(fLoca, lc);
+	lc = FileVide();
+	lc = chargementLoc(lc, ficLoc);
+
 
 	// FILE *fLoge;
 	// chargementLoge();
@@ -155,6 +157,7 @@ void MenuLocataire(FilesLoc lc)
 
 void MenuChoixTrie (void)
 {
+	Files f;
 	int choixTrie;
 
 	affichMenuLocataire();
@@ -191,8 +194,8 @@ void MenuChoixTrie (void)
 			break;
 
 			case 5:
-				
-			break
+				AffichLocataire(f);
+			break;
 		}
 		affichMenuLocataire();
 		scanf("%d%*c", &choixTrie);
