@@ -13,24 +13,22 @@ FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc)
 	return m;
 }
 
-FilesLoc chargementLoc(FilesLoc lc, char *fic2)
+FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL)
 {
 	Files fc;
 	FILE *fLoca;
 	MaillonLoc *m;
 	fLoca=fopen(fic2,"r");
-	if (fLoca != NULL)
-	{
-		while (!feof(fLoca))
-			{
-				fscanf(fLoca,"%s/%s/%s/%d/%f/%d/%d/%d/%d ", m->loc.prenom, m->loc.nom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
-				Enfiler(fc, m->loc.prenom, m->loc.nom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
-			}
-	}	
-	else
-		printf("Problème d'ouverture du fichier Locataire");
+	if (fLoca == NULL)
+    {
+        printf("Problème ouverture fichier Loc");
+        return NULL;
+    }
+    fscanf(fLoca, "%d", nbL);
+    for(int i=0;i<*nbL;i++)
+        fc=lireLocataire(fLoca,fc);
 	fclose(fLoca);
-	 return lc;
+	return lc;
 }
 
 Booleen EstVide (Files f)

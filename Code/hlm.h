@@ -104,7 +104,7 @@ void affichMenuDemLog(void);
 
 FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
 
-FilesLoc chargementLoc(FilesLoc lc, char *fic2);
+FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL);
 
 FilesLoc AffichLocataire(Files f);
 
