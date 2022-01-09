@@ -28,7 +28,7 @@ ListeDem chargementDem(ListeDem l, int *nbD, char *fic)
     if (fDem == NULL)
     {
         printf("Problème ouverture fichier Dem");
-        exit(1);
+        return NULL;
     }
     fscanf(fDem, "%d", nbD);
     for(int i=0;i<*nbD;i++)

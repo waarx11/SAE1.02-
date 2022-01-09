@@ -27,7 +27,7 @@ PileLog chargementLog(PileLog p, int *nbD, char *ficLog)
     if (fLog == NULL)
     {
         printf("Problème ouverture fichier Dem");
-        exit(1);
+        return NULL;
     }
     fscanf(fLog, "%d", nbD);
     for(int i=0;i<*nbD;i++)
