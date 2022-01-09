@@ -6,6 +6,13 @@ PileLog creevide(void)
     return NULL;
 }
 
+Booleen EstPileVide(PileLog p)
+{
+    if (p==NULL) 
+        return Vrai;
+    return Faux;
+}
+
 PileLog lireLogement(FILE *fLog, PileLog p)
 {
     MaillonLog *m;
@@ -47,3 +54,21 @@ void affichageLog(PileLog p)
     affichageLog(p->suivant);
 }
 
+PileLog empiler(PileLog p, int numLogement, char *typeLog, int nbChambre, float surfaceLog, float prixLog, char *jour, char *mois, char *annee)
+{
+    MaillonLog* m;
+    m=(MaillonLog*) malloc (sizeof(MaillonLog));
+    if (m==NULL)
+    {
+        printf("Problème de malloc");
+        exit(1);
+    }
+    m->logement.numLogement=numLogement;
+    strcpy(m->logement.typeLog,typeLog);
+    m->logement.nbChambre=nbChambre;
+    m->logement.surfaceLog=surfaceLog;
+    m->logement.prixLog=prixLog;
+    Date dateAchat
+    m->suivant=p;
+    return m;
+}

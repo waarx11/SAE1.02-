@@ -9,6 +9,12 @@ typedef enum
     Vrai
 } Booleen;
 
+typedef struct
+{
+    char libelle[30];
+    int num;
+} Tel;
+
 typedef struct {int jours, mois, annee, heure, minute, seconde;} DateDem;
 
 typedef struct {int jours, mois, annee;} Date;
@@ -23,7 +29,7 @@ typedef struct
     int nbPersonne;
     float revenueBrut;
     char nomDeFamille[50];
-    int numTel;
+    Tel *numTel;
     DateDem dateDemande;
 } Menage;
 
@@ -42,6 +48,7 @@ typedef struct {
     int plafond;
     float revenu;
     int numlogement;
+    Tel *numTel;
     Date datedebutloca;
 }Locataire;
 
