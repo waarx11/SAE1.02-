@@ -70,7 +70,7 @@ void menu(void)
 
 	ListeDem ld;
 	Files f;
-	FilesLoc lc;
+	Files lc;
 	PileLog lg;
 
 	ld = initliste();
@@ -121,7 +121,7 @@ void menu(void)
 	
 }
 
-void MenuLocataire(FilesLoc lc, Files f)
+void MenuLocataire(Files lc, Files f)
 {
 	int choixLoca, locataire;
 
@@ -145,7 +145,7 @@ void MenuLocataire(FilesLoc lc, Files f)
 			case 2:
 				// Fonction recherche locataire
 				// scanf("%d", &locataire);
-				locataire = RechDichoNumLoca(f, &locataire);
+				locataire=RechDichoNumLoca(f, locataire);
 			break;
 		}
 		affichMenuLocataire();
@@ -159,7 +159,7 @@ void MenuLocataire(FilesLoc lc, Files f)
 	 }
 }
 
-void MenuChoixTrie (FilesLoc lc)
+void MenuChoixTrie (Files lc)
 {
 	Files f;
 	int choixTrie;

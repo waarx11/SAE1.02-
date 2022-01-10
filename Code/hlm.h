@@ -52,6 +52,7 @@ typedef struct {
     int plafond;
     float revenu;
     int numlogement;
+    int nbNumTel;
     Tel *numTel;
     Date datedebutloca;
 }Locataire;
@@ -60,7 +61,7 @@ typedef struct {
 typedef struct maillonloc {
     Locataire loc;
     struct maillonloc *suiv;
-}MaillonLoc, *FilesLoc;
+}MaillonLoc;
 
 typedef MaillonLoc *Files;
 
@@ -93,11 +94,11 @@ void MenuLogement(PileLog lg);
 
 void affichMenuLogement(void);
 
-void MenuLocataire(FilesLoc lc, Files f);
+void MenuLocataire(Files lc, Files f);
 
 void affichMenuLocataire(void);
 
-void MenuChoixTrie (FilesLoc lc);
+void MenuChoixTrie (Files lc);
 
 void affichChoixTrieLoca(void);
 
@@ -108,17 +109,17 @@ void affichMenuDemLog(void);
 
 /* Locataire */
 
-FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
+Files lireLocataire(FILE *fLoca, Files lc);
 
-FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL);
+Files chargementLoc(Files lc, char *fic2, int *nbL);
 
 void AffichLocataire(Files f);
 
 void AffichLocatairePrecis(Files f);
 
-FilesLoc Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour, int nbNum);
+Files Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge);
 
-FilesLoc Defiler (Files f);
+Files Defiler (Files f);
 
 Files FileVide(void);
 
@@ -126,7 +127,7 @@ void Vider (Files *f);
 
 Booleen EstVide (Files f);
 
-FilesLoc RechDichoNumLoca (Files f, int numloca);
+int RechDichoNumLoca (Files f, int numloca);
 
 
 /* Demandeur */

@@ -1,6 +1,6 @@
 #include "hlm.h"
 
-FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc)
+Files lireLocataire(FILE *fLoca, Files lc)
 {
 	MaillonLoc *m;
 	m=(MaillonLoc *)malloc(sizeof(MaillonLoc));
@@ -9,18 +9,18 @@ FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc)
 		printf("Problème de malloc\n");
 		exit(1);
 	}
-	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %s ", m->loc.numloca ,m->loc.prenom, m->loc.nom, m->loc.nationalite, &m->loc.plafond, &m->loc.revenu, &m->loc.numlogement, &m->loc.datedebutloca.annee, &m->loc.datedebutloca.mois, &m->loc.datedebutloca.jours, m->loc.numTel);
-	fscanf(fLoca,"%d", m->loc);
-	for (int i = 0; i < m->loc.numTel ; i++)
+	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %d ", &m->loc.numloca ,m->loc.prenom, m->loc.nom, m->loc.nationalite, &m->loc.plafond, &m->loc.revenu, &m->loc.numlogement, &m->loc.datedebutloca.annee, &m->loc.datedebutloca.mois, &m->loc.datedebutloca.jours);
+	fscanf(fLoca,"%d", &m->loc.nbNumTel);
+	for (int i = 0; i<m->loc.nbNumTel ; i++)
 	{
-		m->loc.numTel = (Tel *)malloc(sizeof(Tel));
+		m->loc.numTel = (Tel*)malloc(sizeof(Tel));
 		fscanf(fLoca,"%s %s", m->loc.numTel->libelle, m->loc.numTel->num);
 	}
 	m->suiv = lc;
 	return m;
 }
 
-FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL)
+Files chargementLoc(Files lc, char *fic2, int *nbL)
 {
 	FILE *fLoca;
 	MaillonLoc *m;
@@ -46,20 +46,32 @@ Booleen EstVide (Files f)
 
 Files FileVide(void)
 {
-	Files f;
-	f == NULL;
-	return f;
+	return NULL;
 }
 
-FilesLoc Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour, int nbNum)
+Files Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge)
 {
 	MaillonLoc *m;
+	int jours, mois, an, h, min, s, numLoc, nbNum;
+	char libelle[31], numTel[16];
 	m = (MaillonLoc *)malloc(sizeof(MaillonLoc));
 	if (m == NULL)
 	{
 		printf("Problème de malloc");
 		exit(1);
 	}
+	//Valeur aléatoire compris entre 0 et 5000
+    srand(time(NULL));
+    numLoc=rand() %5000;
+    //date courant
+    time_t now;
+    struct tm *local = localtime(&now);
+    h=local->tm_hour;
+    min=local->tm_min;
+    s=local->tm_sec;
+    jours=local->tm_mday;
+    mois=local->tm_mon+1;
+    an=local->tm_year+1900;
 	m->loc.numloca = numloca;
 	strcpy(m->loc.prenom, prenom);
 	strcpy(m->loc.nom, nom);
@@ -67,21 +79,23 @@ FilesLoc Enfiler (Files f,int numloca, char prenom[], char nom[], char nationali
 	m->loc.plafond = plafond;
 	m->loc.revenu = revenu;
 	m->loc.numlogement = numloge;
-	m->loc.datedebutloca.annee = annee;
+	m->loc.datedebutloca.annee = an;
 	m->loc.datedebutloca.mois = mois;
-	m->loc.datedebutloca.jours = jour;
+	m->loc.datedebutloca.jours = jours;
+	printf("Combien de numero de telephone posseder vous?");
+    scanf("%d", &nbNum);
+    m->loc.nbNumTel=nbNum;
+    for (int i=0; i<nbNum; i++) 
+    {
+        m->loc.numTel=(Tel*)malloc(sizeof(Tel));
+        fgets(libelle, 30, stdin);
+        libelle[strlen(libelle)-1]='\0';
+        strcpy(m->loc.numTel->libelle,libelle);
+        fgets(numTel, 30, stdin);
+        numTel[strlen(numTel)-1]='\0';
+        strcpy(m->loc.numTel->num,numTel);
+    }
 	m->suiv = NULL;
-	for (int i=0; i<nbNum; i++)
-	{
-		m->loc.numTel = (Tel*)malloc(sizeof(Tel));
-		fgets(libelle, 30, stdin);
-		strcpy(m->loc->Tel.libelle, libelle);
-		fgets(Tel->numTel, 30, stdin);
-		Tel[strlen(Tel)-1] = '\0';
-		strcpy(m->loc.Tel->num, Tel);
-	}
-
-
 	if(EstVide(f))
 	{
 		m->suiv = f->suiv;
@@ -92,23 +106,23 @@ FilesLoc Enfiler (Files f,int numloca, char prenom[], char nom[], char nationali
 	return m;
 }
 
-FilesLoc Defiler(Files f)
+Files defiler(Files f)//Supprime le premier élément d'une file
 {
- MaillonLoc *tmp;
- if (EstVide(f))
- return NULL;
- if (f==f->suiv)
- {
- free(f);
- return NULL;
- }
- tmp=f->suiv;
- f->suiv=tmp->suiv;
- free(tmp);
- return f;
+    MaillonLoc *tmp;
+    if (EstVide(f))
+        return NULL;
+    if (f==f->suiv) //Si il y a 1 seule élément
+    {
+        free(f);
+        return NULL;
+    }
+    tmp=f->suiv;
+    f->suiv=tmp->suiv;//Saute un maillon
+    free(tmp);
+    return f;
 }
 
-FilesLoc RechDichoNumLoca (Files f, int numloca)
+int RechDichoNumLoca (Files f, int numloca)
 {
 	MaillonLoc *m;
 	int deb=0, milieu, fin=numloca-1;
