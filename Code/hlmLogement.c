@@ -68,7 +68,7 @@ PileLog empiler(PileLog p, int numLogement, char *typeLog, int nbChambre, float 
     m->logement.nbChambre=nbChambre;
     m->logement.surfaceLog=surfaceLog;
     m->logement.prixLog=prixLog;
-    Date dateAchat
+    Date dateAchat;
     m->suivant=p;
     return m;
 }

@@ -9,13 +9,19 @@ FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc)
 		printf("Problème de malloc\n");
 		exit(1);
 	}
-	fscanf(fLoca,"%s/%s/%s/%d/%f/%d/%d/%d/%d ", m->loc.prenom, m->loc.nom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
+	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %s ", m->loc.numloca ,m->loc.prenom, m->loc.nom, m->loc.nationalite, &m->loc.plafond, &m->loc.revenu, &m->loc.numlogement, &m->loc.datedebutloca.annee, &m->loc.datedebutloca.mois, &m->loc.datedebutloca.jours, m->loc.numTel);
+	fscanf(fLoca,"%d", m->loc);
+	for (int i = 0; i < m->loc.numTel ; i++)
+	{
+		m->loc.numTel = (Tel *)malloc(sizeof(Tel));
+		fscanf(fLoca,"%s %s", m->loc.numTel->libelle, m->loc.numTel->num);
+	}
+	m->suiv = lc;
 	return m;
 }
 
 FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL)
 {
-	Files fc;
 	FILE *fLoca;
 	MaillonLoc *m;
 	fLoca=fopen(fic2,"r");
@@ -26,7 +32,7 @@ FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL)
     }
     fscanf(fLoca, "%d", nbL);
     for(int i=0;i<*nbL;i++)
-        fc=lireLocataire(fLoca,fc);
+        lc=lireLocataire(fLoca,lc);
 	fclose(fLoca);
 	return lc;
 }
@@ -45,7 +51,7 @@ Files FileVide(void)
 	return f;
 }
 
-FilesLoc Enfiler (Files f, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour)
+FilesLoc Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour, int nbNum)
 {
 	MaillonLoc *m;
 	m = (MaillonLoc *)malloc(sizeof(MaillonLoc));
@@ -54,6 +60,7 @@ FilesLoc Enfiler (Files f, char prenom[], char nom[], char nationalite[], int pl
 		printf("Problème de malloc");
 		exit(1);
 	}
+	m->loc.numloca = numloca;
 	strcpy(m->loc.prenom, prenom);
 	strcpy(m->loc.nom, nom);
 	strcpy(m->loc.nationalite, nationalite);
@@ -64,6 +71,16 @@ FilesLoc Enfiler (Files f, char prenom[], char nom[], char nationalite[], int pl
 	m->loc.datedebutloca.mois = mois;
 	m->loc.datedebutloca.jours = jour;
 	m->suiv = NULL;
+	for (int i=0; i<nbNum; i++)
+	{
+		m->loc.numTel = (Tel*)malloc(sizeof(Tel));
+		fgets(libelle, 30, stdin);
+		strcpy(m->loc->Tel.libelle, libelle);
+		fgets(Tel->numTel, 30, stdin);
+		Tel[strlen(Tel)-1] = '\0';
+		strcpy(m->loc.Tel->num, Tel);
+	}
+
 
 	if(EstVide(f))
 	{
@@ -91,54 +108,42 @@ FilesLoc Defiler(Files f)
  return f;
 }
 
-// FilesLoc RechLoca(char caract[])
-// {
-// 	MaillonLoc *m;
-// 	while (m != NULL)
-// 	{
-		
-// 		m = m->suiv;
-// 	}
-// }
-
-// FilesLoc RechLoca(Files f)
-// {
-// 	MaillonLoc *m;
-// 	m = f;
-// 	while (m != NULL)
-// 	{
-		
-// 		m = m->suiv;
-// 	}
-// }
-
-FilesLoc AffichLocataire(Files f)
+FilesLoc RechDichoNumLoca (Files f, int numloca)
 {
 	MaillonLoc *m;
-	m = f;
-	printf("\t\t\t\t -- Toutes les informations sur le locataire --\n");
-	printf("+----------------------------------------------------------------------------------------------------+\n");
-	printf("| Nom\t | Prénom\t | Nationalité\t | Plafond\t | Revenu\t | Numéro de logement | Date début location |\n");
-	while (m != NULL)
-	{
-		printf("+----------------------------------------------------------------------------------------------------+\n");
-		printf("| %s\t | %s\t | %s\t | %d\t | %.2f\t | %d\t | %d/%d/%d\n", m->loc.prenom, m->loc.prenom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
-		printf("+----------------------------------------------------------------------------------------------------+\n");
-		m = m->suiv;
+	int deb=0, milieu, fin=numloca-1;
+	
+	while(deb<=fin)
+	{	
+		milieu=(deb+fin)/2;
+
+		if (numloca >= m->loc.numloca)
+			deb = milieu+1;
+		else
+			fin = milieu-1;
 	}
+	return deb;
 }
 
-FilesLoc AffichLocatairePrecis(Files f)
+void AffichLocataire(Files f)
 {
-	int numLoca;
-	MaillonLoc *m;
-	m = f;
-	printf("\t\t\t\t -- Toutes les informations sur le %d --\n", numLoca);
-	printf("+----------------------------------------------------------------------------------------------------+\n");
+	if (f == NULL)
+		return;
+	printf("+---------------------------------------------------------------------------------------------------------------------------+\n");
+	printf("| %s\t | %s\t | %s\t | %d\t | %.2f\t | %d\t\t | %d/%d/%d \n", f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
+	printf("+---------------------------------------------------------------------------------------------------------------------------+\n");
+	AffichLocataire(f->suiv);
+}
+
+void AffichLocatairePrecis(Files f)
+{
+	int numloca;
+	printf("\t\t\t\t -- Toutes les informations sur le %d --\n", numloca);
+	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
 	printf("| Nom\t | Prénom\t | Nationalité\t | Plafond\t | Revenu\t | Numéro de logement | Date début location |\n");
-	printf("+----------------------------------------------------------------------------------------------------+\n");
-	printf("| %s\t | %s\t | %s\t | %d\t | %.2f\t | %d\t | %d/%d/%d\n", m->loc.prenom, m->loc.prenom, m->loc.nationalite, m->loc.plafond, m->loc.revenu, m->loc.numlogement, m->loc.datedebutloca.annee, m->loc.datedebutloca.mois, m->loc.datedebutloca.jours);
-	printf("+----------------------------------------------------------------------------------------------------+\n");
+	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
+	printf("| %s\t | %s\t | %s\t | %d\t | %.2f\t | %d\t\t | %d/%d/%d\n", f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
+	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
 }
 
 

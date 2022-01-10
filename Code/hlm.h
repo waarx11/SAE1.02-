@@ -12,7 +12,7 @@ typedef enum
 typedef struct
 {
     char libelle[30];
-    int num;
+    char num[15];
 } Tel;
 
 typedef struct {int jours, mois, annee, heure, minute, seconde;} DateDem;
@@ -28,7 +28,7 @@ typedef struct
     int nbPoint;
     int nbPersonne;
     float revenueBrut;
-    char nomDeFamille[50];
+    char nomDeFamille[31];
     Tel *numTel;
     DateDem dateDemande;
 } Menage;
@@ -42,9 +42,10 @@ typedef struct listeDem
 /*Files*/
 
 typedef struct {
+    int numloca;
     char prenom[31];
     char nom[31];
-    char nationalite[4];
+    char nationalite[3];
     int plafond;
     float revenu;
     int numlogement;
@@ -88,11 +89,11 @@ void MenuLogement(PileLog lg);
 
 void affichMenuLogement(void);
 
-void MenuLocataire(FilesLoc lc);
+void MenuLocataire(FilesLoc lc, Files f);
 
 void affichMenuLocataire(void);
 
-void MenuChoixTrie (void);
+void MenuChoixTrie (FilesLoc lc);
 
 void affichChoixTrieLoca(void);
 
@@ -106,11 +107,11 @@ FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
 
 FilesLoc chargementLoc(FilesLoc lc, char *fic2, int *nbL);
 
-FilesLoc AffichLocataire(Files f);
+void AffichLocataire(Files f);
 
-FilesLoc AffichLocatairePrecis(Files f);
+void AffichLocatairePrecis(Files f);
 
-FilesLoc Enfiler (Files f, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour);
+FilesLoc Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, int annee, int mois, int jour, int nbNum);
 
 FilesLoc Defiler (Files f);
 
@@ -119,6 +120,8 @@ Files FileVide(void);
 void Vider (Files *f);
 
 Booleen EstVide (Files f);
+
+FilesLoc RechDichoNumLoca (Files f, int numloca);
 
 /* Demandeur */
 ListeDem initliste(void);
@@ -129,6 +132,6 @@ ListeDem chargementDem(ListeDem l, int *nbD, char *fic);
 
 void affichageDem(ListeDem l);
 
-ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
+// ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
 
-ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
+// ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);

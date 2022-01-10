@@ -29,10 +29,11 @@ void affichChoixTrieLoca(void)
 {
 	printf("\t Comment souhaitez vous triez la liste : \n");
 	printf("+------------------------------------------------+\n");
-	printf("| 1. Le nom par ordre alphabétique \t |\n");
-	printf("| 2. Par numéro de logement\t\t |\n");
-	printf("| 3. En fonction du prix du logement\t |\n");
-	printf("| 4. Ordre croissant d'arrivée au logement\t|\n");
+	printf("| 1. Le nom par ordre alphabétique \t\t |\n");
+	printf("| 2. Par numéro de logement\t\t\t |\n");
+	printf("| 3. En fonction du prix du logement\t \t |\n");
+	printf("| 4. Ordre croissant d'arrivée au logement\t |\n");
+	printf("| 5. Test affichage \t\t\t\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -62,11 +63,13 @@ void affichMenuDemLog(void)
 
 void menu(void)
 {
-	int nbD, choix;
+	int nbD, nbl, choix;
 	char ficDem[30] = "FichierDemLoge.txt";
 	char ficLoc[30] = "FichierLoca.txt";
+	// char ficlog[30] = "FichierLoge.txt";
 
 	ListeDem ld;
+	Files f;
 	FilesLoc lc;
 	PileLog lg;
 
@@ -74,11 +77,11 @@ void menu(void)
 	ld = chargementDem(ld, &nbD, ficDem);
 
 	lc = FileVide();
-	lc = chargementLoc(lc, ficLoc);
+	lc = chargementLoc(lc, ficLoc, &nbl);
 
 
-	// FILE *fLoge;
-	// chargementLoge();
+	// lg = creervide();
+	// lg = chargementLog(lg, nbl, ficlog);
 
 	affichMenu();
 	scanf("%d%*c", &choix);
@@ -94,11 +97,11 @@ void menu(void)
 		switch (choix)
 		{
 			case 1:
-				MenuLogement(lg);
+				MenuLocataire(lc, f);
 			break;
 
 			case 2:
-				MenuLocataire(lc);
+				MenuLogement(lg);
 			break;
 
 			case 3:
@@ -118,7 +121,7 @@ void menu(void)
 	
 }
 
-void MenuLocataire(FilesLoc lc)
+void MenuLocataire(FilesLoc lc, Files f)
 {
 	int choixLoca, locataire;
 
@@ -136,12 +139,13 @@ void MenuLocataire(FilesLoc lc)
 		switch (choixLoca)
 		{
 			case 1:
-				MenuChoixTrie();
+				MenuChoixTrie(lc);
 			break;
 
 			case 2:
 				// Fonction recherche locataire
 				// scanf("%d", &locataire);
+				locataire = RechDichoNumLoca(f, &locataire);
 			break;
 		}
 		affichMenuLocataire();
@@ -155,12 +159,12 @@ void MenuLocataire(FilesLoc lc)
 	 }
 }
 
-void MenuChoixTrie (void)
+void MenuChoixTrie (FilesLoc lc)
 {
 	Files f;
 	int choixTrie;
 
-	affichMenuLocataire();
+	affichChoixTrieLoca();
 	scanf("%d%*c", &choixTrie);
 
 	while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 5 && choixTrie != 9)
@@ -180,7 +184,7 @@ void MenuChoixTrie (void)
 
 			case 2:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				// Afficher en fonction du numéro de logement
+				// Afficher en fonction du numéro de locataire
 			break;
 
 			case 3:
@@ -194,10 +198,14 @@ void MenuChoixTrie (void)
 			break;
 
 			case 5:
+				// Teste des fonctions d'affichage 
+				printf("\t\t\t\t -- Toutes les informations sur le locataire --\n");
+				printf("+---------------------------------------------------------------------------------------------------------------------------+\n");
+				printf("|\tNom\t | Prénom\t | Nationalité\t | Plafond\t | Revenu\t | Numéro de logement | Date début location |\n");
 				AffichLocataire(f);
 			break;
 		}
-		affichMenuLocataire();
+		affichChoixTrieLoca();
 		scanf("%d%*c", &choixTrie);
 
 		while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie != 9)
@@ -239,6 +247,7 @@ void MenuLogement (PileLog lg)
 
 			case 4:
 				// Fonction d'affichage des types des logements
+			// affichageLog(lg);
 			break;
 
 			case 5:
@@ -259,6 +268,9 @@ void MenuLogement (PileLog lg)
 void MenuDemLog (ListeDem ld)
 {
 	int choixDemLoge;
+	int nbPoint, nbPers, numTel;
+	float revenu;
+	char *nomF;
 
 	affichMenuDemLog();
 	scanf("%d%*c", &choixDemLoge);
@@ -275,6 +287,17 @@ void MenuDemLog (ListeDem ld)
 		{
 			case 1:
 				// Fonction d'enregistrer une demande
+				// printf("Saisir le nom de Famille : \n");
+				// fscanf("%s", *nomF);
+				// printf("Saisir le nombre de point de l'individu : \n");
+				// fscanf("%d", nbPoint);
+				// printf("Saisir le revenu brut de l'individu : \n");
+				// fscanf("%f", revenu);
+				// printf("Saisir le nombre d'indivu à charge : \n");
+				// fscanf("%d", nbPers);
+				// printf("Saisir le numéro téléphone de l'individu : \n");
+				// fscanf("%d", numTel);
+				// insertionDem(ld, nbPoint, nbPers, revenu, &nomF, numTel);
 			break;
 
 			case 2:
