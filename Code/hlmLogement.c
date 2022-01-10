@@ -13,7 +13,7 @@ Booleen EstPileVide(PileLog p)
     return Faux;
 }
 
-PileLog lireLogement(FILE *fLog, PileLog p)
+PileLog lireLogement(FILE *fLog, PileLog p, int *nbNum);
 {
     MaillonLog *m;
     m=(MaillonLog *)malloc(sizeof(MaillonLog));
@@ -22,7 +22,8 @@ PileLog lireLogement(FILE *fLog, PileLog p)
         printf("Problème malloc\n");
         exit(1);
     }
-    fscanf(fLog, "%d %s %d %f %f %d %d %d", &m->logement.numLogement, m->logement.typeLog, &m->logement.nbChambre, &m->logement.surfaceLog, &m->logement.prixLog, &m->logement.dateAchat.jours, &m->logement.dateAchat.mois, &m->logement.dateAchat.annee);   
+    fscanf(fLog, "%d %s %d %f %f %d %d %d", &m->logement.numLogement, m->logement.typeLog, &m->logement.nbChambre, &m->logement.surfaceLog, &m->logement.prixLog, &m->logement.dateAchat.jours, &m->logement.dateAchat.mois, &m->logement.dateAchat.annee);
+    fa  
     m->suivant=p;
     return m; 
 }
@@ -68,7 +69,7 @@ PileLog empiler(PileLog p, int numLogement, char *typeLog, int nbChambre, float 
     m->logement.nbChambre=nbChambre;
     m->logement.surfaceLog=surfaceLog;
     m->logement.prixLog=prixLog;
-    Date dateAchat;
+    Date dateAchat
     m->suivant=p;
     return m;
 }

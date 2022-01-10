@@ -29,6 +29,9 @@ typedef struct
     int nbPersonne;
     float revenueBrut;
     char nomDeFamille[31];
+    char prenom[31];
+    char nationalite[3];
+    int nbNum;
     Tel *numTel;
     DateDem dateDemande;
 } Menage;
@@ -52,6 +55,7 @@ typedef struct {
     Tel *numTel;
     Date datedebutloca;
 }Locataire;
+
 
 typedef struct maillonloc {
     Locataire loc;
@@ -101,6 +105,7 @@ void MenuDemLog(ListeDem ld);
 
 void affichMenuDemLog(void);
 
+
 /* Locataire */
 
 FilesLoc lireLocataire(FILE *fLoca, FilesLoc lc);
@@ -123,6 +128,7 @@ Booleen EstVide (Files f);
 
 FilesLoc RechDichoNumLoca (Files f, int numloca);
 
+
 /* Demandeur */
 ListeDem initliste(void);
 
@@ -132,6 +138,6 @@ ListeDem chargementDem(ListeDem l, int *nbD, char *fic);
 
 void affichageDem(ListeDem l);
 
-// ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
+ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
-// ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float ressourceAnnuel, char *nomDeFamille, int numTel);
+ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
