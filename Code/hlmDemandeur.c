@@ -107,7 +107,7 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
         fgets(libelle, 30, stdin);
         libelle[strlen(libelle)-1]='\0';
         strcpy(m->demandeurs.numTel->libelle,libelle);
-        fgets(numTel, 30, stdin);
+        fgets(numTel, 15, stdin);
         numTel[strlen(numTel)-1]='\0';
         strcpy(m->demandeurs.numTel->num,numTel);
     }

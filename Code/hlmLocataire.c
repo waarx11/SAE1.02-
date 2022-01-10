@@ -91,7 +91,7 @@ Files Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[
         fgets(libelle, 30, stdin);
         libelle[strlen(libelle)-1]='\0';
         strcpy(m->loc.numTel->libelle,libelle);
-        fgets(numTel, 30, stdin);
+        fgets(numTel, 15, stdin);
         numTel[strlen(numTel)-1]='\0';
         strcpy(m->loc.numTel->num,numTel);
     }
