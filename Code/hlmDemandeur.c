@@ -52,8 +52,8 @@ void affichageDem(ListeDem l)
         return;
     printf("-----------------------------------------------------------------------------------------------------\n");
     printf("Numero de dossier : %d\n\n", l->demandeurs.numDemande);
-    printf("%d %d %f %s\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille);
-    for (int i=0; i<l->demandeurs.nbNum; i++) 
+    printf("%d %d %.2f \n%s %s\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom);
+    for (;l->demandeurs.numTel;) 
     {
         printf("%s :\n%s\n", l->demandeurs.numTel->libelle, l->demandeurs.numTel->num);
     }
