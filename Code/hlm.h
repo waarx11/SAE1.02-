@@ -142,3 +142,14 @@ void affichageDem(ListeDem l);
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
 ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
+
+ListeDem rechercheUnDemandeur(ListeDem l, int value);
+
+void afficherUnDemandeur(ListeDem l, int value);
+
+ListeDem suppressionEnTete(ListeDem l);
+
+ListeDem suppression(ListeDem l, int suppDem);
+
+ListeDem modification(ListeDem l, int modif);
+

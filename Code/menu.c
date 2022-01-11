@@ -1,4 +1,6 @@
 #include "hlm.h"
+#include <stdio.h>
+#include <string.h>
 
 
 void affichMenu(void)
@@ -56,7 +58,8 @@ void affichMenuDemLog(void)
 	printf("| 2. Modifier une demande\t\t\t |\n");
 	printf("| 3. Supprimer une demande\t\t\t |\n");
 	printf("| 4. Afficher toute les demandes\t\t |\n");
-	printf("| 5. Traité les demandes en attente\t\t |\n");
+	printf("| 5. Assigner un logement disponible\t\t |\n");
+	printf("| 6. Rechercher un Demandeur par son num\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -267,17 +270,16 @@ void MenuLogement (PileLog lg)
 
 void MenuDemLog (ListeDem ld)
 {
-	int choixDemLoge;
+	int choixDemLoge, rechDemandeur, suppDemandeur, numModif;
 	int nbPoint, nbPers, numTel;
 	float revenu;
-	char *nomF;
-
+	char nomF[32], prenomD[32], nationa[4], passe;
 	affichMenuDemLog();
 	scanf("%d%*c", &choixDemLoge);
 
-	while (choixDemLoge != 1 && choixDemLoge != 2 && choixDemLoge != 3 && choixDemLoge != 4 && choixDemLoge != 5 && choixDemLoge != 9)
+	while (choixDemLoge != 1 && choixDemLoge != 2 && choixDemLoge != 3 && choixDemLoge != 4 && choixDemLoge != 5 && choixDemLoge != 6 && choixDemLoge != 9)
 	{
-		printf("Choix doit être égale à 1, 2, 3, 4, 5 ou 9. Retapez : ");
+		printf("Choix doit être égale à 1, 2, 3, 4, 5, 6 ou 9. Retapez : ");
 		scanf("%d%*c", &choixDemLoge);
 	}
 
@@ -287,25 +289,53 @@ void MenuDemLog (ListeDem ld)
 		{
 			case 1:
 				// Fonction d'enregistrer une demande
-				// printf("Saisir le nom de Famille : \n");
-				// fscanf("%s", *nomF);
-				// printf("Saisir le nombre de point de l'individu : \n");
-				// fscanf("%d", nbPoint);
-				// printf("Saisir le revenu brut de l'individu : \n");
-				// fscanf("%f", revenu);
-				// printf("Saisir le nombre d'indivu à charge : \n");
-				// fscanf("%d", nbPers);
-				// printf("Saisir le numéro téléphone de l'individu : \n");
-				// fscanf("%d", numTel);
-				// insertionDem(ld, nbPoint, nbPers, revenu, &nomF, numTel);
+				printf("Saisir le nom de Famille : \n");
+				fgets(nomF,32,stdin);
+				nomF[strlen(nomF)-1]='\0';
+				printf("Saisir le prénom : \n");
+				fgets(prenomD,32,stdin);
+				prenomD[strlen(prenomD)-1]='\0';
+				printf("Pour rappel : \n");
+				printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
+				printf("Saisir le nombre de point de l'individue : ");
+				scanf("%d", &nbPoint);
+				printf("Saisir le nombre d'indivu à charge : \n");
+				scanf("%d",&nbPers);
+				printf("Saisir le revenu brut de l'individu : \n");
+				scanf("%f%*c", &revenu);
+				printf("Saisir sa nationalité (2 carac): \n");
+				fgets(nationa,4,stdin);
+				nationa[strlen(nationa)-1]='\0';
+				if(strcmp(nationa,"FR\0")!=0) 
+				{
+					printf("La personne pocède t-il un passe (O pour oui) : ");
+					scanf("%c%*c", &passe);
+					if (passe == 'O' || passe == 'o')
+					{
+						ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+						printf("Insertion reussie!");
+					}
+					else
+						printf("Insertion annule!");
+				}
+				else
+				{
+					ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+					printf("Insertion reussie!");
+				}
 			break;
 
 			case 2:
-				// Fonction modification d'une demande
+				printf("Entrez le numero du Demandeur a modifier : ");
+				scanf("%d",&numModif);
+				ld=modification(ld, numModif);
 			break;
 
 			case 3:
-				// Fonction suppression d'une demande
+				printf("Entrée le numero du Demandeur a supprimer : ");
+				scanf("%d",&suppDemandeur);
+				ld=suppression(ld, suppDemandeur);
+				printf("Demandeur supprimer\n");
 			break;
 
 			case 4:
@@ -315,16 +345,20 @@ void MenuDemLog (ListeDem ld)
 			case 5:
 				// Fonction de traitement des demandes en attente
 			break;
+
+			case 6:
+				printf("Entrée le numero du Demandeur rechercher : ");
+				scanf("%d",&rechDemandeur);
+				afficherUnDemandeur(ld, rechDemandeur);
+			break;
 		}
 		affichMenuDemLog();
 		scanf("%d%*c", &choixDemLoge);
 
-		while (choixDemLoge != 1 && choixDemLoge != 2 && choixDemLoge != 3 && choixDemLoge != 4 && choixDemLoge != 5 && choixDemLoge != 9)
+		while (choixDemLoge != 1 && choixDemLoge != 2 && choixDemLoge != 3 && choixDemLoge != 4 && choixDemLoge != 5 && choixDemLoge != 6 && choixDemLoge != 9)
 		{
-			printf("Choix doit être égale à 1, 2, 3, 4, 5 ou 9. Retapez : ");
+			printf("Choix doit être égale à 1, 2, 3, 4, 5, 6 ou 9. Retapez : ");
 			scanf("%d%*c", &choixDemLoge);
 		}
 	}
 }
-
-

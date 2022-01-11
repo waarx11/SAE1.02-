@@ -82,8 +82,8 @@ Files Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[
 	m->loc.datedebutloca.annee = an;
 	m->loc.datedebutloca.mois = mois;
 	m->loc.datedebutloca.jours = jours;
-	printf("Combien de numero de telephone posseder vous?");
-    scanf("%d", &nbNum);
+	printf("Combien de numero de telephone posseder vous : ");
+    scanf("%d%*c", &nbNum);
     m->loc.nbNumTel=nbNum;
     for (int i=0; i<nbNum; i++) 
     {
