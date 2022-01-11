@@ -80,7 +80,7 @@ void menu(void)
 	ld = chargementDem(ld, &nbD, ficDem);
 
 	lc = FileVide();
-	lc = chargementLoc(lc, ficLoc, &nbl);
+	lc = chargementLoc(lc, ficLoc);
 
 
 	// lg = creervide();
@@ -100,7 +100,7 @@ void menu(void)
 		switch (choix)
 		{
 			case 1:
-				MenuLocataire(lc, f);
+				MenuLocataire(lc);
 			break;
 
 			case 2:
@@ -124,7 +124,7 @@ void menu(void)
 	
 }
 
-void MenuLocataire(Files lc, Files f)
+void MenuLocataire(Files lc)
 {
 	int choixLoca, locataire;
 
@@ -147,8 +147,10 @@ void MenuLocataire(Files lc, Files f)
 
 			case 2:
 				// Fonction recherche locataire
-				// scanf("%d", &locataire);
-				locataire=RechDichoNumLoca(f, locataire);
+				printf("Saisir un numéro de locataire : \n");
+				scanf("%d", &locataire);
+				RechLoca(lc, locataire);
+
 			break;
 		}
 		affichMenuLocataire();

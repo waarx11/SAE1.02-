@@ -1,40 +1,59 @@
 #include "hlm.h"
 
-Files lireLocataire(FILE *fLoca, Files lc)
+Locataire lireLocataire(FILE *fLoca)
 {
-	MaillonLoc *m;
-	m=(MaillonLoc *)malloc(sizeof(MaillonLoc));
-	if (m == NULL)
+ 	Locataire loc;
+ 	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %d ", &loc.numloca ,loc.prenom, loc.nom, loc.nationalite, &loc.plafond, &loc.revenu, &loc.numlogement, &loc.datedebutloca.annee, &loc.datedebutloca.mois, &loc.datedebutloca.jours);
+	fscanf(fLoca,"%d", &loc.nbNumTel);
+	for (int i = 0; i<loc.nbNumTel ; i++)
 	{
-		printf("Problème de malloc\n");
-		exit(1);
+		loc.numTel = (Tel*)malloc(sizeof(Tel));
+		fscanf(fLoca,"%s %s",loc.numTel->libelle, loc.numTel->num);
 	}
-	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %d ", &m->loc.numloca ,m->loc.prenom, m->loc.nom, m->loc.nationalite, &m->loc.plafond, &m->loc.revenu, &m->loc.numlogement, &m->loc.datedebutloca.annee, &m->loc.datedebutloca.mois, &m->loc.datedebutloca.jours);
-	fscanf(fLoca,"%d", &m->loc.nbNumTel);
-	for (int i = 0; i<m->loc.nbNumTel ; i++)
-	{
-		m->loc.numTel = (Tel*)malloc(sizeof(Tel));
-		fscanf(fLoca,"%s %s", m->loc.numTel->libelle, m->loc.numTel->num);
-	}
-	m->suiv = lc;
-	return m;
+	return loc;
 }
 
-Files chargementLoc(Files lc, char *fic2, int *nbL)
+
+Files chargementLoc (Files f, char *fic2)
 {
+	Locataire loc;
 	FILE *fLoca;
-	MaillonLoc *m;
 	fLoca=fopen(fic2,"r");
 	if (fLoca == NULL)
     {
         printf("Problème ouverture fichier Loc");
         return NULL;
     }
-    fscanf(fLoca, "%d", nbL);
-    for(int i=0;i<*nbL;i++)
-        lc=lireLocataire(fLoca,lc);
-	fclose(fLoca);
-	return lc;
+
+    loc = lireLocataire(fLoca);
+    while(feof(fLoca) == 0)
+    {
+
+    	 f = Enfillercharge(f, loc);
+    	loc = lireLocataire(fLoca);
+    }
+    fclose(fLoca);
+	return f;
+}
+
+Files Enfillercharge (Files f, Locataire loca)
+{
+	MaillonLoc *m;
+	m = (MaillonLoc *)malloc(sizeof(MaillonLoc));
+	if (m == NULL)
+	{
+		printf("Problème de malloc \n");
+		exit(1);
+	}
+    m->loc = loca;
+    if (EstVide(f))
+    {
+    	m->suiv = m;
+    	return m;
+    }
+	m->suiv = f->suiv;
+	f->suiv = m;
+    return m;
 }
 
 Booleen EstVide (Files f)
@@ -49,7 +68,7 @@ Files FileVide(void)
 	return NULL;
 }
 
-Files Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge)
+Files EnfillerLoca (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge)
 {
 	MaillonLoc *m;
 	int jours, mois, an, h, min, s, numLoc, nbNum;
@@ -122,21 +141,15 @@ Files defiler(Files f)//Supprime le premier élément d'une file
     return f;
 }
 
-int RechDichoNumLoca (Files f, int numloca)
+void RechLoca (Files f, int numlocataire)
 {
-	MaillonLoc *m;
-	int deb=0, milieu, fin=numloca-1;
-	
-	while(deb<=fin)
-	{	
-		milieu=(deb+fin)/2;
-
-		if (numloca >= m->loc.numloca)
-			deb = milieu+1;
-		else
-			fin = milieu-1;
-	}
-	return deb;
+	if (numlocataire > f->loc.numloca)
+		return;
+	printf("test \n ");
+	if (numlocataire = f->loc.numloca)
+		AffichLocatairePrecis(f);
+	else
+		RechLoca(f->suiv, numlocataire);
 }
 
 void AffichLocataire(Files f)
@@ -151,8 +164,7 @@ void AffichLocataire(Files f)
 
 void AffichLocatairePrecis(Files f)
 {
-	int numloca;
-	printf("\t\t\t\t -- Toutes les informations sur le %d --\n", numloca);
+	printf("\t\t\t\t -- Toutes les informations sur le %d --\n", f->loc.numloca);
 	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
 	printf("| Nom\t | Prénom\t | Nationalité\t | Plafond\t | Revenu\t | Numéro de logement | Date début location |\n");
 	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");

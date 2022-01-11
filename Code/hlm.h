@@ -94,7 +94,7 @@ void MenuLogement(PileLog lg);
 
 void affichMenuLogement(void);
 
-void MenuLocataire(Files lc, Files f);
+void MenuLocataire(Files lc);
 
 void affichMenuLocataire(void);
 
@@ -109,15 +109,17 @@ void affichMenuDemLog(void);
 
 /* Locataire */
 
-Files lireLocataire(FILE *fLoca, Files lc);
+Locataire lireLocataire(FILE *fLoca);
 
-Files chargementLoc(Files lc, char *fic2, int *nbL);
+Files chargementLoc (Files f, char *fic2);
 
 void AffichLocataire(Files f);
 
 void AffichLocatairePrecis(Files f);
 
-Files Enfiler (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge);
+Files Enfillercharge (Files f, Locataire loc);
+
+Files EnfilerLoca (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge);
 
 Files Defiler (Files f);
 
@@ -127,7 +129,7 @@ void Vider (Files *f);
 
 Booleen EstVide (Files f);
 
-int RechDichoNumLoca (Files f, int numloca);
+void RechLoca (Files f, int numlocataire);
 
 
 /* Demandeur */
@@ -142,14 +144,3 @@ void affichageDem(ListeDem l);
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
 ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
-
-ListeDem rechercheUnDemandeur(ListeDem l, int value);
-
-void afficherUnDemandeur(ListeDem l, int value);
-
-ListeDem suppressionEnTete(ListeDem l);
-
-ListeDem suppression(ListeDem l, int suppDem);
-
-ListeDem modification(ListeDem l, int modif);
-
