@@ -131,7 +131,6 @@ Booleen EstVide (Files f);
 
 void RechLoca (Files f, int numlocataire);
 
-
 /* Demandeur */
 ListeDem initliste(void);
 
@@ -141,6 +140,20 @@ ListeDem chargementDem(ListeDem l, int *nbD, char *fic);
 
 void affichageDem(ListeDem l);
 
+void affichageUnDem(ListeDem l);
+
+void afficherUnDemandeur(ListeDem l, int value);
+
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
 ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
+
+ListeDem rechercheUnDemandeur(ListeDem l, int value);
+
+ListeDem suppressionEnTete(ListeDem l);
+
+ListeDem suppression(ListeDem l, int suppDem);
+
+ListeDem modificationEnTete(ListeDem l);
+
+ListeDem modification(ListeDem l, int modif);

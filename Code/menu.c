@@ -72,7 +72,6 @@ void menu(void)
 	// char ficlog[30] = "FichierLoge.txt";
 
 	ListeDem ld;
-	Files f;
 	Files lc;
 	PileLog lg;
 
@@ -81,7 +80,6 @@ void menu(void)
 
 	lc = FileVide();
 	lc = chargementLoc(lc, ficLoc);
-
 
 	// lg = creervide();
 	// lg = chargementLog(lg, nbl, ficlog);
@@ -131,9 +129,9 @@ void MenuLocataire(Files lc)
 	affichMenuLocataire();
 	scanf("%d%*c", &choixLoca);
 
-	while (choixLoca != 1 && choixLoca != 2 && choixLoca != 3 && choixLoca != 9)
+	while (choixLoca != 1 && choixLoca != 2 && choixLoca != 9)
 	{
-		printf("Choix doit être égale à 1, 2, 3 ou 9. Retapez : ");
+		printf("Choix doit être égale à 1, 2 ou 9. Retapez : ");
 		scanf("%d%*c", &choixLoca);
 	}
 
@@ -149,16 +147,15 @@ void MenuLocataire(Files lc)
 				// Fonction recherche locataire
 				printf("Saisir un numéro de locataire : \n");
 				scanf("%d", &locataire);
-				RechLoca(lc, locataire);
-
+				RechLoca(lc->suiv, locataire);
 			break;
 		}
 		affichMenuLocataire();
 		scanf("%d%*c", &choixLoca);
 
-		while (choixLoca != 1 && choixLoca != 2 && choixLoca != 3 && choixLoca != 9)
+		while (choixLoca != 1 && choixLoca != 2 && choixLoca != 9)
 		{
-			printf("Choix doit être égale à 1, 2, 3 ou 9. Retapez : ");
+			printf("Choix doit être égale à 1, 2 ou 9. Retapez : ");
 			scanf("%d%*c", &choixLoca);
 		}
 	 }
@@ -166,11 +163,11 @@ void MenuLocataire(Files lc)
 
 void MenuChoixTrie (Files lc)
 {
-	Files f;
 	int choixTrie;
 
 	affichChoixTrieLoca();
 	scanf("%d%*c", &choixTrie);
+
 
 	while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 5 && choixTrie != 9)
 	{
@@ -204,18 +201,17 @@ void MenuChoixTrie (Files lc)
 
 			case 5:
 				// Teste des fonctions d'affichage 
-				printf("\t\t\t\t -- Toutes les informations sur le locataire --\n");
-				printf("+---------------------------------------------------------------------------------------------------------------------------+\n");
-				printf("|\tNom\t | Prénom\t | Nationalité\t | Plafond\t | Revenu\t | Numéro de logement | Date début location |\n");
-				AffichLocataire(f);
+				printf("\t -- Toutes les informations sur le locataire --\n");
+				printf("+---------------------------------------------------------------------------------------+\n");
+				AffichLocataire(lc);
 			break;
 		}
 		affichChoixTrieLoca();
 		scanf("%d%*c", &choixTrie);
 
-		while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie != 9)
+		while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 5 && choixTrie != 9)
 		{
-			printf("Choix doit être égale à 1, 2, 3 ou 9. Retapez : ");
+			printf("Choix doit être égale à 1, 2, 3, 4, 5 ou 9. Retapez : ");
 			scanf("%d%*c", &choixTrie);
 		}
 	 }
@@ -252,7 +248,6 @@ void MenuLogement (PileLog lg)
 
 			case 4:
 				// Fonction d'affichage des types des logements
-			// affichageLog(lg);
 			break;
 
 			case 5:
@@ -291,67 +286,67 @@ void MenuDemLog (ListeDem ld)
 		{
 			case 1:
 				// Fonction d'enregistrer une demande
-				printf("Saisir le nom de Famille : \n");
-				fgets(nomF,32,stdin);
-				nomF[strlen(nomF)-1]='\0';
-				printf("Saisir le prénom : \n");
-				fgets(prenomD,32,stdin);
-				prenomD[strlen(prenomD)-1]='\0';
-				printf("Pour rappel : \n");
-				printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
-				printf("Saisir le nombre de point de l'individue : ");
-				scanf("%d", &nbPoint);
-				printf("Saisir le nombre d'indivu à charge : \n");
-				scanf("%d",&nbPers);
-				printf("Saisir le revenu brut de l'individu : \n");
-				scanf("%f%*c", &revenu);
-				printf("Saisir sa nationalité (2 carac): \n");
-				fgets(nationa,4,stdin);
-				nationa[strlen(nationa)-1]='\0';
-				if(strcmp(nationa,"FR\0")!=0) 
-				{
-					printf("La personne pocède t-il un passe (O pour oui) : ");
-					scanf("%c%*c", &passe);
-					if (passe == 'O' || passe == 'o')
-					{
-						ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
-						printf("Insertion reussie!");
-					}
-					else
-						printf("Insertion annule!");
-				}
-				else
-				{
-					ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
-					printf("Insertion reussie!");
-				}
+				// printf("Saisir le nom de Famille : \n");
+				// fgets(nomF,32,stdin);
+				// nomF[strlen(nomF)-1]='\0';
+				// printf("Saisir le prénom : \n");
+				// fgets(prenomD,32,stdin);
+				// prenomD[strlen(prenomD)-1]='\0';
+				// printf("Pour rappel : \n");
+				// printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
+				// printf("Saisir le nombre de point de l'individue : ");
+				// scanf("%d", &nbPoint);
+				// printf("Saisir le nombre d'indivu à charge : \n");
+				// scanf("%d",&nbPers);
+				// printf("Saisir le revenu brut de l'individu : \n");
+				// scanf("%f%*c", &revenu);
+				// printf("Saisir sa nationalité (2 carac): \n");
+				// fgets(nationa,4,stdin);
+				// nationa[strlen(nationa)-1]='\0';
+				// if(strcmp(nationa,"FR\0")!=0) 
+				// {
+				// 	printf("La personne pocède t-il un passe (O pour oui) : ");
+				// 	scanf("%c%*c", &passe);
+				// 	if (passe == 'O' || passe == 'o')
+				// 	{
+				// 		ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+				// 		printf("Insertion reussie!");
+				// 	}
+				// 	else
+				// 		printf("Insertion annule!");
+				// }
+				// else
+				// {
+				// 	ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+				// 	printf("Insertion reussie!");
+				// }
 			break;
 
 			case 2:
-				printf("Entrez le numero du Demandeur a modifier : ");
-				scanf("%d",&numModif);
-				ld=modification(ld, numModif);
+				// printf("Entrez le numero du Demandeur a modifier : ");
+				// scanf("%d",&numModif);
+				// ld=modification(ld, numModif);
 			break;
 
 			case 3:
-				printf("Entrée le numero du Demandeur a supprimer : ");
-				scanf("%d",&suppDemandeur);
-				ld=suppression(ld, suppDemandeur);
-				printf("Demandeur supprimer\n");
+				// printf("Entrée le numero du Demandeur a supprimer : ");
+				// scanf("%d",&suppDemandeur);
+				// ld=suppression(ld, suppDemandeur);
+				// printf("Demandeur supprimer\n");
 			break;
 
 			case 4:
-				affichageDem(ld);
+				// affichageDem(ld);
 			break;
 
 			case 5:
-				// Fonction de traitement des demandes en attente
+				// Fonction d'attribution automatique de logement disponible aux demandeurs
 			break;
 
 			case 6:
-				printf("Entrée le numero du Demandeur rechercher : ");
-				scanf("%d",&rechDemandeur);
-				afficherUnDemandeur(ld, rechDemandeur);
+				// printf("Entrée le numero du Demandeur rechercher : ");
+				// scanf("%d",&rechDemandeur);
+				// afficherUnDemandeur(ld, rechDemandeur);
 			break;
 		}
 		affichMenuDemLog();

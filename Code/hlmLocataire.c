@@ -5,17 +5,21 @@ Locataire lireLocataire(FILE *fLoca)
  	Locataire loc;
  	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %d ", &loc.numloca ,loc.prenom, loc.nom, loc.nationalite, &loc.plafond, &loc.revenu, &loc.numlogement, &loc.datedebutloca.annee, &loc.datedebutloca.mois, &loc.datedebutloca.jours);
 	fscanf(fLoca,"%d", &loc.nbNumTel);
-	for (int i = 0; i<loc.nbNumTel ; i++)
+	loc.numTel = (Tel*)malloc(sizeof(Tel)*loc.nbNumTel);
+	if (loc.numTel == NULL)
 	{
-		loc.numTel = (Tel*)malloc(sizeof(Tel));
-		fscanf(fLoca,"%s %s",loc.numTel->libelle, loc.numTel->num);
+		printf("Problème de malloc \n");
+		exit(1);
 	}
+	for (int i = 0; i<loc.nbNumTel ; i++)
+		fscanf(fLoca,"%s %s",loc.numTel[i].libelle, loc.numTel[i].num);
 	return loc;
 }
 
 
 Files chargementLoc (Files f, char *fic2)
 {
+	int nbelem;
 	Locataire loc;
 	FILE *fLoca;
 	fLoca=fopen(fic2,"r");
@@ -24,12 +28,11 @@ Files chargementLoc (Files f, char *fic2)
         printf("Problème ouverture fichier Loc");
         return NULL;
     }
-
+    fscanf(fLoca, "%d", &nbelem);
     loc = lireLocataire(fLoca);
-    while(feof(fLoca) == 0)
+    for (int i=0; i< nbelem; i++)
     {
-
-    	 f = Enfillercharge(f, loc);
+    	f = Enfillercharge(f, loc);
     	loc = lireLocataire(fLoca);
     }
     fclose(fLoca);
@@ -85,9 +88,6 @@ Files EnfillerLoca (Files f,int numloca, char prenom[], char nom[], char nationa
     //date courant
     time_t now;
     struct tm *local = localtime(&now);
-    h=local->tm_hour;
-    min=local->tm_min;
-    s=local->tm_sec;
     jours=local->tm_mday;
     mois=local->tm_mon+1;
     an=local->tm_year+1900;
@@ -143,33 +143,47 @@ Files defiler(Files f)//Supprime le premier élément d'une file
 
 void RechLoca (Files f, int numlocataire)
 {
-	if (numlocataire > f->loc.numloca)
-		return;
-	printf("test \n ");
-	if (numlocataire = f->loc.numloca)
-		AffichLocatairePrecis(f);
-	else
-		RechLoca(f->suiv, numlocataire);
+	Files tmp=f->suiv;
+	while(f!=tmp){
+		if (numlocataire < tmp->loc.numloca)
+			return;
+		if (numlocataire == tmp->loc.numloca)
+			AffichLocatairePrecis(tmp);
+		tmp=tmp->suiv;
+	}
+	if (numlocataire == f->loc.numloca)
+			AffichLocatairePrecis(f);
 }
 
 void AffichLocataire(Files f)
 {
-	if (f == NULL)
-		return;
-	printf("+---------------------------------------------------------------------------------------------------------------------------+\n");
-	printf("| %s\t | %s\t | %s\t | %d\t | %.2f\t | %d\t\t | %d/%d/%d \n", f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
-	printf("+---------------------------------------------------------------------------------------------------------------------------+\n");
-	AffichLocataire(f->suiv);
+	Files tmp=f;
+	tmp=tmp->suiv;
+	while(f!=tmp)
+	{
+		printf("> n°locataire : %d \n> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> date d'arrivé au logement : %d/%d/%d\n",tmp->loc.numloca, tmp->loc.prenom, tmp->loc.nom, tmp->loc.nationalite, tmp->loc.plafond, tmp->loc.revenu, tmp->loc.numlogement, tmp->loc.datedebutloca.jours, tmp->loc.datedebutloca.mois, tmp->loc.datedebutloca.annee);
+		printf("n° Téléphone(s) : \n");
+		for (int i=0; i<tmp->loc.nbNumTel; i++) 
+        {
+            printf("\t-> %s :  %s\n", tmp->loc.numTel[i].libelle, tmp->loc.numTel[i].num);
+        }
+        printf("\n");
+		tmp=tmp->suiv;
+	}
+	printf("> n°locataire : %d \n> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> date d'arrivé au logement : %d/%d/%d\n", f->loc.numloca ,f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
+	printf("n° Téléphone(s) : \n");
+	for (int i=0; i<f->loc.nbNumTel; i++) 
+        {
+            printf("\t-> %s :  %s\n", f->loc.numTel[i].libelle, f->loc.numTel[i].num);
+        }
+    printf("\n");
 }
 
 void AffichLocatairePrecis(Files f)
 {
-	printf("\t\t\t\t -- Toutes les informations sur le %d --\n", f->loc.numloca);
-	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
-	printf("| Nom\t | Prénom\t | Nationalité\t | Plafond\t | Revenu\t | Numéro de logement | Date début location |\n");
-	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
-	printf("| %s\t | %s\t | %s\t | %d\t | %.2f\t | %d\t\t | %d/%d/%d\n", f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
-	printf("+-------------------------------------------------------------------------------------------------------------------------+\n");
+	printf("\t -- Toutes les informations sur le n°%d --\n", f->loc.numloca);
+	printf("+-------------------------------------------------------------------------------+\n");
+	printf("> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> date d'arrivé au logement : %d/%d/%d\n", f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
 }
 
 
