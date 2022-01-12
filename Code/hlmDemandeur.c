@@ -22,6 +22,11 @@ ListeDem lireMenage(FILE *fDem, ListeDem l)
     fscanf(fDem, "%d %d %d %f %s %s %s %d %d %d %d %d %d", &m->demandeurs.numDemande, &m->demandeurs.nbPoint, &m->demandeurs.nbPersonne, &m->demandeurs.revenueBrut, m->demandeurs.nomDeFamille, m->demandeurs.prenom, m->demandeurs.nationalite, &m->demandeurs.dateDemande.jours, &m->demandeurs.dateDemande.mois, &m->demandeurs.dateDemande.annee, &m->demandeurs.dateDemande.heure, &m->demandeurs.dateDemande.minute, &m->demandeurs.dateDemande.seconde);
     fscanf(fDem, "%d ", &m->demandeurs.nbNum);
     m->demandeurs.numTel=(Tel *)malloc(sizeof(Tel)*m->demandeurs.nbNum);
+    if(m->demandeurs.numTel==NULL)
+    {
+        printf("Problème malloc\n");
+        exit(1);
+    }
     for (int i=0; i<m->demandeurs.nbNum; i++) 
     {
         fscanf(fDem, "%s %s", m->demandeurs.numTel[i].libelle, m->demandeurs.numTel[i].num);
@@ -215,8 +220,7 @@ ListeDem suppressionEnTete(ListeDem l)
 {
     ListeDem t;
     t=l->suivant;
-    for(int i=0; i<l->demandeurs.nbNum;i++)
-        free(l->demandeurs.numTel+i);
+    free(l->demandeurs.numTel);
     free(l);
     return t;
 }
@@ -225,19 +229,20 @@ ListeDem suppression(ListeDem l, int suppDem)
 {
     if(l==NULL)
         return l;//équivaux a null
-    if (suppDem<l->demandeurs.numDemande)
-        return l;//équivaux a null
+    // if (suppDem<l->demandeurs.numDemande)
+    //     return l;//équivaux a null
     if (l->demandeurs.numDemande==suppDem)
         return suppressionEnTete(l);
     l->suivant=suppression(l->suivant, suppDem);
     return l;
+    //return suppression(l->suivant,suppDem);
 }
+
 
 ListeDem modificationEnTete(ListeDem l)
 {
     int nbPoint, nbPersonne, revenueBrut, nbNum;
     char choixNum, libelle[32], numTel[16];
-    printf("Combien de point avez-vous ?");
     printf("Pour rappel : \n");
     printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
     printf("Combien de point avez-vous : ");
@@ -253,8 +258,7 @@ ListeDem modificationEnTete(ListeDem l)
     scanf("%c%*c",&choixNum);
     if (choixNum=='O'||choixNum=='o') 
     {
-        for(int i=0; i<l->demandeurs.nbNum;i++)
-            free(l->demandeurs.numTel+i);
+        free(l->demandeurs.numTel);
         printf("Combien de numero de telephone posseder vous : ");
         scanf("%d%*c", &nbNum);
         l->demandeurs.nbNum=nbNum;
@@ -285,4 +289,18 @@ ListeDem modification(ListeDem l, int modif)
         return modificationEnTete(l);
     l->suivant=modification(l->suivant, modif);
     return l;
+}
+
+void sauvegardeDem(ListeDem l, FILE *fDem)
+{
+    if (l==NULL)
+        return;
+    affichageDem(l->suivant);
+    fprintf(fDem, "%d %d %d %f %s %s %s %d %d %d %d %d %d %d", l->demandeurs.numDemande, l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite, l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde, l->demandeurs.nbNum);
+    for (int i=0; i<l->demandeurs.nbNum; i++) 
+    {
+        fprintf(fDem, "%s %s", l->demandeurs.numTel[i].libelle, l->demandeurs.numTel[i].num);
+    }
+    free(l->demandeurs.numTel);
+    free(l);
 }

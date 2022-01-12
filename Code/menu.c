@@ -66,7 +66,7 @@ void affichMenuDemLog(void)
 
 void menu(void)
 {
-	int nbD, nbl, choix;
+	int nbD, nbL, nbl, choix;
 	char ficDem[30] = "FichierDemLoge.txt";
 	char ficLoc[30] = "FichierLoca.txt";
 	// char ficlog[30] = "FichierLoge.txt";
@@ -75,11 +75,11 @@ void menu(void)
 	Files lc;
 	PileLog lg;
 
-	ld = initliste();
-	ld = chargementDem(ld, &nbD, ficDem);
+	// ld = initliste();
+	// ld = chargementDem(ld, &nbD, ficDem);
 
 	lc = FileVide();
-	lc = chargementLoc(lc, ficLoc);
+	lc = chargementLoc(lc, &nbL, ficLoc);
 
 	// lg = creervide();
 	// lg = chargementLog(lg, nbl, ficlog);
@@ -119,7 +119,7 @@ void menu(void)
 			scanf("%d%*c", &choix);
 		}
 	 }
-	
+	sauvegardeTout(ld, ficDem, lc, ficLoc);
 }
 
 void MenuLocataire(Files lc)
@@ -265,10 +265,9 @@ void MenuLogement (PileLog lg)
 	}
 }
 
-void MenuDemLog (ListeDem ld)
+ListeDem MenuDemLog (ListeDem ld)
 {
-	int choixDemLoge, rechDemandeur, suppDemandeur, numModif;
-	int nbPoint, nbPers, numTel;
+	int choixDemLoge, rechDemandeur, suppDemandeur, numModif, nbPoint, nbPers, numTel;
 	float revenu;
 	char nomF[32], prenomD[32], nationa[4], passe;
 	affichMenuDemLog();
@@ -286,67 +285,67 @@ void MenuDemLog (ListeDem ld)
 		{
 			case 1:
 				// Fonction d'enregistrer une demande
-				// printf("Saisir le nom de Famille : \n");
-				// fgets(nomF,32,stdin);
-				// nomF[strlen(nomF)-1]='\0';
-				// printf("Saisir le prénom : \n");
-				// fgets(prenomD,32,stdin);
-				// prenomD[strlen(prenomD)-1]='\0';
-				// printf("Pour rappel : \n");
-				// printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
-				// printf("Saisir le nombre de point de l'individue : ");
-				// scanf("%d", &nbPoint);
-				// printf("Saisir le nombre d'indivu à charge : \n");
-				// scanf("%d",&nbPers);
-				// printf("Saisir le revenu brut de l'individu : \n");
-				// scanf("%f%*c", &revenu);
-				// printf("Saisir sa nationalité (2 carac): \n");
-				// fgets(nationa,4,stdin);
-				// nationa[strlen(nationa)-1]='\0';
-				// if(strcmp(nationa,"FR\0")!=0) 
-				// {
-				// 	printf("La personne pocède t-il un passe (O pour oui) : ");
-				// 	scanf("%c%*c", &passe);
-				// 	if (passe == 'O' || passe == 'o')
-				// 	{
-				// 		ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
-				// 		printf("Insertion reussie!");
-				// 	}
-				// 	else
-				// 		printf("Insertion annule!");
-				// }
-				// else
-				// {
-				// 	ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
-				// 	printf("Insertion reussie!");
-				// }
+				printf("Saisir le nom de Famille : \n");
+				fgets(nomF,32,stdin);
+				nomF[strlen(nomF)-1]='\0';
+				printf("Saisir le prénom : \n");
+				fgets(prenomD,32,stdin);
+				prenomD[strlen(prenomD)-1]='\0';
+				printf("Pour rappel : \n");
+				printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
+				printf("Saisir le nombre de point de l'individue : ");
+				scanf("%d", &nbPoint);
+				printf("Saisir le nombre d'indivu à charge : \n");
+				scanf("%d",&nbPers);
+				printf("Saisir le revenu brut de l'individu : \n");
+				scanf("%f%*c", &revenu);
+				printf("Saisir sa nationalité (2 carac): \n");
+				fgets(nationa,4,stdin);
+				nationa[strlen(nationa)-1]='\0';
+				if(strcmp(nationa,"FR\0")!=0) 
+				{
+					printf("La personne pocède t-il un passe (O pour oui) : ");
+					scanf("%c%*c", &passe);
+					if (passe == 'O' || passe == 'o')
+					{
+						ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+						printf("Insertion reussie!");
+					}
+					else
+						printf("Insertion annule!");
+				}
+				else
+				{
+					ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+					printf("Insertion reussie!");
+				}
 			break;
 
 			case 2:
-				// printf("Entrez le numero du Demandeur a modifier : ");
-				// scanf("%d",&numModif);
-				// ld=modification(ld, numModif);
+				printf("Entrez le numero du Demandeur a modifier : ");
+				scanf("%d",&numModif);
+				ld=modification(ld, numModif);
 			break;
 
 			case 3:
-				// printf("Entrée le numero du Demandeur a supprimer : ");
-				// scanf("%d",&suppDemandeur);
-				// ld=suppression(ld, suppDemandeur);
-				// printf("Demandeur supprimer\n");
+				printf("Entrée le numero du Demandeur a supprimer : ");
+				scanf("%d",&suppDemandeur);
+				ld=suppression(ld, suppDemandeur);
+				printf("Demandeur supprimer\n");
 			break;
 
 			case 4:
-				// affichageDem(ld);
+				affichageDem(ld);
 			break;
 
 			case 5:
-				// Fonction d'attribution automatique de logement disponible aux demandeurs
+				// Fonction de traitement des demandes en attente
 			break;
 
 			case 6:
-				// printf("Entrée le numero du Demandeur rechercher : ");
-				// scanf("%d",&rechDemandeur);
-				// afficherUnDemandeur(ld, rechDemandeur);
+				printf("Entrée le numero du Demandeur rechercher : ");
+				scanf("%d",&rechDemandeur);
+				afficherUnDemandeur(ld, rechDemandeur);
 			break;
 		}
 		affichMenuDemLog();
@@ -358,4 +357,17 @@ void MenuDemLog (ListeDem ld)
 			scanf("%d%*c", &choixDemLoge);
 		}
 	}
+	return ld;
+}
+
+void sauvegardeTout(ListeDem ld, char *ficDem, Files f, char *ficLoc)
+{
+	FILE *fD;
+	FILE *fL;
+	fD=fopen(ficDem, "w");
+	sauvegardeDem(ld, fD);
+	fclose(fD);
+	// fL=fopen(ficLoc, "w");
+	// sauvegardeLoc(f, fL);
+	// fclose(fL);
 }

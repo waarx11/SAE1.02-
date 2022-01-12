@@ -8,7 +8,7 @@ Locataire lireLocataire(FILE *fLoca)
 	loc.numTel = (Tel*)malloc(sizeof(Tel)*loc.nbNumTel);
 	if (loc.numTel == NULL)
 	{
-		printf("Problème de malloc \n");
+		printf("Problème de malloc marche pas\n");
 		exit(1);
 	}
 	for (int i = 0; i<loc.nbNumTel ; i++)
@@ -16,10 +16,8 @@ Locataire lireLocataire(FILE *fLoca)
 	return loc;
 }
 
-
-Files chargementLoc (Files f, char *fic2)
+Files chargementLoc (Files f, int *nbelem, char *fic2)
 {
-	int nbelem;
 	Locataire loc;
 	FILE *fLoca;
 	fLoca=fopen(fic2,"r");
@@ -28,9 +26,9 @@ Files chargementLoc (Files f, char *fic2)
         printf("Problème ouverture fichier Loc");
         return NULL;
     }
-    fscanf(fLoca, "%d", &nbelem);
+    fscanf(fLoca, "%d", nbelem);
     loc = lireLocataire(fLoca);
-    for (int i=0; i< nbelem; i++)
+    for (int i=0; i< *nbelem; i++)
     {
     	f = Enfillercharge(f, loc);
     	loc = lireLocataire(fLoca);

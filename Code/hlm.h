@@ -102,16 +102,18 @@ void MenuChoixTrie (Files lc);
 
 void affichChoixTrieLoca(void);
 
-void MenuDemLog(ListeDem ld);
+ListeDem MenuDemLog(ListeDem ld);
 
 void affichMenuDemLog(void);
+
+void sauvegardeTout(ListeDem ld, char *ficDem, Files f, char *ficLoc);
 
 
 /* Locataire */
 
 Locataire lireLocataire(FILE *fLoca);
 
-Files chargementLoc (Files f, char *fic2);
+Files chargementLoc (Files f, int *nbelem, char *fic2);
 
 void AffichLocataire(Files f);
 
@@ -131,6 +133,8 @@ Booleen EstVide (Files f);
 
 void RechLoca (Files f, int numlocataire);
 
+void sauvegardeLoc(Files f, FILE *fLoc);
+
 /* Demandeur */
 ListeDem initliste(void);
 
@@ -140,20 +144,18 @@ ListeDem chargementDem(ListeDem l, int *nbD, char *fic);
 
 void affichageDem(ListeDem l);
 
-void affichageUnDem(ListeDem l);
-
-void afficherUnDemandeur(ListeDem l, int value);
-
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
 ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
 ListeDem rechercheUnDemandeur(ListeDem l, int value);
 
+void afficherUnDemandeur(ListeDem l, int value);
+
 ListeDem suppressionEnTete(ListeDem l);
 
 ListeDem suppression(ListeDem l, int suppDem);
 
-ListeDem modificationEnTete(ListeDem l);
-
 ListeDem modification(ListeDem l, int modif);
+
+void sauvegardeDem(ListeDem l, FILE *Dem);
