@@ -83,43 +83,52 @@ void affichageUnDem(ListeDem l)
     printf("-----------------------------------------------------------------------------------------------------\n\n");
 }
 
-// int rechercheDem(ListeDem t, int n, int val)
-// {
-//     int i;
-//     for(i=0;i<t->demandeurs.numDemande;i++)
-//     {
-//         if(t[i]>val)
-//             return i;
-//     }
-//     return i;
-// }
+ListeDem expirationDem(ListeDem l, int *nbD)
+{
+    if (l==NULL)
+        return NULL;
+    l->suivant=expirationDem(l->suivant, nbD);
+    return expirationDemEnTete(l, nbD);
+    return l;
 
-// void insertion(int *t, int r, int k)
-// {
-//     int temp=t[k];
-//     for(int i=k;i>r;i--)
-//     {
-//         t[i]=t[i--];
-//     }
-//     t[r]=temp;
-// }
+}
 
-// void tri(int t, int n)
-// {
-//     int k;
-//     for(k=1;k<n;k++)
-//     {
-//         n=RechPos(t,k,t[h]);
-//         Insertion(t,r,k);
-//     }
-// }
+ListeDem expirationDemEnTete(ListeDem l, int *nbD)
+{
+    int jours, mois, an;
+    srand(time(NULL));
+    //date courant
+    time_t now;
+    time(&now);
+    struct tm *local = localtime(&now);
+    jours=local->tm_mday;
+    mois=local->tm_mon+1;
+    an=local->tm_year+1900;
+    if (an==l->demandeurs.dateDemande.annee) 
+        return l;
+    else if (an-1==l->demandeurs.dateDemande.annee) 
+    {
+        if (l->demandeurs.dateDemande.mois-mois>0) 
+            return l;
+        else 
+        {
+            if (jours<l->demandeurs.dateDemande.jours) 
+                return l;
+            else
+                return suppressionEnTete(l, nbD);
+        }
+    }
+    else
+        return suppressionEnTete(l, nbD);
+}
+
 
 ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
 {
     int jours, mois, an, h, min, s, numDemande, nbNum;
     char libelle[32], numTel[16];
     MaillonDem *m;
-    ListeDem existe;
+    Booleen existe;
     m=(MaillonDem *)malloc(sizeof(MaillonDem));
     if(m==NULL)
     {
@@ -129,11 +138,11 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     //Valeur aléatoire compris entre 0 et 5000
     srand(time(NULL));
     numDemande=rand() %5000;
-    existe=rechercheUnDemandeur(l, numDemande);
-    while (existe!=NULL) 
+    existe=numExiste(l,numDemande);
+    while (existe==Vrai)
     {
         numDemande=rand() %5000;
-        existe=rechercheUnDemandeur(l, numDemande);
+        existe=numExiste(l,numDemande);
     }
     //date courant
     time_t now;
@@ -160,6 +169,11 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     m->demandeurs.dateDemande.seconde=s;
     printf("Combien de numero de telephone posseder vous : ");
     scanf("%d%*c", &nbNum);
+    while (nbNum==0) 
+    {   
+        printf("Vous devez nous donner au moins un numero de telephone : ");
+        scanf("%d%*c", &nbNum);
+    }
     m->demandeurs.nbNum=nbNum;
     m->demandeurs.numTel=(Tel*)malloc(sizeof(Tel)*nbNum);
     for (int i=0, s=1; i<nbNum; i++, s++) 
@@ -175,6 +189,15 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     }
     m->suivant=l;
     return m;
+}
+
+Booleen numExiste(ListeDem l, int value)
+{
+    if(l==NULL)
+        return Faux;
+    if(value==l->demandeurs.numDemande)
+        return Vrai;
+    return numExiste(l->suivant, value);
 }
 
 ListeDem rechercheUnDemandeur(ListeDem l, int value)
@@ -199,7 +222,10 @@ ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut
 void afficherUnDemandeur(ListeDem l, int value)
 {
     if (l==NULL)
+    {
+        printf("Demandeur introuvable !\n");
         return;
+    }
     afficherUnDemandeur(l->suivant,value);
     if (l->demandeurs.numDemande==value) 
     {
@@ -216,25 +242,44 @@ void afficherUnDemandeur(ListeDem l, int value)
     }
 }
 
-ListeDem suppressionEnTete(ListeDem l)
+ListeDem suppressionEnTete(ListeDem l, int *nbD)
 {
     ListeDem t;
     t=l->suivant;
     free(l->demandeurs.numTel);
     free(l);
+    (*nbD)--;
     return t;
 }
 
-ListeDem suppression(ListeDem l, int suppDem)
+ListeDem suppression(ListeDem l, int suppDem, int *nbD)
 {
     if(l==NULL)
+    {
+        printf("Demandeur introuvable\nsuppression annuler!\n");
         return l;//équivaux a null
+    }
     // if (suppDem<l->demandeurs.numDemande)
     //     return l;//équivaux a null
     if (l->demandeurs.numDemande==suppDem)
-        return suppressionEnTete(l);
-    l->suivant=suppression(l->suivant, suppDem);
+    {
+		printf("Demandeur supprimer\n");
+        return suppressionEnTete(l, nbD);
+    }
+    l->suivant=suppression(l->suivant, suppDem, nbD);
     return l;
+    //return suppression(l->suivant,suppDem);
+}
+
+void suppressionAll(ListeDem l, int *nbD)
+{
+    if(l==NULL)
+        return;//équivaux a null
+    // if (suppDem<l->demandeurs.numDemande)
+    //     return l;//équivaux a null
+    suppressionAll(l->suivant, nbD);
+    suppressionEnTete(l, nbD);
+    return;
     //return suppression(l->suivant,suppDem);
 }
 
@@ -296,11 +341,10 @@ void sauvegardeDem(ListeDem l, FILE *fDem)
     if (l==NULL)
         return;
     affichageDem(l->suivant);
-    fprintf(fDem, "%d %d %d %f %s %s %s %d %d %d %d %d %d %d", l->demandeurs.numDemande, l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite, l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde, l->demandeurs.nbNum);
+    fprintf(fDem, "%d %d %d %f %s %s %s %d %d %d %d %d %d %d ", l->demandeurs.numDemande, l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite, l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde, l->demandeurs.nbNum);
     for (int i=0; i<l->demandeurs.nbNum; i++) 
     {
-        fprintf(fDem, "%s %s", l->demandeurs.numTel[i].libelle, l->demandeurs.numTel[i].num);
+        fprintf(fDem, "%s %s ", l->demandeurs.numTel[i].libelle, l->demandeurs.numTel[i].num);
     }
-    free(l->demandeurs.numTel);
-    free(l);
+    fprintf(fDem,"\n");
 }

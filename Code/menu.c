@@ -58,8 +58,7 @@ void affichMenuDemLog(void)
 	printf("| 2. Modifier une demande\t\t\t |\n");
 	printf("| 3. Supprimer une demande\t\t\t |\n");
 	printf("| 4. Afficher toute les demandes\t\t |\n");
-	printf("| 5. Assigner un logement disponible\t\t |\n");
-	printf("| 6. Rechercher un Demandeur par son num\t |\n");
+	printf("| 5. Rechercher un Demandeur par son num\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -75,11 +74,12 @@ void menu(void)
 	Files lc;
 	PileLog lg;
 
-	// ld = initliste();
-	// ld = chargementDem(ld, &nbD, ficDem);
+	ld = initliste();
+	ld = chargementDem(ld, &nbD, ficDem);
+	ld = expirationDem(ld, &nbD);
 
-	lc = FileVide();
-	lc = chargementLoc(lc, &nbL, ficLoc);
+	// lc = FileVide();
+	// lc = chargementLoc(lc, &nbL, ficLoc);
 
 	// lg = creervide();
 	// lg = chargementLog(lg, nbl, ficlog);
@@ -106,7 +106,7 @@ void menu(void)
 			break;
 
 			case 3:
-				MenuDemLog(ld);
+				ld=MenuDemLog(ld, &nbD);
 			break;
 		}
 
@@ -119,7 +119,8 @@ void menu(void)
 			scanf("%d%*c", &choix);
 		}
 	 }
-	sauvegardeTout(ld, ficDem, lc, ficLoc);
+	ld = expirationDem(ld, &nbD);
+	sauvegardeTout(ld, ficDem, nbD, lc, ficLoc);
 }
 
 void MenuLocataire(Files lc)
@@ -200,7 +201,7 @@ void MenuChoixTrie (Files lc)
 			break;
 
 			case 5:
-				// Teste des fonctions d'affichage 
+				// Teste des fonctions d'affichage
 				printf("\t -- Toutes les informations sur le locataire --\n");
 				printf("+---------------------------------------------------------------------------------------+\n");
 				AffichLocataire(lc);
@@ -265,7 +266,7 @@ void MenuLogement (PileLog lg)
 	}
 }
 
-ListeDem MenuDemLog (ListeDem ld)
+ListeDem MenuDemLog (ListeDem ld, int *nbD)
 {
 	int choixDemLoge, rechDemandeur, suppDemandeur, numModif, nbPoint, nbPers, numTel;
 	float revenu;
@@ -310,6 +311,7 @@ ListeDem MenuDemLog (ListeDem ld)
 					{
 						ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
 						printf("Insertion reussie!");
+						(*nbD)++;
 					}
 					else
 						printf("Insertion annule!");
@@ -318,6 +320,7 @@ ListeDem MenuDemLog (ListeDem ld)
 				{
 					ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
 					printf("Insertion reussie!");
+					(*nbD)++;
 				}
 			break;
 
@@ -330,8 +333,7 @@ ListeDem MenuDemLog (ListeDem ld)
 			case 3:
 				printf("Entrée le numero du Demandeur a supprimer : ");
 				scanf("%d",&suppDemandeur);
-				ld=suppression(ld, suppDemandeur);
-				printf("Demandeur supprimer\n");
+				ld=suppression(ld, suppDemandeur, nbD);
 			break;
 
 			case 4:
@@ -339,10 +341,6 @@ ListeDem MenuDemLog (ListeDem ld)
 			break;
 
 			case 5:
-				// Fonction de traitement des demandes en attente
-			break;
-
-			case 6:
 				printf("Entrée le numero du Demandeur rechercher : ");
 				scanf("%d",&rechDemandeur);
 				afficherUnDemandeur(ld, rechDemandeur);
@@ -357,16 +355,18 @@ ListeDem MenuDemLog (ListeDem ld)
 			scanf("%d%*c", &choixDemLoge);
 		}
 	}
+	ld = expirationDem(ld, nbD);
 	return ld;
 }
 
-void sauvegardeTout(ListeDem ld, char *ficDem, Files f, char *ficLoc)
+void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc)
 {
-	FILE *fD;
-	FILE *fL;
-	fD=fopen(ficDem, "w");
-	sauvegardeDem(ld, fD);
-	fclose(fD);
+	FILE *pf;
+	pf=fopen(ficDem, "w");
+	fprintf(pf,"%d\n",nbD);
+	sauvegardeDem(ld, pf);
+	suppressionAll(ld, &nbD);
+	fclose(pf);
 	// fL=fopen(ficLoc, "w");
 	// sauvegardeLoc(f, fL);
 	// fclose(fL);
