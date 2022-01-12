@@ -203,7 +203,10 @@ Booleen numExiste(ListeDem l, int value)
 ListeDem rechercheUnDemandeur(ListeDem l, int value)
 {
     if(l==NULL)
+    {
+        printf("Demandeur introuvable");
         return l;//comme faire return NULL parsque l==NULL actuellement
+    }
     if(value==l->demandeurs.numDemande)
         return l;
     return rechercheUnDemandeur(l->suivant, value);
@@ -259,8 +262,6 @@ ListeDem suppression(ListeDem l, int suppDem, int *nbD)
         printf("Demandeur introuvable\nsuppression annuler!\n");
         return l;//équivaux a null
     }
-    // if (suppDem<l->demandeurs.numDemande)
-    //     return l;//équivaux a null
     if (l->demandeurs.numDemande==suppDem)
     {
 		printf("Demandeur supprimer\n");
@@ -268,19 +269,15 @@ ListeDem suppression(ListeDem l, int suppDem, int *nbD)
     }
     l->suivant=suppression(l->suivant, suppDem, nbD);
     return l;
-    //return suppression(l->suivant,suppDem);
 }
 
 void suppressionAll(ListeDem l, int *nbD)
 {
     if(l==NULL)
         return;//équivaux a null
-    // if (suppDem<l->demandeurs.numDemande)
-    //     return l;//équivaux a null
     suppressionAll(l->suivant, nbD);
     suppressionEnTete(l, nbD);
     return;
-    //return suppression(l->suivant,suppDem);
 }
 
 
@@ -340,7 +337,7 @@ void sauvegardeDem(ListeDem l, FILE *fDem)
 {
     if (l==NULL)
         return;
-    affichageDem(l->suivant);
+    sauvegardeDem(l->suivant, fDem);
     fprintf(fDem, "%d %d %d %f %s %s %s %d %d %d %d %d %d %d ", l->demandeurs.numDemande, l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite, l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde, l->demandeurs.nbNum);
     for (int i=0; i<l->demandeurs.nbNum; i++) 
     {
