@@ -52,6 +52,7 @@ typedef struct {
     int plafond;
     float revenu;
     int numlogement;
+    float prixLog;
     int nbNumTel;
     Tel *numTel;
     Date datedebutloca;
@@ -94,11 +95,11 @@ void MenuLogement(Logement *tLog[],int *nbLog);
 
 void affichMenuLogement(void);
 
-void MenuLocataire(Files lc);
+Files MenuLocataire(Files lc, int *nbL);
 
 void affichMenuLocataire(void);
 
-void MenuChoixTrie (Files lc);
+Files MenuChoixTrie (Files lc, int *nbL);
 
 void affichChoixTrieLoca(void);
 
@@ -126,19 +127,45 @@ void AffichLocataire(Files f);
 
 void AffichLocatairePrecis(Files f);
 
+void AffichTab (Locataire *tloc[], int nbtl);
+
 Files Enfillercharge (Files f, Locataire loc);
 
 Files EnfilerLoca (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge);
 
 Files Defiler (Files f);
 
-Files FileVide(void);
+Files ViderFile (Files *pf);
 
-void Vider (Files *f);
+Files FileVide(void);
 
 Booleen EstVide (Files f);
 
 void RechLoca (Files f, int numlocataire);
+
+int TransfertTab (Files f, Locataire *tloc[], int tmax);
+
+Locataire ViderTab (Locataire *tloc[], int nbtl);
+
+Files TransfertFiles (Files f, Locataire *tloc[], int nbtl);
+
+int RechMinPrixLoge (Locataire *tloc[], int nbtl, int i);
+
+int RechMinNomLoca (Locataire *tloc[], int nbtl, int i);
+
+int RechMinDate (Locataire *tloc[], int nbtl, int i);
+
+int RechMinNumLoca (Locataire *tloc[], int nbtl, int i);
+
+void Permute (Locataire *tloc[], int x, int y);
+
+void TriePermuteLoge (Locataire *tloc[], int nbtl);
+
+void TriePermuteDate (Locataire *tloc[], int nbtl);
+
+void TriePermuteNumLoca (Locataire *tloc[], int nbtl);
+
+void TriePermuteNomLoca (Locataire *tloc[], int nbtl);
 
 void sauvegardeLoc(Files f, FILE *fLoc);
 

@@ -1,9 +1,11 @@
 #include "hlm.h"
 
+#define TAILLE 15
+
 Locataire lireLocataire(FILE *fLoca)
 {
  	Locataire loc;
- 	fscanf(fLoca,"%d %s %s %s %d %f %d %d %d %d ", &loc.numloca ,loc.prenom, loc.nom, loc.nationalite, &loc.plafond, &loc.revenu, &loc.numlogement, &loc.datedebutloca.annee, &loc.datedebutloca.mois, &loc.datedebutloca.jours);
+ 	fscanf(fLoca,"%d %s %s %s %d %f %d %f %d %d %d ", &loc.numloca ,loc.prenom, loc.nom, loc.nationalite, &loc.plafond, &loc.revenu, &loc.numlogement, &loc.prixLog, &loc.datedebutloca.annee, &loc.datedebutloca.mois, &loc.datedebutloca.jours);
 	fscanf(fLoca,"%d", &loc.nbNumTel);
 	loc.numTel = (Tel*)malloc(sizeof(Tel)*loc.nbNumTel);
 	if (loc.numTel == NULL)
@@ -139,6 +141,13 @@ Files defiler(Files f)//Supprime le premier élément d'une file
     return f;
 }
 
+Files ViderFile (Files *pf)
+{
+	while (!EstVide(*pf))
+		*pf = defiler(*pf);
+	return NULL;
+}
+
 void RechLoca (Files f, int numlocataire)
 {
 	Files tmp=f->suiv;
@@ -159,7 +168,7 @@ void AffichLocataire(Files f)
 	tmp=tmp->suiv;
 	while(f!=tmp)
 	{
-		printf("> n°locataire : %d \n> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> date d'arrivé au logement : %d/%d/%d\n",tmp->loc.numloca, tmp->loc.prenom, tmp->loc.nom, tmp->loc.nationalite, tmp->loc.plafond, tmp->loc.revenu, tmp->loc.numlogement, tmp->loc.datedebutloca.jours, tmp->loc.datedebutloca.mois, tmp->loc.datedebutloca.annee);
+		printf("> n°locataire : %d \n> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> Prix du logement : %.2f€/mois \n>date d'arrivé au logement : %d/%d/%d\n",tmp->loc.numloca, tmp->loc.prenom, tmp->loc.nom, tmp->loc.nationalite, tmp->loc.plafond, tmp->loc.revenu, tmp->loc.numlogement, tmp->loc.prixLog, tmp->loc.datedebutloca.jours, tmp->loc.datedebutloca.mois, tmp->loc.datedebutloca.annee);
 		printf("n° Téléphone(s) : \n");
 		for (int i=0; i<tmp->loc.nbNumTel; i++) 
         {
@@ -168,8 +177,8 @@ void AffichLocataire(Files f)
         printf("\n");
 		tmp=tmp->suiv;
 	}
-	printf("> n°locataire : %d \n> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> date d'arrivé au logement : %d/%d/%d\n", f->loc.numloca ,f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
-	printf("n° Téléphone(s) : \n");
+	printf("> N°locataire : %d \n> Nom : %s \n> Prenom : %s\n> Nationalite : %s\n> Plafond : %d\n> Revenu : %.2f\n> N°logement : %d\n>  Prix du logement : %.2f€/mois \n> date d'arrivé au logement : %d/%d/%d\n", f->loc.numloca ,f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.prixLog, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
+	printf("N° Téléphone(s) : \n");
 	for (int i=0; i<f->loc.nbNumTel; i++) 
         {
             printf("\t-> %s :  %s\n", f->loc.numTel[i].libelle, f->loc.numTel[i].num);
@@ -179,11 +188,192 @@ void AffichLocataire(Files f)
 
 void AffichLocatairePrecis(Files f)
 {
-	printf("\t -- Toutes les informations sur le n°%d --\n", f->loc.numloca);
+	printf("\t -- Toutes les informations sur le n°%s %s --\n", f->loc.nom, f->loc.prenom);
 	printf("+-------------------------------------------------------------------------------+\n");
-	printf("> nom : %s \n> prenom : %s\n> nationalite : %s\n> plafond : %d\n> revenu : %.2f\n> n°logement : %d\n> date d'arrivé au logement : %d/%d/%d\n", f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
+	printf("> N°locataire %d \n> Nationalite : %s\n> Plafond : %d\n> Revenu : %.2f\n> N°logement : %d\n> Prix du logement : %.2f€/mois \n> Date d'arrivé au logement : %d/%d/%d\n", f->loc.numloca, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.prixLog, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
+}
+
+void AffichTab (Locataire *tloc[], int nbtl)
+{
+	int i;
+	for ( i = 0 ; i < nbtl ; i++)
+	{
+		printf("+-------------------------------------------------------------------------------+\n");
+		printf("> N°locataire : %d \n> Nom : %s \n> Prenom : %s\n> Nationalite : %s\n> Plafond : %d\n> Revenu : %.2f\n> N°logement : %d\n>  Prix du logement : %.2f€/mois \n> date d'arrivé au logement : %d/%d/%d\n", tloc[i]->numloca, tloc[i]->nom, tloc[i]->prenom, tloc[i]->nationalite, tloc[i]->plafond, tloc[i]->revenu, tloc[i]->numlogement, tloc[i]->prixLog, tloc[i]->datedebutloca.jours, tloc[i]->datedebutloca.mois, tloc[i]->datedebutloca.annee);
+
+	}
+}
+
+
+int TransfertTab (Files f, Locataire *tloc[], int tmax)
+{
+	Locataire *nvt;
+	int nvtTaille = tmax +5;
+	Files tmp=f, temp;
+	tmp = tmp->suiv;
+	int i = 0;
+
+
+	while(f != tmp)
+	{
+		tloc[i] = (Locataire *) malloc (sizeof(Locataire));
+		if (tloc[i] == NULL)
+		{
+			printf("problème de malloc");
+			exit(1);
+		}
+
+		if (tmax <= i)
+		{
+			nvt = (Locataire *) realloc (tloc, nvtTaille * sizeof(Locataire));
+			if (nvt == NULL)
+			{
+				printf("probleme de realloc \n");
+				exit(1);
+			}
+		}
+
+		*tloc[i] = tmp->loc;
+		temp = tmp->suiv;
+		tmp = temp;
+		i ++;
+	}
+
+	tloc[i] = (Locataire *) malloc (sizeof(Locataire));
+		if (tloc[i] == NULL)
+		{
+			printf("problème de malloc");
+			exit(1);
+		}
+	if (tmax == i)
+		{
+			tloc[i]=(Locataire*)realloc(tloc, sizeof(Locataire));
+			tmax=+1;
+			if (tloc[i] == NULL)
+			{
+				printf("problème de realloc n°2\n");
+				exit(1);
+			}
+		}
+	*tloc[i] = f->loc;
+	temp = f->suiv;
+	i ++;
+	return i;
+}
+
+Files TransfertFiles (Files f, Locataire *tloc[], int nbtl)
+{
+	int i, j;
+	// FileVide();
+
+	for ( i = 0 ; i < nbtl; i ++)
+	{
+		f = Enfillercharge(f, *tloc[i]);
+	}
+}
+
+Locataire ViderTab (Locataire *tloc[], int nbtl)
+{
+	int i;
+	for ( i = nbtl+1 ; i< nbtl ; i --)
+	{
+		free(tloc[i]);
+	}
+}
+
+int RechMinPrixLoge (Locataire *tloc[], int nbtl, int i)
+{
+	int prix = i, j;
+	for (j = i+1 ; j < nbtl ; j ++)
+	{
+		if(tloc[j]->prixLog < tloc[prix]->prixLog)
+			prix = j;
+	}
+	return prix;
+}
+
+int RechMinNomLoca (Locataire *tloc[], int nbtl, int i)
+{
+	int nom = i, j;
+	for (j = i+1 ; j < nbtl ; j ++)
+	{
+		if(strcmp(tloc[j]->nom, tloc[nom]->nom) < 0 )
+			nom = j;
+	}
+	return nom;
 }
 
 
 
+int RechMinDate (Locataire *tloc[], int nbtl, int i)
+{
+	int date = i, j, k, l;
+	for ( j = i+1 ; j < nbtl ; j ++)
+	{
+		if (tloc[j]->datedebutloca.annee < tloc[date]->datedebutloca.annee)
+			date = j;
+	
+			for ( k = i ; k < i ; k ++)
+			{
+				if (tloc[k]->datedebutloca.annee == tloc[date]->datedebutloca.annee)
+					if (tloc[k]->datedebutloca.mois < tloc[date]->datedebutloca.mois)
+						date = k;
+			
+						for ( l = i ; l < k ; l ++)
+						{
+							if(tloc[l]->datedebutloca.mois == tloc[date]->datedebutloca.mois)
+								if(tloc[l]->datedebutloca.jours < tloc[date]->datedebutloca.jours)
+									date = l;
+						}
+			}
+	}
+	return date;
+}
 
+
+int RechMinNumLoca (Locataire *tloc[], int nbtl, int i)
+{
+	int min = i, j;
+	for (j = i+1 ; j < nbtl ; j ++)
+	{
+		if(tloc[j]->numloca < tloc[min]->numloca)
+			min = j;
+	}
+	return min;
+}
+
+void Permute (Locataire *tloc[], int x, int y)
+{
+	Locataire *temp;
+	temp = tloc[x];
+	tloc[x] = tloc[y];
+	tloc[y] = temp;
+}
+
+void TriePermuteLoge (Locataire *tloc[], int nbtl)
+{
+	int i;
+	for (i = 0 ; i < nbtl -1 ; i ++)
+		Permute(tloc, i, RechMinPrixLoge(tloc, nbtl, i));
+}
+
+void TriePermuteDate (Locataire *tloc[], int nbtl)
+{
+	int i;
+	for (i = 0 ; i < nbtl -1 ; i ++)
+		Permute(tloc, i, RechMinDate(tloc, nbtl, i));
+}
+
+void TriePermuteNumLoca (Locataire *tloc[], int nbtl)
+{
+	int i;
+	for (i = 0 ; i < nbtl -1 ; i ++)
+		Permute(tloc, i, RechMinPrixLoge(tloc, nbtl, i));
+}
+
+void TriePermuteNomLoca (Locataire *tloc[], int nbtl)
+{
+	int i;
+	for (i = 0 ; i < nbtl -1 ; i ++)
+		Permute(tloc, i, RechMinNomLoca(tloc, nbtl, i));
+}

@@ -1,5 +1,7 @@
 #include "hlm.h"
 
+#define TAILLE 100
+
 void affichMenu(void)
 {
 	printf("\t Que voulez vous faire : \n");
@@ -43,6 +45,8 @@ void affichMenuLocataire(void)
 	printf("+------------------------------------------------+\n");
 	printf("| 1. Afficher la liste des locataires \t\t |\n");
 	printf("| 2. Recherche d'un locataire \t\t\t |\n");
+	printf("| 3. Ajouter un locataire \t\t\t\t|\n");
+	printf("| 4. Supprimer un locataire   \t\t\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -76,10 +80,10 @@ void menu(void)
 	ld = chargementDem(ld, &nbD, ficDem);
 	ld = expirationDem(ld, &nbD);
 
-	// lc = FileVide();
-	// lc = chargementLoc(lc, &nbL, ficLoc);
+	lc = FileVide();
+	lc = chargementLoc(lc, &nbL, ficLoc);
 
-	nbLog = chargeLogement(ficlog, tLog, nbLog);
+	// nbLog = chargeLogement(ficlog, tLog, nbLog);
 
 
 	affichMenu();
@@ -96,7 +100,7 @@ void menu(void)
 		switch (choix)
 		{
 			case 1:
-				MenuLocataire(lc);
+				lc = MenuLocataire(lc, &nbL);
 			break;
 
 			case 2:
@@ -121,16 +125,16 @@ void menu(void)
 	sauvegardeTout(ld, ficDem, nbD, lc, ficLoc);
 }
 
-void MenuLocataire(Files lc)
+Files MenuLocataire(Files lc, int *nbL)
 {
 	int choixLoca, locataire;
 
 	affichMenuLocataire();
 	scanf("%d%*c", &choixLoca);
 
-	while (choixLoca != 1 && choixLoca != 2 && choixLoca != 9)
-	{
-		printf("Choix doit être égale à 1, 2 ou 9. Retapez : ");
+	while (choixLoca != 1 && choixLoca != 2 && choixLoca != 3 && choixLoca != 4 && choixLoca != 9)
+	{ 
+		printf("Choix doit être égale à 1, 2, 3, 4 ou 9. Retapez : ");
 		scanf("%d%*c", &choixLoca);
 	}
 
@@ -139,7 +143,7 @@ void MenuLocataire(Files lc)
 		switch (choixLoca)
 		{
 			case 1:
-				MenuChoixTrie(lc);
+				lc = MenuChoixTrie(lc, nbL);
 			break;
 
 			case 2:
@@ -148,22 +152,33 @@ void MenuLocataire(Files lc)
 				scanf("%d", &locataire);
 				RechLoca(lc->suiv, locataire);
 			break;
+
+			case 3:
+
+			break;
+
+			case 4:
+
+			break;
 		}
 		affichMenuLocataire();
 		scanf("%d%*c", &choixLoca);
 
-		while (choixLoca != 1 && choixLoca != 2 && choixLoca != 9)
+		while (choixLoca != 1 && choixLoca != 2 && choixLoca != 3 && choixLoca != 4 && choixLoca != 9)
 		{
-			printf("Choix doit être égale à 1, 2 ou 9. Retapez : ");
+			printf("Choix doit être égale à 1, 2, 3, 4 ou 9. Retapez : ");
 			scanf("%d%*c", &choixLoca);
 		}
 	 }
 }
 
-void MenuChoixTrie (Files lc)
+Files MenuChoixTrie (Files lc, int *nbL)
 {
-	int choixTrie;
-
+	int choixTrie, nbtl;
+	Locataire *tloc[TAILLE];
+	int tmax = TAILLE;
+	nbtl = TransfertTab(lc, tloc, tmax);
+	// ViderFile(&lc);
 	affichChoixTrieLoca();
 	scanf("%d%*c", &choixTrie);
 
@@ -180,26 +195,38 @@ void MenuChoixTrie (Files lc)
 		{
 			case 1:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				// Afficher en fonction du nom
+				printf("\t -- Affichage des locataires triés en fonction du nom des locataires --\n");
+				printf("+---------------------------------------------------------------------------------------+\n");
+				TriePermuteNomLoca(tloc, nbtl);
+				AffichTab(tloc, nbtl);
 			break;
 
 			case 2:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				// Afficher en fonction du numéro de locataire
+				printf("\t -- Affichage des locataires triés en fonction du numéro de locataire --\n");
+				printf("+---------------------------------------------------------------------------------------+\n");
+				TriePermuteNumLoca(tloc, nbtl);
+				AffichTab(tloc, nbtl);
 			break;
 
 			case 3:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				// Afficher en fonction du prix du logement
+				printf("\t -- Affichage des locataires triés en fonction du logement --\n");
+				printf("+---------------------------------------------------------------------------------------+\n");
+				TriePermuteLoge(tloc, nbtl);
+				AffichTab(tloc, nbtl);
 			break;
 
 			case 4:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				// Afficher en fonction de la date d'arrivée au logement
+				printf("\t -- Affichage des locataires triés en fonction de l'arrivé au logement --\n");
+				printf("+---------------------------------------------------------------------------------------+\n");
+				TriePermuteDate(tloc, nbtl);
+				AffichTab(tloc, nbtl);
 			break;
 
 			case 5:
-				// Teste des fonctions d'affichage
+				// Teste des fonctions d'affichage 
 				printf("\t -- Toutes les informations sur le locataire --\n");
 				printf("+---------------------------------------------------------------------------------------+\n");
 				AffichLocataire(lc);
@@ -214,8 +241,9 @@ void MenuChoixTrie (Files lc)
 			scanf("%d%*c", &choixTrie);
 		}
 	 }
+	 ViderTab(tloc, nbtl);
+	 return lc;
 }
-
 void MenuLogement (Logement *tLog[],int *nbLog)
 {
 	int choixLoge;
