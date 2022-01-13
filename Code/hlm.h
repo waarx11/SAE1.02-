@@ -90,7 +90,7 @@ void menu(void);
 
 void affichMenu(void);
 
-void MenuLogement(PileLog lg);
+void MenuLogement(Logement *tLog[],int *nbLog);
 
 void affichMenuLogement(void);
 
@@ -107,6 +107,14 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD);
 void affichMenuDemLog(void);
 
 void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc);
+
+/* Logement */
+
+Logement lireLog(FILE *fe);
+
+int chargeLogement(char *nomFich, Logement *tLog[], int taillemax);
+
+void affichageLog(Logement *tLog[], int nb);
 
 /* Locataire */
 

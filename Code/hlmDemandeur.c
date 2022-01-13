@@ -338,7 +338,7 @@ void sauvegardeDem(ListeDem l, FILE *fDem)
     if (l==NULL)
         return;
     sauvegardeDem(l->suivant, fDem);
-    fprintf(fDem, "%d %d %d %f %s %s %s %d %d %d %d %d %d %d ", l->demandeurs.numDemande, l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite, l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde, l->demandeurs.nbNum);
+    fprintf(fDem, "%d %d %d %.2f %s %s %s %d %d %d %d %d %d %d ", l->demandeurs.numDemande, l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite, l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde, l->demandeurs.nbNum);
     for (int i=0; i<l->demandeurs.nbNum; i++) 
     {
         fprintf(fDem, "%s %s ", l->demandeurs.numTel[i].libelle, l->demandeurs.numTel[i].num);

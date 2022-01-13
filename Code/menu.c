@@ -1,7 +1,4 @@
 #include "hlm.h"
-#include <stdio.h>
-#include <string.h>
-
 
 void affichMenu(void)
 {
@@ -65,14 +62,15 @@ void affichMenuDemLog(void)
 
 void menu(void)
 {
-	int nbD, nbL, nbl, choix;
+	int nbD, nbL, nbLog=5, choix;
 	char ficDem[30] = "FichierDemLoge.txt";
 	char ficLoc[30] = "FichierLoca.txt";
-	// char ficlog[30] = "FichierLoge.txt";
+	char ficlog[30] = "FichierLoge.txt";
 
 	ListeDem ld;
 	Files lc;
 	PileLog lg;
+	Logement **tLog;
 
 	ld = initliste();
 	ld = chargementDem(ld, &nbD, ficDem);
@@ -81,8 +79,8 @@ void menu(void)
 	// lc = FileVide();
 	// lc = chargementLoc(lc, &nbL, ficLoc);
 
-	// lg = creervide();
-	// lg = chargementLog(lg, nbl, ficlog);
+	nbLog = chargeLogement(ficlog, tLog, nbLog);
+
 
 	affichMenu();
 	scanf("%d%*c", &choix);
@@ -102,7 +100,7 @@ void menu(void)
 			break;
 
 			case 2:
-				MenuLogement(lg);
+				MenuLogement(tLog, &nbLog);
 			break;
 
 			case 3:
@@ -218,7 +216,7 @@ void MenuChoixTrie (Files lc)
 	 }
 }
 
-void MenuLogement (PileLog lg)
+void MenuLogement (Logement *tLog[],int *nbLog)
 {
 	int choixLoge;
 
@@ -244,7 +242,7 @@ void MenuLogement (PileLog lg)
 			break;
 
 			case 3:
-				// Fonction d'affichage des logement possédé par des HLM63
+				affichageLog(tLog, *nbLog);
 			break;
 
 			case 4:
