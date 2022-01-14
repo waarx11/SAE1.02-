@@ -81,7 +81,9 @@ typedef struct
 
 typedef struct maillonLog
 {
-    Logement logement;
+    Logement Log;
+    Locataire Loc;
+    Menage Dem;
     struct maillonLog *suivant;
 } MaillonLog, *PileLog;
 

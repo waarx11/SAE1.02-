@@ -98,7 +98,7 @@ int insertionLog(Logement *tLog, int nbLog)
     char type[5];
     Booleen existe;
     Logement *tRel;
-    numLog=rand() %4999 +1;
+    numLog=rand() %10 +1;
     existe=numLogExiste(tLog,numLog, nbLog);
     while (existe==Vrai)
     {
@@ -117,19 +117,13 @@ int insertionLog(Logement *tLog, int nbLog)
     printf("La date de l'achat (dd mm yyyy): ");
     scanf("%d %d %d%*c", &jours, &mois, &an);
     pos = rechercheDico(tLog, nbLog, numLog);
-    tRel=(Logement*)realloc(tLog, sizeof(Logement));
+    tRel=(Logement*)realloc(tLog, sizeof(Logement)*(nbLog+1));
     if (tRel==NULL) 
     {
         printf("Problème de reallocation de memoire");
         return nbLog;
     }
     tLog=tRel;
-    for(int i=0;i<nbLog;i++)
-    {
-        printf("-----------------------------------------------------------------------------------------------------\n\n");
-        printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
-        printf("-----------------------------------------------------------------------------------------------------\n\n"); 
-    }
     for(int i=nbLog;i>=pos;i--)
         tLog[i+1] = tLog[i];
     tLog[pos].numLogement=numLog;
@@ -142,7 +136,6 @@ int insertionLog(Logement *tLog, int nbLog)
     tLog[pos].dateAchat.annee=an;
     strcpy(tLog[pos].dispo,"Oui");
     nbLog++;
-    printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[pos].numLogement, tLog[pos].typeLog, tLog[pos].nbChambre, tLog[pos].surfaceLog, tLog[pos].prixLog, tLog[pos].dateAchat.jours, tLog[pos].dateAchat.mois, tLog[pos].dateAchat.annee, tLog[pos].dispo);
     return nbLog;
 }
 
