@@ -3,13 +3,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Ce fichier s'occupe des demandes
+/**
+ * \file hlmDemandeur.c
+ * \brief Emsemble des fonctions permettant de gérés la partit sur les demandes de logement
+ * \autor VERDIER Nathan, MUZARD Thomas
+ * \date 14 janvier 2020
+ * 
+ * Dans cette partie du programme, nous avons choisie d'utiliser les listes chainés pour exploité un peu toute les notions vu en cours.
+ * De plus, les liste chainée permettent facillement d'inserer de façon trier, permettant de facilité la gestion de nos demandeurs
+ *
+ * Dans cette partit, nous utilisons pas spécialement de trie, nous inserons trier les demandeurs par rapport a leurs points
+ */
 
+/**
+ * \brief initialisation de la liste
+ * \return return une liste
+ */
 ListeDem initliste(void)
 {
     return NULL;
 }
 
+/**
+ * \brief 
+ */
 ListeDem lireMenage(FILE *fDem, ListeDem l)
 {
     MaillonDem *m;

@@ -98,7 +98,7 @@ int insertionLog(Logement *tLog, int nbLog)
     char type[5];
     Booleen existe;
     Logement *tRel;
-    numLog=rand() %10 +1;
+    numLog=rand() %4999 +1;
     existe=numLogExiste(tLog,numLog, nbLog);
     while (existe==Vrai)
     {
@@ -124,6 +124,7 @@ int insertionLog(Logement *tLog, int nbLog)
         return nbLog;
     }
     tLog=tRel;
+    free(tRel);
     for(int i=nbLog;i>=pos;i--)
         tLog[i+1] = tLog[i];
     tLog[pos].numLogement=numLog;
