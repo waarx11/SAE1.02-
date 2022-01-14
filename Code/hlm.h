@@ -79,13 +79,13 @@ typedef struct
     Date dateAchat;
 } Logement;
 
-typedef struct maillonLog
-{
-    Logement Log;
-    Locataire Loc;
-    Menage Dem;
-    struct maillonLog *suivant;
-} MaillonLog, *PileLog;
+// typedef struct maillonLog
+// {
+//     Logement Log;
+//     Locataire Loc;
+//     Menage Dem;
+//     struct maillonLog *suivant;
+// } MaillonLog, *PileLog;
 
 
 
@@ -112,10 +112,9 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD);
 
 void affichMenuDemLog(void);
 
-void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc);
+void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc, Logement *tLog, char *ficLog, int nbLog);
 
-
-
+void sauvegardeLog(Logement tLog[], int nbLog, FILE *fe);
 
 /* Logement */
 

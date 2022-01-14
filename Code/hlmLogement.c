@@ -153,31 +153,31 @@ void affichageLogDispo(Logement tLog[], int nbLog)
     }
 }
 
-
-// int supprime(Logement **tArt, int nbart)
-// {
-//     int pos;
-//     char value[20];
-//     printf("Saisir un ref a supprimer : ");
-//     fgets(value,19,stdin);
-//     value[strlen(value)-1]='\0';
-//     pos = rechercheDico(tArt, nbart, value);
-//     free(tArt[pos]);
-//     for(int i = pos;i<nbart-1;i++)
-//     {
-//         tArt[i] = tArt[i+1];
-//     }
-//     nbart--;
-//     return nbart;
-// }
-
-
-
-
-
-
+void sauvegardeLog(Logement tLog[], int nbLog, FILE *fe)
+{
+    for (int i=0; i<nbLog; i++)
+        fprintf(fe, "%d %s %d %f %f %d %d %d %s", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
+}
 
 /*
+int supprime(Logement **tArt, int nbart)
+{
+    int pos;
+    char value[20];
+    printf("Saisir un ref a supprimer : ");
+    fgets(value,19,stdin);
+    value[strlen(value)-1]='\0';
+    pos = rechercheDico(tArt, nbart, value);
+    free(tArt[pos]);
+    for(int i = pos;i<nbart-1;i++)
+    {
+        tArt[i] = tArt[i+1];
+    }
+    nbart--;
+    return nbart;
+}
+
+
 PileLog creevide(void)
 {
     return NULL;

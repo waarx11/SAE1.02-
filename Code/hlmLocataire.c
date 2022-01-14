@@ -120,11 +120,22 @@ Files FileVide(void)
  */
 Booleen numExiste2(Files f, int value)
 {
-    if(f == NULL)
-        return Faux;
-    if(value==f->loc.numloca)
-        return Vrai;
-    return numExiste2(f->suiv, value);
+	Files tmp;
+	if (EstVide(f))
+	{
+		return Faux;
+	}
+
+	if (f->suiv->loc.numloca == value)
+		return Vrai;
+	tmp=f->suiv;
+
+	while(tmp!=f){
+		tmp=tmp->suiv;
+	if (value == f->loc.numloca)
+		return Vrai;;
+	}
+	return Faux;
 }
 
 /**

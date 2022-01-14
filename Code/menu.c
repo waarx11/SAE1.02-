@@ -1,4 +1,5 @@
 #include "hlm.h"
+#include <stdlib.h>
 
 #define TAILLE 100
 
@@ -65,13 +66,13 @@ void affichMenuDemLog(void)
 void menu(void)
 {
 	int nbD, nbL, nbLog, choix;
-	char ficDem[30] = "FichierDemLoge.txt";
-	char ficLoc[30] = "FichierLoca.txt";
-	char ficlog[30] = "FichierLoge.txt";
+	char ficDem[30] = "FichierDemLoge.don";
+	char ficLoc[30] = "FichierLoca.don";
+	char ficlog[30] = "FichierLoge.don";
 
 	ListeDem ld;
 	Files lc;
-	PileLog lg;
+	// PileLog lg;
 	Logement *tLog;
 	FILE *fl;
 
@@ -82,7 +83,7 @@ void menu(void)
 	lc = FileVide();
 	lc = chargementLoc(lc, &nbL, ficLoc);
 
-    fl=fopen(ficlog, "r");
+    fl=fopen(ficlog, "rb");
     if(fl==NULL)
     {
         printf("Problème a l'ouverture du fichier logement");
@@ -126,7 +127,7 @@ void menu(void)
 		}
 	 }
 	ld = expirationDem(ld, &nbD);
-	sauvegardeTout(ld, ficDem, nbD, nbL, lc, ficLoc);
+	sauvegardeTout(ld, ficDem, nbD, nbL, lc, ficLoc, tLog, ficlog, nbLog);
 }
 
 Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld, int *nbD)
@@ -169,14 +170,15 @@ Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld
 				printf("Saisir le numéro de logement que vous souhaitez attribué au locataire : \n");
 				scanf("%d", &value);
 				i = rechercheDico(tLog, *nbL, value);
-				while (strcmp(tLog[i].dispo,"Non"))
+				while (strcmp(tLog[i].dispo,"Non")==0)
 				{
 					printf("Le logement n'est pas disponible, ressaisissez un n°logement : \n");
 					scanf("%d", &value);
 					i = rechercheDico(tLog, *nbL, value);
 				}
 				EnfillerLoca(lc, numLoc, ld->demandeurs.nomDeFamille, ld->demandeurs.prenom, ld->demandeurs.nationalite, ld->demandeurs.nbPersonne, ld->demandeurs.revenueBrut, tLog[i].numLogement, tLog[i].prixLog, ld->demandeurs.nbNum, ld->demandeurs.numTel->libelle, ld->demandeurs.numTel->num);
-				// suppression(ld, l->demandeurs.numDemande, nbD);
+				suppression(ld, ld->demandeurs.numDemande, nbD);
+				strcpy(tLog[i].dispo,"Non");
 			break;
 
 			case 4:
@@ -407,7 +409,7 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD)
 	return ld;
 }
 
-void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc)
+void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc, Logement *tLog, char *ficLog, int nbLog)
 {
 	FILE *pf;
 	pf=fopen(ficDem, "w");
@@ -420,5 +422,11 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char 
 	fL=fopen(ficLoc, "w");
 	sauvegardeLoc(lc, fL);
 	suppressionAll2(lc, &nbL);
+	fclose(fL);
+
+	FILE *fLog;
+	fLog=fopen(ficLog, "w");
+	sauvegardeLog(tLog, nbLog, fLog);
+	free(tLog);
 	fclose(fL);
 }
