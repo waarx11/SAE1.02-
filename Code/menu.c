@@ -132,7 +132,7 @@ void menu(void)
 
 Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld, int *nbD)
 {
-	int choixLoca, locataire, numLoc, existe2, value, i;
+	int choixLoca, locataire, numLoc, existe2, value, i, numLog;
 
 	affichMenuLocataire();
 	scanf("%d%*c", &choixLoca);
@@ -178,14 +178,16 @@ Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld
 				}
 				EnfillerLoca(lc, numLoc, ld->demandeurs.nomDeFamille, ld->demandeurs.prenom, ld->demandeurs.nationalite, ld->demandeurs.nbPersonne, ld->demandeurs.revenueBrut, tLog[i].numLogement, tLog[i].prixLog, ld->demandeurs.nbNum, ld->demandeurs.numTel->libelle, ld->demandeurs.numTel->num);
 				suppression(ld, ld->demandeurs.numDemande, nbD);
-				strcpy(tLog[i].dispo,"Non");
+				strcpy(tLog[i].dispo,"Oui");
 			break;
 
 			case 4:
 				// Fonction suppression locataire
 				printf("Saisir le numéro de locataire que vous souhaitez supprimer : \n");
 				scanf("%d", &locataire);
-				defilerLocaPrecis(lc, locataire);
+				defilerLocaPrecis(lc, locataire, &numLog);
+				i=rechercheDico(tLog, *nbL, numLog);
+				strcpy(tLog[i].dispo,"Oui");
 			break;
 		}
 		affichMenuLocataire();

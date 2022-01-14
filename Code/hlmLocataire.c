@@ -255,7 +255,7 @@ Files defiler2(Files f, int *nbL)
  * \param numlocataire entier du locataire a supprimer dans la file
  * \return Une file
  */
-Files defilerLocaPrecis (Files f, int numlocataire)
+Files defilerLocaPrecis (Files f, int numlocataire, int *log)
 {
 	Files tmp;
 	if (EstVide(f))
@@ -276,12 +276,14 @@ Files defilerLocaPrecis (Files f, int numlocataire)
 		if (tmp->suiv->loc.numloca == numlocataire)
 		{
 			defiler(tmp);
+			*log=tmp->suiv->loc.numlogement;
 		}
 		tmp=tmp->suiv;
 	}
 	if (numlocataire == f->loc.numloca)
 	{
 		defiler(f);
+		*log=f->loc.numlogement;
 	}
 	return f;
 }
