@@ -3,6 +3,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * \file hlmLogement.c
+ * \brief Ce fichier contiendra l'ensemble des fonction nécessaire au traitement des logement de la société
+ * \author VERDIER Nathan, MUZARD Thomas
+ * \date 14 janvier 2022
+ * 
+ * Dans cette partit du programme, nous utilisons des tableaux pour exploité au mieux toute les notions vue en cours
+ * De plus, il était plus facile pour nous de faire les logement dans un tableau pour la simplicité du code
+ * 
+ * Ici, nous trions dans l'insertion du logement par numéro de logement
+ */
+
+/**
+ * \brief Lit un logement dans le fichier
+ * \param *fe : fichier des logements
+ * \return Un tableau
+ */
 Logement lireLog(FILE *fe)
 {
     Logement log;
@@ -12,6 +29,12 @@ Logement lireLog(FILE *fe)
     return log;
 }
 
+/**
+ * \brief Charge dans le table, les éléments du fichier
+ * \param *fe : fichier logement
+ * \param *nbLog nombre de logement
+ * \return Un tableau
+ */
 Logement* chargeLogement(FILE *fe, int *nbLog)
 {
     Logement* log;
@@ -30,6 +53,11 @@ Logement* chargeLogement(FILE *fe, int *nbLog)
     return log;
 }
 
+/**
+ * \brief Affiche les information des logements
+ * \param Logement tLog[] : Emplacement dans le tableau des logements
+ * \param nbLog nombre de logement
+ */
 void affichageLog(Logement tLog[], int nbLog)
 {
     printf("Nombre de logement posséder : %d\n", nbLog);
@@ -41,6 +69,12 @@ void affichageLog(Logement tLog[], int nbLog)
     }
 }
 
+/**
+ * \brief Supprime un logement dans le tableau
+ * \param Logement *tLog : Emplacement dans le tableau des logements
+ * \param nbLog nombre de logement
+ * \return la position de l'élément
+ */
 int supprime(Logement *tLog, int nbLog)
 {
     int pos, value;
@@ -69,6 +103,13 @@ int supprime(Logement *tLog, int nbLog)
     return nbLog;
 }
 
+/**
+ * \brief recherche dans le tableau, un numéro de logement 
+ * \param Logement *tLog Emplacement dans le tableau des logement
+ * \param nbLog nombre de logement
+ * \value numéro de logement rechercher
+ * \return la position logement rechercher
+ */
 int rechercheDico(Logement *tLog, int nbLog, int value)
 {
     int deb=0,m,fin=nbLog-1;
@@ -83,6 +124,13 @@ int rechercheDico(Logement *tLog, int nbLog, int value)
     return deb;
 }
 
+/**
+ * \brief Recherche si le numéro de logement existe ou non
+ * \param Logement *tLog Emplacement dans le tableau des logements
+ * \param value Numéro de logement
+ * \param nbLog Nombre de logement
+ * \return Vrai ou Faux
+ */
 Booleen numLogExiste(Logement *tLog, int value, int nbLog)
 {
     for(int i=0;i<nbLog;i++)
@@ -91,6 +139,12 @@ Booleen numLogExiste(Logement *tLog, int value, int nbLog)
     return Faux;
 }
 
+/**
+ * \brief Insère un logement dans le tableau
+ * \param Logement *tLog Emplacement dans le tableau des logements
+ * \param *nbLog nombre de logements dans le tableau
+ * \return Un tableau
+ */
 Logement* insertionLog(Logement *tLog, int *nbLog)
 {
     int pos=0, value, numLog, nbChambre, jours, mois, an;
@@ -139,6 +193,11 @@ Logement* insertionLog(Logement *tLog, int *nbLog)
     return tLog;
 }
 
+/**
+ * \brief Affiche les logements disponible
+ * \param Logement *tLog : Emplacement dans le tableau de logement
+ * \param nbLog nombre de logement
+ */
 void affichageLogDispo(Logement tLog[], int nbLog)
 {
     printf("Les logement disponible\n");
@@ -153,31 +212,43 @@ void affichageLogDispo(Logement tLog[], int nbLog)
     }
 }
 
+/**
+ * \brief Sauvegarde dans le fichier logements les ajout et suppression d'un logements
+ * \param Logement *tLog Tableau des logement
+ * \param nbLog nombre de logements
+ * \param *fe fichier des logements
+ */
 void sauvegardeLog(Logement tLog[], int nbLog, FILE *fe)
 {
     for (int i=0; i<nbLog; i++)
         fprintf(fe, "%d %s %d %f %f %d %d %d %s", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
 }
 
+
+// int supprime(Logement **tArt, int nbart)
+// {
+//     int pos;
+//     char value[20];
+//     printf("Saisir un ref a supprimer : ");
+//     fgets(value,19,stdin);
+//     value[strlen(value)-1]='\0';
+//     pos = rechercheDico(tArt, nbart, value);
+//     free(tArt[pos]);
+//     for(int i = pos;i<nbart-1;i++)
+//     {
+//         tArt[i] = tArt[i+1];
+//     }
+//     nbart--;
+//     return nbart;
+// }
+
+
+
+
+
+
+
 /*
-int supprime(Logement **tArt, int nbart)
-{
-    int pos;
-    char value[20];
-    printf("Saisir un ref a supprimer : ");
-    fgets(value,19,stdin);
-    value[strlen(value)-1]='\0';
-    pos = rechercheDico(tArt, nbart, value);
-    free(tArt[pos]);
-    for(int i = pos;i<nbart-1;i++)
-    {
-        tArt[i] = tArt[i+1];
-    }
-    nbart--;
-    return nbart;
-}
-
-
 PileLog creevide(void)
 {
     return NULL;

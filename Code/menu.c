@@ -1,8 +1,17 @@
 #include "hlm.h"
-#include <stdlib.h>
 
 #define TAILLE 100
 
+/**
+ * \file : menu.c
+ * \brief Dans cette partie du programme, nous traitons les fonctions d'affichage des menu et l'aspect visuel du code. C'est ici que nous allons appellé toutes nos fonctions
+ * \author : VERDIER Nathan, MUZARD Thomas
+ * \date : 14 janvier 2022
+ */
+
+/**
+ * \brief affichage des différente proposition du menu
+ */
 void affichMenu(void)
 {
 	printf("\t Que voulez vous faire : \n");
@@ -14,6 +23,9 @@ void affichMenu(void)
 	printf("+------------------------------------------------+\n");
 }
 
+/**
+ * \brief affichage des différente proposition du menu des logements
+ */
 void affichMenuLogement(void)
 {
 	printf("\t Que voulez vous faire : \n");
@@ -26,6 +38,9 @@ void affichMenuLogement(void)
 	printf("+------------------------------------------------+\n");
 }
 
+/**
+ * \brief affichage des différente proposition de choix de trie des locataires
+ */
 void affichChoixTrieLoca(void)
 {
 	printf("\t Comment souhaitez vous triez la liste : \n");
@@ -38,6 +53,9 @@ void affichChoixTrieLoca(void)
 	printf("+------------------------------------------------+\n");
 }
 
+/**
+ * \brief affichage des différente proposition du menu des locataires
+ */
 void affichMenuLocataire(void)
 {
 	printf("\t Que voulez vous faire : \n");
@@ -50,6 +68,9 @@ void affichMenuLocataire(void)
 	printf("+------------------------------------------------+\n");
 }
 
+/**
+ * \brief affichage des différente proposition du menu des demandes de logements
+ */
 void affichMenuDemLog(void)
 {
 	printf("\t Que voulez vous faire : \n");
@@ -63,6 +84,9 @@ void affichMenuDemLog(void)
 	printf("+------------------------------------------------+\n");
 }
 
+/**
+ * \brief Menu général proposant une transitions sur toute les parties du code
+ */
 void menu(void)
 {
 	int nbD, nbL, nbLog, choix;
@@ -130,9 +154,19 @@ void menu(void)
 	sauvegardeTout(ld, ficDem, nbD, nbL, lc, ficLoc, tLog, ficlog, nbLog);
 }
 
+/**
+ * \brief  Menu Locataire proposant les différents fonctionnalité proposé pour les locataires
+ * \param Files lc : File des locataires
+ * \param *nbL nombre de locataire
+ * \param Logement *tLog : Tableau des logements
+ * \param *nbLog nombre de logement
+ * \param ListeDem ld : Liste des demandeurs
+ * \param *nbD nombre de demandeurs
+ * \return Une file
+ */
 Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld, int *nbD)
 {
-	int choixLoca, locataire, numLoc, existe2, value, i, numLog;
+	int choixLoca, locataire, numLoc, numLog, existe2, value, i;
 
 	affichMenuLocataire();
 	scanf("%d%*c", &choixLoca);
@@ -202,6 +236,12 @@ Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld
 	 return lc;
 }
 
+/**
+ * \brief Choix du trie des locataire dans un tableau de pointeur
+ * \param Files lc : file des locataire
+ * \param *nbL nombre de locataire
+ * \return Une file
+ */
 Files MenuChoixTrie (Files lc, int *nbL)
 {
 	int choixTrie, nbtl;
@@ -266,6 +306,11 @@ Files MenuChoixTrie (Files lc, int *nbL)
 	 return lc;
 }
 
+/**
+ * \brief Choix des fonctionnalité des logements
+ * \param Logement *tLog : tableau des logements
+ * \param *nbLog nombre de logement
+ */
 void MenuLogement (Logement tLog[],int *nbLog)
 {
 	int choixLoge;
@@ -310,6 +355,12 @@ void MenuLogement (Logement tLog[],int *nbLog)
 	}
 }
 
+/**
+ * \brief Choix des fonctionnalité proposé pour les demandes de logements
+ * \param ListeDem ld : Liste des demandeurs
+ * \param *nbD nombre demandeurs
+ * \return une liste
+ */
 ListeDem MenuDemLog (ListeDem ld, int *nbD)
 {
 	int choixDemLoge, numDemande, rechDemandeur, suppDemandeur, numModif, nbPoint, nbPers, numTel;
@@ -411,6 +462,18 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD)
 	return ld;
 }
 
+/**
+ * \brief Sauvegarde des les fichiers, les modification, ajout et suppression dans les fichiers appropriés
+ * \param ListeDem ld Liste des demandeurs
+ * \param *ficDem nom fichier demandeur
+ * \param nbD nombre de demandeur
+ * \param int nbL nombre de locataire
+ * \param Files lc File des locataires
+ * \param *ficLoc fichier des locataire
+ * \param nbLog nombre de logement
+ * \param Logement *tLog tableau des logements
+ * \param *ficLog fichier des logements
+ */
 void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc, Logement *tLog, char *ficLog, int nbLog)
 {
 	FILE *pf;
@@ -419,7 +482,7 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char 
 	sauvegardeDem(ld, pf);
 	suppressionAll(ld, &nbD);
 	fclose(pf);
-	
+
 	FILE *fL;
 	fL=fopen(ficLoc, "w");
 	sauvegardeLoc(lc, fL);
@@ -429,6 +492,5 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char 
 	FILE *fLog;
 	fLog=fopen(ficLog, "w");
 	sauvegardeLog(tLog, nbLog, fLog);
-	free(tLog);
-	fclose(fL);
+	fclose(fLog);
 }
