@@ -83,7 +83,7 @@ void menu(void)
 	lc = FileVide();
 	lc = chargementLoc(lc, &nbL, ficLoc);
 
-    fl=fopen(ficlog, "rb");
+    fl=fopen(ficlog, "r");
     if(fl==NULL)
     {
         printf("Problème a l'ouverture du fichier logement");
