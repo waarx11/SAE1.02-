@@ -1,0 +1,5 @@
+<map id="maillonloc" name="maillonloc">
+<area shape="rect" id="node2" href="$struct_locataire.html" title="Locataire" alt="" coords="27,95,101,121"/>
+<area shape="rect" id="node3" href="$struct_tel.html" title="Tel" alt="" coords="5,5,45,32"/>
+<area shape="rect" id="node4" href="$struct_date.html" title="Date" alt="" coords="79,5,129,32"/>
+</map>

@@ -1,0 +1,421 @@
+\hypertarget{hlm_demandeur_8c}{}\section{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.02/sae1.02/\+Code/hlm\+Demandeur.c File Reference}
+\label{hlm_demandeur_8c}\index{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.\+02/sae1.\+02/\+Code/hlm\+Demandeur.\+c@{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.\+02/sae1.\+02/\+Code/hlm\+Demandeur.\+c}}
+
+
+Emsemble des fonctions permettant de gérés la partit sur les demandes de logement  V\+E\+R\+D\+I\+ER Nathan, M\+U\+Z\+A\+RD Thomas.  
+
+
+{\ttfamily \#include \char`\"{}hlm.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for hlm\+Demandeur.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{hlm_demandeur_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a8385d4f84473a3ea06e9b8f60fa8d77d}{initliste} (void)
+\begin{DoxyCompactList}\small\item\em initialisation de la liste \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a9fdf732df5aea07cb07cbd637bacfd33}{lire\+Menage} (F\+I\+LE $\ast$f\+Dem, \hyperlink{structliste_dem}{Liste\+Dem} l)
+\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_af72bde9e84d9e7ed8f3923a22a569c47}{chargement\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l, int $\ast$nbD, char $\ast$fic)
+\begin{DoxyCompactList}\small\item\em chargement demandeurs \end{DoxyCompactList}\item 
+void \hyperlink{hlm_demandeur_8c_a21a25e6eaf315a4da600893384abd755}{affichage\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l)
+\begin{DoxyCompactList}\small\item\em Affichage liste demandeurs. \end{DoxyCompactList}\item 
+void \hyperlink{hlm_demandeur_8c_a1abe63de7bd7191bf6b27501b682f594}{affichage\+Un\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l)
+\begin{DoxyCompactList}\small\item\em Affiche un seul demandeurs. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a3e870a67ffe71e156d00a80ae55c7ff5}{expiration\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Supprime un demandeurs ayant fait une demande dépassant les 1 an. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_aac8a31f60eb025f149664b2d4dd51952}{expiration\+Dem\+En\+Tete} (\hyperlink{structliste_dem}{Liste\+Dem} l, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Supprime un demandeurs en tête. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a45506a0e114f12144a188ca436072f9b}{insertion\+En\+Tete\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l, int num\+Demande, int nb\+Point, int nb\+Personne, float revenue\+Brut, char $\ast$nom\+De\+Famille, char $\ast$prenom, char $\ast$nationalite)
+\begin{DoxyCompactList}\small\item\em Insère en tête de liste un demandeurs. \end{DoxyCompactList}\item 
+Booleen \hyperlink{hlm_demandeur_8c_ae4cc1c3c6faac9d006cd5b08f2b755b4}{num\+Existe} (\hyperlink{structliste_dem}{Liste\+Dem} l, int value)
+\begin{DoxyCompactList}\small\item\em Regarde si le numéro de demandeurs existe. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a7486cc07597951620be668805707f3b4}{recherche\+Un\+Demandeur} (\hyperlink{structliste_dem}{Liste\+Dem} l, int value)
+\begin{DoxyCompactList}\small\item\em recherche un demandeurs dans la liste \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a0f0049984a799fab42efa8890b5e8927}{insertion\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l, int num\+Demande, int nb\+Point, int nb\+Personne, float revenue\+Brut, char $\ast$nom\+De\+Famille, char $\ast$prenom, char $\ast$nationalite)
+\begin{DoxyCompactList}\small\item\em insère dans la liste un demandeurs \end{DoxyCompactList}\item 
+void \hyperlink{hlm_demandeur_8c_a2770e35ecb9bb4b34ca7d983b24d7c50}{afficher\+Un\+Demandeur} (\hyperlink{structliste_dem}{Liste\+Dem} l, int value)
+\begin{DoxyCompactList}\small\item\em Affiche un demandeur. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a55c499731ff81ad37d8546412b11f339}{suppression\+En\+Tete} (\hyperlink{structliste_dem}{Liste\+Dem} l, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Supprime un élément en tête de liste. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a718c1ddf436a39504743664c581dd7d1}{suppression} (\hyperlink{structliste_dem}{Liste\+Dem} l, int supp\+Dem, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Supprime un élément de la liste. \end{DoxyCompactList}\item 
+void \hyperlink{hlm_demandeur_8c_afedcc74773cec58a7117f0a92a8368c1}{suppression\+All} (\hyperlink{structliste_dem}{Liste\+Dem} l, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Supprime tout les éléments du fichier. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_af91fa1d4c92b908726ea06eb44d81919}{modification\+En\+Tete} (\hyperlink{structliste_dem}{Liste\+Dem} l)
+\begin{DoxyCompactList}\small\item\em Modification d\textquotesingle{}une demande en tête de liste. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{hlm_demandeur_8c_a9b74cb8f1256628fdf3af031144c1462}{modification} (\hyperlink{structliste_dem}{Liste\+Dem} l, int modif)
+\begin{DoxyCompactList}\small\item\em Modifie les informations d\textquotesingle{}une demande de logement dans la liste. \end{DoxyCompactList}\item 
+void \hyperlink{hlm_demandeur_8c_a3e4f6c04636bd6890b5969dee1b1fed9}{sauvegarde\+Dem} (\hyperlink{structliste_dem}{Liste\+Dem} l, F\+I\+LE $\ast$f\+Dem)
+\begin{DoxyCompactList}\small\item\em Sauvegarde dans le fichier l\textquotesingle{}ajout ou la modification d\textquotesingle{}une demandes de logement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Emsemble des fonctions permettant de gérés la partit sur les demandes de logement  V\+E\+R\+D\+I\+ER Nathan, M\+U\+Z\+A\+RD Thomas. 
+
+\begin{DoxyDate}{Date}
+14 janvier 2020
+\end{DoxyDate}
+Dans cette partie du programme, nous avons choisie d\textquotesingle{}utiliser les listes chainés pour exploité un peu toute les notions vu en cours. De plus, les liste chainée permettent facillement d\textquotesingle{}inserer de façon trier, permettant de facilité la gestion de nos demandeurs
+
+Dans cette partit, nous utilisons pas spécialement de trie, nous inserons trier les demandeurs par rapport a leurs points 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{hlm_demandeur_8c_a21a25e6eaf315a4da600893384abd755}\label{hlm_demandeur_8c_a21a25e6eaf315a4da600893384abd755}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!affichage\+Dem@{affichage\+Dem}}
+\index{affichage\+Dem@{affichage\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{affichage\+Dem()}{affichageDem()}}
+{\footnotesize\ttfamily void affichage\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l }\end{DoxyParamCaption})}
+
+
+
+Affichage liste demandeurs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur un demandeurs \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_demandeur_8c_a1abe63de7bd7191bf6b27501b682f594}\label{hlm_demandeur_8c_a1abe63de7bd7191bf6b27501b682f594}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!affichage\+Un\+Dem@{affichage\+Un\+Dem}}
+\index{affichage\+Un\+Dem@{affichage\+Un\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{affichage\+Un\+Dem()}{affichageUnDem()}}
+{\footnotesize\ttfamily void affichage\+Un\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l }\end{DoxyParamCaption})}
+
+
+
+Affiche un seul demandeurs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur maillon pointant sur un demandeurs \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_demandeur_8c_a2770e35ecb9bb4b34ca7d983b24d7c50}\label{hlm_demandeur_8c_a2770e35ecb9bb4b34ca7d983b24d7c50}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!afficher\+Un\+Demandeur@{afficher\+Un\+Demandeur}}
+\index{afficher\+Un\+Demandeur@{afficher\+Un\+Demandeur}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{afficher\+Un\+Demandeur()}{afficherUnDemandeur()}}
+{\footnotesize\ttfamily void afficher\+Un\+Demandeur (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Affiche un demandeur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur un demandeurs \\
+\hline
+{\em value} & numéro du demandeurs \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_demandeur_8c_af72bde9e84d9e7ed8f3923a22a569c47}\label{hlm_demandeur_8c_af72bde9e84d9e7ed8f3923a22a569c47}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!chargement\+Dem@{chargement\+Dem}}
+\index{chargement\+Dem@{chargement\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{chargement\+Dem()}{chargementDem()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} chargement\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int $\ast$}]{nbD,  }\item[{char $\ast$}]{fic }\end{DoxyParamCaption})}
+
+
+
+chargement demandeurs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur les demandeurs \\
+\hline
+{\em $\ast$nbD} & nombre de demandeurs dans le fichier \\
+\hline
+{\em $\ast$fic} & nom du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a3e870a67ffe71e156d00a80ae55c7ff5}\label{hlm_demandeur_8c_a3e870a67ffe71e156d00a80ae55c7ff5}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!expiration\+Dem@{expiration\+Dem}}
+\index{expiration\+Dem@{expiration\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{expiration\+Dem()}{expirationDem()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} expiration\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Supprime un demandeurs ayant fait une demande dépassant les 1 an. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l\+: c\textquotesingle{}est un pointeur d\textquotesingle{}un maillon sur les demandeurs \\
+\hline
+{\em $\ast$nbD} & nombre de demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_aac8a31f60eb025f149664b2d4dd51952}\label{hlm_demandeur_8c_aac8a31f60eb025f149664b2d4dd51952}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!expiration\+Dem\+En\+Tete@{expiration\+Dem\+En\+Tete}}
+\index{expiration\+Dem\+En\+Tete@{expiration\+Dem\+En\+Tete}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{expiration\+Dem\+En\+Tete()}{expirationDemEnTete()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} expiration\+Dem\+En\+Tete (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Supprime un demandeurs en tête. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur les demandeurs \\
+\hline
+{\em $\ast$nbD} & nombre de demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a8385d4f84473a3ea06e9b8f60fa8d77d}\label{hlm_demandeur_8c_a8385d4f84473a3ea06e9b8f60fa8d77d}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!initliste@{initliste}}
+\index{initliste@{initliste}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{initliste()}{initliste()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} initliste (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+initialisation de la liste 
+
+\begin{DoxyReturn}{Returns}
+return une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a0f0049984a799fab42efa8890b5e8927}\label{hlm_demandeur_8c_a0f0049984a799fab42efa8890b5e8927}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!insertion\+Dem@{insertion\+Dem}}
+\index{insertion\+Dem@{insertion\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{insertion\+Dem()}{insertionDem()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} insertion\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{num\+Demande,  }\item[{int}]{nb\+Point,  }\item[{int}]{nb\+Personne,  }\item[{float}]{revenue\+Brut,  }\item[{char $\ast$}]{nom\+De\+Famille,  }\item[{char $\ast$}]{prenom,  }\item[{char $\ast$}]{nationalite }\end{DoxyParamCaption})}
+
+
+
+insère dans la liste un demandeurs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur d\textquotesingle{}un maillon pointant sur un demandeurs \\
+\hline
+{\em num\+Demande} & numéro demandeurs \\
+\hline
+{\em nb\+Point} & nombre de point \\
+\hline
+{\em nb\+Personne} & nombre de personne \\
+\hline
+{\em revenue\+Brut} & revenu du demandeurs \\
+\hline
+{\em $\ast$nom\+De\+Famille} & nom de famille du demandeurs \\
+\hline
+{\em $\ast$prenom} & prénom du demandeurs $\ast$nationalite nationalite du demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a45506a0e114f12144a188ca436072f9b}\label{hlm_demandeur_8c_a45506a0e114f12144a188ca436072f9b}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!insertion\+En\+Tete\+Dem@{insertion\+En\+Tete\+Dem}}
+\index{insertion\+En\+Tete\+Dem@{insertion\+En\+Tete\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{insertion\+En\+Tete\+Dem()}{insertionEnTeteDem()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} insertion\+En\+Tete\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{num\+Demande,  }\item[{int}]{nb\+Point,  }\item[{int}]{nb\+Personne,  }\item[{float}]{revenue\+Brut,  }\item[{char $\ast$}]{nom\+De\+Famille,  }\item[{char $\ast$}]{prenom,  }\item[{char $\ast$}]{nationalite }\end{DoxyParamCaption})}
+
+
+
+Insère en tête de liste un demandeurs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur un demandeurs \\
+\hline
+{\em num\+Demande} & numéro demandeurs \\
+\hline
+{\em nb\+Point} & nombre de point \\
+\hline
+{\em nb\+Personne} & nombre de personne \\
+\hline
+{\em revenue\+Brut} & revenu du demandeurs \\
+\hline
+{\em $\ast$nom\+De\+Famille} & nom de famille du demandeurs \\
+\hline
+{\em $\ast$prenom} & prénom du demandeurs $\ast$nationalite nationalite du demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a9fdf732df5aea07cb07cbd637bacfd33}\label{hlm_demandeur_8c_a9fdf732df5aea07cb07cbd637bacfd33}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!lire\+Menage@{lire\+Menage}}
+\index{lire\+Menage@{lire\+Menage}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{lire\+Menage()}{lireMenage()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} lire\+Menage (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{f\+Dem,  }\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$f\+Dem} & \+: Fichier demandeurs \\
+\hline
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur les demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a9b74cb8f1256628fdf3af031144c1462}\label{hlm_demandeur_8c_a9b74cb8f1256628fdf3af031144c1462}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!modification@{modification}}
+\index{modification@{modification}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{modification()}{modification()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} modification (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{modif }\end{DoxyParamCaption})}
+
+
+
+Modifie les informations d\textquotesingle{}une demande de logement dans la liste. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur un demandeurs  numéro de locataire a modifier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+une Liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_af91fa1d4c92b908726ea06eb44d81919}\label{hlm_demandeur_8c_af91fa1d4c92b908726ea06eb44d81919}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!modification\+En\+Tete@{modification\+En\+Tete}}
+\index{modification\+En\+Tete@{modification\+En\+Tete}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{modification\+En\+Tete()}{modificationEnTete()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} modification\+En\+Tete (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l }\end{DoxyParamCaption})}
+
+
+
+Modification d\textquotesingle{}une demande en tête de liste. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur les demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_ae4cc1c3c6faac9d006cd5b08f2b755b4}\label{hlm_demandeur_8c_ae4cc1c3c6faac9d006cd5b08f2b755b4}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!num\+Existe@{num\+Existe}}
+\index{num\+Existe@{num\+Existe}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{num\+Existe()}{numExiste()}}
+{\footnotesize\ttfamily Booleen num\+Existe (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Regarde si le numéro de demandeurs existe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur d\textquotesingle{}un maillon pointant sur les demandeurs \\
+\hline
+{\em value} & \+: le futur numéro des demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vrai ou Faux 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a7486cc07597951620be668805707f3b4}\label{hlm_demandeur_8c_a7486cc07597951620be668805707f3b4}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!recherche\+Un\+Demandeur@{recherche\+Un\+Demandeur}}
+\index{recherche\+Un\+Demandeur@{recherche\+Un\+Demandeur}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{recherche\+Un\+Demandeur()}{rechercheUnDemandeur()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} recherche\+Un\+Demandeur (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+recherche un demandeurs dans la liste 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur d\textquotesingle{}une maillon pointant sur un demandeurs \\
+\hline
+{\em value} & numéro de demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_a3e4f6c04636bd6890b5969dee1b1fed9}\label{hlm_demandeur_8c_a3e4f6c04636bd6890b5969dee1b1fed9}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!sauvegarde\+Dem@{sauvegarde\+Dem}}
+\index{sauvegarde\+Dem@{sauvegarde\+Dem}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{sauvegarde\+Dem()}{sauvegardeDem()}}
+{\footnotesize\ttfamily void sauvegarde\+Dem (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{F\+I\+LE $\ast$}]{f\+Dem }\end{DoxyParamCaption})}
+
+
+
+Sauvegarde dans le fichier l\textquotesingle{}ajout ou la modification d\textquotesingle{}une demandes de logement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+:c\textquotesingle{}est un pointeur sur un maillon pointant sur un demandeurs \\
+\hline
+{\em $\ast$f\+Dem} & \+: ficher des demandeurs \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_demandeur_8c_a718c1ddf436a39504743664c581dd7d1}\label{hlm_demandeur_8c_a718c1ddf436a39504743664c581dd7d1}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!suppression@{suppression}}
+\index{suppression@{suppression}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{suppression()}{suppression()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} suppression (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int}]{supp\+Dem,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Supprime un élément de la liste. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur un demandeurs \\
+\hline
+{\em supp\+Dem} & Supprime se numéro de demandeurs \\
+\hline
+{\em $\ast$nbD} & Nombre de demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_demandeur_8c_afedcc74773cec58a7117f0a92a8368c1}\label{hlm_demandeur_8c_afedcc74773cec58a7117f0a92a8368c1}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!suppression\+All@{suppression\+All}}
+\index{suppression\+All@{suppression\+All}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{suppression\+All()}{suppressionAll()}}
+{\footnotesize\ttfamily void suppression\+All (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Supprime tout les éléments du fichier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur maillon pointant sur les demandeurs \\
+\hline
+{\em $\ast$nbD} & c\textquotesingle{}est le nombre d\textquotesingle{}élément dans le fichier \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_demandeur_8c_a55c499731ff81ad37d8546412b11f339}\label{hlm_demandeur_8c_a55c499731ff81ad37d8546412b11f339}} 
+\index{hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}!suppression\+En\+Tete@{suppression\+En\+Tete}}
+\index{suppression\+En\+Tete@{suppression\+En\+Tete}!hlm\+Demandeur.\+c@{hlm\+Demandeur.\+c}}
+\subsubsection{\texorpdfstring{suppression\+En\+Tete()}{suppressionEnTete()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} suppression\+En\+Tete (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{l,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Supprime un élément en tête de liste. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & l \+: c\textquotesingle{}est un pointeur sur un maillon pointant sur les demandeurs \\
+\hline
+{\em $\ast$nbD} & nombre de demandeur \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une liste 
+\end{DoxyReturn}

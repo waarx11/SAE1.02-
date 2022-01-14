@@ -1,0 +1,4 @@
+<map id="Menage" name="Menage">
+<area shape="rect" id="node2" href="$struct_tel.html" title="Tel" alt="" coords="5,5,45,32"/>
+<area shape="rect" id="node3" href="$struct_date_dem.html" title="DateDem" alt="" coords="70,5,149,32"/>
+</map>

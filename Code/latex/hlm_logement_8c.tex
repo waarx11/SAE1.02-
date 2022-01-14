@@ -1,0 +1,229 @@
+\hypertarget{hlm_logement_8c}{}\section{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.02/sae1.02/\+Code/hlm\+Logement.c File Reference}
+\label{hlm_logement_8c}\index{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.\+02/sae1.\+02/\+Code/hlm\+Logement.\+c@{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.\+02/sae1.\+02/\+Code/hlm\+Logement.\+c}}
+
+
+Ce fichier contiendra l\textquotesingle{}ensemble des fonction nécessaire au traitement des logement de la société  
+
+
+{\ttfamily \#include \char`\"{}hlm.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for hlm\+Logement.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{hlm_logement_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_logement}{Logement} \hyperlink{hlm_logement_8c_a73f69309b57cab46c560476228f15da6}{lire\+Log} (F\+I\+LE $\ast$fe)
+\begin{DoxyCompactList}\small\item\em Lit un logement dans le fichier. \end{DoxyCompactList}\item 
+\hyperlink{struct_logement}{Logement} $\ast$ \hyperlink{hlm_logement_8c_afedc3d2e33c84f23d39c2a8207289974}{charge\+Logement} (F\+I\+LE $\ast$fe, int $\ast$nb\+Log)
+\begin{DoxyCompactList}\small\item\em Charge dans le table, les éléments du fichier. \end{DoxyCompactList}\item 
+void \hyperlink{hlm_logement_8c_afa143aab66778fe697a53485f9a73f38}{affichage\+Log} (\hyperlink{struct_logement}{Logement} t\+Log\mbox{[}$\,$\mbox{]}, int nb\+Log)
+\begin{DoxyCompactList}\small\item\em Affiche les information des logements. \end{DoxyCompactList}\item 
+int \hyperlink{hlm_logement_8c_ae42251f83bc9a022ea32c7204910009d}{supprime} (\hyperlink{struct_logement}{Logement} $\ast$t\+Log, int nb\+Log)
+\begin{DoxyCompactList}\small\item\em Supprime un logement dans le tableau. \end{DoxyCompactList}\item 
+int \hyperlink{hlm_logement_8c_a95c2be8a166e21b69c35624cad69f086}{recherche\+Dico} (\hyperlink{struct_logement}{Logement} $\ast$t\+Log, int nb\+Log, int value)
+\begin{DoxyCompactList}\small\item\em recherche dans le tableau, un numéro de logement \end{DoxyCompactList}\item 
+Booleen \hyperlink{hlm_logement_8c_a72f4f3b86e0afe012b41e360bb7f41ae}{num\+Log\+Existe} (\hyperlink{struct_logement}{Logement} $\ast$t\+Log, int value, int nb\+Log)
+\begin{DoxyCompactList}\small\item\em Recherche si le numéro de logement existe ou non. \end{DoxyCompactList}\item 
+\hyperlink{struct_logement}{Logement} $\ast$ \hyperlink{hlm_logement_8c_a7ae7af80a0f6bfeb8c30b2ef37fba7b2}{insertion\+Log} (\hyperlink{struct_logement}{Logement} $\ast$t\+Log, int $\ast$nb\+Log)
+\begin{DoxyCompactList}\small\item\em Insère un logement dans le tableau. \end{DoxyCompactList}\item 
+void \hyperlink{hlm_logement_8c_afcfd965c9496a6a0a57b60a4cb13fa8b}{affichage\+Log\+Dispo} (\hyperlink{struct_logement}{Logement} t\+Log\mbox{[}$\,$\mbox{]}, int nb\+Log)
+\begin{DoxyCompactList}\small\item\em Affiche les logements disponible. \end{DoxyCompactList}\item 
+void \hyperlink{hlm_logement_8c_a93abfc0f6ee8f58cf444aaf726133ae2}{sauvegarde\+Log} (\hyperlink{struct_logement}{Logement} t\+Log\mbox{[}$\,$\mbox{]}, int nb\+Log, F\+I\+LE $\ast$fe)
+\begin{DoxyCompactList}\small\item\em Sauvegarde dans le fichier logements les ajout et suppression d\textquotesingle{}un logements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ce fichier contiendra l\textquotesingle{}ensemble des fonction nécessaire au traitement des logement de la société 
+
+\begin{DoxyAuthor}{Author}
+V\+E\+R\+D\+I\+ER Nathan, M\+U\+Z\+A\+RD Thomas 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+14 janvier 2022
+\end{DoxyDate}
+Dans cette partit du programme, nous utilisons des tableaux pour exploité au mieux toute les notions vue en cours De plus, il était plus facile pour nous de faire les logement dans un tableau pour la simplicité du code
+
+Ici, nous trions dans l\textquotesingle{}insertion du logement par numéro de logement 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{hlm_logement_8c_afa143aab66778fe697a53485f9a73f38}\label{hlm_logement_8c_afa143aab66778fe697a53485f9a73f38}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!affichage\+Log@{affichage\+Log}}
+\index{affichage\+Log@{affichage\+Log}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{affichage\+Log()}{affichageLog()}}
+{\footnotesize\ttfamily void affichage\+Log (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement}}]{t\+Log\mbox{[}$\,$\mbox{]},  }\item[{int}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Affiche les information des logements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & t\+Log\mbox{[}\mbox{]} \+: Emplacement dans le tableau des logements \\
+\hline
+{\em nb\+Log} & nombre de logement \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_logement_8c_afcfd965c9496a6a0a57b60a4cb13fa8b}\label{hlm_logement_8c_afcfd965c9496a6a0a57b60a4cb13fa8b}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!affichage\+Log\+Dispo@{affichage\+Log\+Dispo}}
+\index{affichage\+Log\+Dispo@{affichage\+Log\+Dispo}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{affichage\+Log\+Dispo()}{affichageLogDispo()}}
+{\footnotesize\ttfamily void affichage\+Log\+Dispo (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement}}]{t\+Log\mbox{[}$\,$\mbox{]},  }\item[{int}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Affiche les logements disponible. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log \+: Emplacement dans le tableau de logement \\
+\hline
+{\em nb\+Log} & nombre de logement \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_logement_8c_afedc3d2e33c84f23d39c2a8207289974}\label{hlm_logement_8c_afedc3d2e33c84f23d39c2a8207289974}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!charge\+Logement@{charge\+Logement}}
+\index{charge\+Logement@{charge\+Logement}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{charge\+Logement()}{chargeLogement()}}
+{\footnotesize\ttfamily \hyperlink{struct_logement}{Logement}$\ast$ charge\+Logement (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fe,  }\item[{int $\ast$}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Charge dans le table, les éléments du fichier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$fe} & \+: fichier logement \\
+\hline
+{\em $\ast$nb\+Log} & nombre de logement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Un tableau 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_logement_8c_a7ae7af80a0f6bfeb8c30b2ef37fba7b2}\label{hlm_logement_8c_a7ae7af80a0f6bfeb8c30b2ef37fba7b2}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!insertion\+Log@{insertion\+Log}}
+\index{insertion\+Log@{insertion\+Log}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{insertion\+Log()}{insertionLog()}}
+{\footnotesize\ttfamily \hyperlink{struct_logement}{Logement}$\ast$ insertion\+Log (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement} $\ast$}]{t\+Log,  }\item[{int $\ast$}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Insère un logement dans le tableau. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log Emplacement dans le tableau des logements \\
+\hline
+{\em $\ast$nb\+Log} & nombre de logements dans le tableau \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Un tableau 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_logement_8c_a73f69309b57cab46c560476228f15da6}\label{hlm_logement_8c_a73f69309b57cab46c560476228f15da6}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!lire\+Log@{lire\+Log}}
+\index{lire\+Log@{lire\+Log}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{lire\+Log()}{lireLog()}}
+{\footnotesize\ttfamily \hyperlink{struct_logement}{Logement} lire\+Log (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fe }\end{DoxyParamCaption})}
+
+
+
+Lit un logement dans le fichier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$fe} & \+: fichier des logements \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Un tableau 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_logement_8c_a72f4f3b86e0afe012b41e360bb7f41ae}\label{hlm_logement_8c_a72f4f3b86e0afe012b41e360bb7f41ae}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!num\+Log\+Existe@{num\+Log\+Existe}}
+\index{num\+Log\+Existe@{num\+Log\+Existe}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{num\+Log\+Existe()}{numLogExiste()}}
+{\footnotesize\ttfamily Booleen num\+Log\+Existe (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement} $\ast$}]{t\+Log,  }\item[{int}]{value,  }\item[{int}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Recherche si le numéro de logement existe ou non. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log Emplacement dans le tableau des logements \\
+\hline
+{\em value} & Numéro de logement \\
+\hline
+{\em nb\+Log} & Nombre de logement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vrai ou Faux 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_logement_8c_a95c2be8a166e21b69c35624cad69f086}\label{hlm_logement_8c_a95c2be8a166e21b69c35624cad69f086}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!recherche\+Dico@{recherche\+Dico}}
+\index{recherche\+Dico@{recherche\+Dico}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{recherche\+Dico()}{rechercheDico()}}
+{\footnotesize\ttfamily int recherche\+Dico (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement} $\ast$}]{t\+Log,  }\item[{int}]{nb\+Log,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+recherche dans le tableau, un numéro de logement 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log Emplacement dans le tableau des logement \\
+\hline
+{\em nb\+Log} & nombre de logement  numéro de logement rechercher \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la position logement rechercher 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hlm_logement_8c_a93abfc0f6ee8f58cf444aaf726133ae2}\label{hlm_logement_8c_a93abfc0f6ee8f58cf444aaf726133ae2}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!sauvegarde\+Log@{sauvegarde\+Log}}
+\index{sauvegarde\+Log@{sauvegarde\+Log}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{sauvegarde\+Log()}{sauvegardeLog()}}
+{\footnotesize\ttfamily void sauvegarde\+Log (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement}}]{t\+Log\mbox{[}$\,$\mbox{]},  }\item[{int}]{nb\+Log,  }\item[{F\+I\+LE $\ast$}]{fe }\end{DoxyParamCaption})}
+
+
+
+Sauvegarde dans le fichier logements les ajout et suppression d\textquotesingle{}un logements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log Tableau des logement \\
+\hline
+{\em nb\+Log} & nombre de logements \\
+\hline
+{\em $\ast$fe} & fichier des logements \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hlm_logement_8c_ae42251f83bc9a022ea32c7204910009d}\label{hlm_logement_8c_ae42251f83bc9a022ea32c7204910009d}} 
+\index{hlm\+Logement.\+c@{hlm\+Logement.\+c}!supprime@{supprime}}
+\index{supprime@{supprime}!hlm\+Logement.\+c@{hlm\+Logement.\+c}}
+\subsubsection{\texorpdfstring{supprime()}{supprime()}}
+{\footnotesize\ttfamily int supprime (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement} $\ast$}]{t\+Log,  }\item[{int}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Supprime un logement dans le tableau. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log \+: Emplacement dans le tableau des logements \\
+\hline
+{\em nb\+Log} & nombre de logement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la position de l\textquotesingle{}élément 
+\end{DoxyReturn}

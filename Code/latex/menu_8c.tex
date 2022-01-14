@@ -1,0 +1,183 @@
+\hypertarget{menu_8c}{}\section{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.02/sae1.02/\+Code/menu.c File Reference}
+\label{menu_8c}\index{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.\+02/sae1.\+02/\+Code/menu.\+c@{/home/\+I\+U\+T/thmuzard/\+Documents/\+S\+A\+E/\+N\+\_\+1.\+02/sae1.\+02/\+Code/menu.\+c}}
+
+
+Dans cette partie du programme, nous traitons les fonctions d\textquotesingle{}affichage des menu et l\textquotesingle{}aspect visuel du code. C\textquotesingle{}est ici que nous allons appellé toutes nos fonctions.  
+
+
+{\ttfamily \#include \char`\"{}hlm.\+h\char`\"{}}\newline
+Include dependency graph for menu.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{menu_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{menu_8c_a7b29335add3a553ed85d0e3ace85629c}\label{menu_8c_a7b29335add3a553ed85d0e3ace85629c}} 
+\#define {\bfseries T\+A\+I\+L\+LE}~100
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{menu_8c_af8eb04726a2e354f148a2d03d3b7c2a5}\label{menu_8c_af8eb04726a2e354f148a2d03d3b7c2a5}} 
+void \hyperlink{menu_8c_af8eb04726a2e354f148a2d03d3b7c2a5}{affich\+Menu} (void)
+\begin{DoxyCompactList}\small\item\em affichage des différente proposition du menu \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{menu_8c_a2a6e572b355984368bccd92a3f257013}\label{menu_8c_a2a6e572b355984368bccd92a3f257013}} 
+void \hyperlink{menu_8c_a2a6e572b355984368bccd92a3f257013}{affich\+Menu\+Logement} (void)
+\begin{DoxyCompactList}\small\item\em affichage des différente proposition du menu des logements \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{menu_8c_a26bc353bdb1ca2d0b715fbc7902afbaf}\label{menu_8c_a26bc353bdb1ca2d0b715fbc7902afbaf}} 
+void \hyperlink{menu_8c_a26bc353bdb1ca2d0b715fbc7902afbaf}{affich\+Choix\+Trie\+Loca} (void)
+\begin{DoxyCompactList}\small\item\em affichage des différente proposition de choix de trie des locataires \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{menu_8c_a5565a14a34b749c2c07599b27891f42a}\label{menu_8c_a5565a14a34b749c2c07599b27891f42a}} 
+void \hyperlink{menu_8c_a5565a14a34b749c2c07599b27891f42a}{affich\+Menu\+Locataire} (void)
+\begin{DoxyCompactList}\small\item\em affichage des différente proposition du menu des locataires \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{menu_8c_ad09f864d10061909d5d3b50b892a21a4}\label{menu_8c_ad09f864d10061909d5d3b50b892a21a4}} 
+void \hyperlink{menu_8c_ad09f864d10061909d5d3b50b892a21a4}{affich\+Menu\+Dem\+Log} (void)
+\begin{DoxyCompactList}\small\item\em affichage des différente proposition du menu des demandes de logements \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{menu_8c_ad16e5e62f3579a7048e6b981b172885e}\label{menu_8c_ad16e5e62f3579a7048e6b981b172885e}} 
+void \hyperlink{menu_8c_ad16e5e62f3579a7048e6b981b172885e}{menu} (void)
+\begin{DoxyCompactList}\small\item\em Menu général proposant une transitions sur toute les parties du code. \end{DoxyCompactList}\item 
+\hyperlink{structmaillonloc}{Files} \hyperlink{menu_8c_aff8db4e369910a0e3cc7f42eca845add}{Menu\+Locataire} (\hyperlink{structmaillonloc}{Files} lc, int $\ast$nbL, \hyperlink{struct_logement}{Logement} t\+Log\mbox{[}$\,$\mbox{]}, int $\ast$nb\+Log, \hyperlink{structliste_dem}{Liste\+Dem} ld, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Menu \hyperlink{struct_locataire}{Locataire} proposant les différents fonctionnalité proposé pour les locataires. \end{DoxyCompactList}\item 
+\hyperlink{structmaillonloc}{Files} \hyperlink{menu_8c_a69bdc59a1d56a203005f12fa1578862b}{Menu\+Choix\+Trie} (\hyperlink{structmaillonloc}{Files} lc, int $\ast$nbL)
+\begin{DoxyCompactList}\small\item\em Choix du trie des locataire dans un tableau de pointeur. \end{DoxyCompactList}\item 
+void \hyperlink{menu_8c_a6ce592f9c0ed9073100ab23120608ff5}{Menu\+Logement} (\hyperlink{struct_logement}{Logement} t\+Log\mbox{[}$\,$\mbox{]}, int $\ast$nb\+Log)
+\begin{DoxyCompactList}\small\item\em Choix des fonctionnalité des logements. \end{DoxyCompactList}\item 
+\hyperlink{structliste_dem}{Liste\+Dem} \hyperlink{menu_8c_a3cad3605436db20a47369da7b4b3e13a}{Menu\+Dem\+Log} (\hyperlink{structliste_dem}{Liste\+Dem} ld, int $\ast$nbD)
+\begin{DoxyCompactList}\small\item\em Choix des fonctionnalité proposé pour les demandes de logements. \end{DoxyCompactList}\item 
+void \hyperlink{menu_8c_af3444c35a3ce252e06f2eb6865ba42d3}{sauvegarde\+Tout} (\hyperlink{structliste_dem}{Liste\+Dem} ld, char $\ast$fic\+Dem, int nbD, int nbL, \hyperlink{structmaillonloc}{Files} lc, char $\ast$fic\+Loc, \hyperlink{struct_logement}{Logement} $\ast$t\+Log, char $\ast$fic\+Log, int nb\+Log)
+\begin{DoxyCompactList}\small\item\em Sauvegarde des les fichiers, les modification, ajout et suppression dans les fichiers appropriés. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Dans cette partie du programme, nous traitons les fonctions d\textquotesingle{}affichage des menu et l\textquotesingle{}aspect visuel du code. C\textquotesingle{}est ici que nous allons appellé toutes nos fonctions. 
+
+\begin{DoxyAuthor}{Author}
+\+: V\+E\+R\+D\+I\+ER Nathan, M\+U\+Z\+A\+RD Thomas 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+\+: 14 janvier 2022 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{menu_8c_a69bdc59a1d56a203005f12fa1578862b}\label{menu_8c_a69bdc59a1d56a203005f12fa1578862b}} 
+\index{menu.\+c@{menu.\+c}!Menu\+Choix\+Trie@{Menu\+Choix\+Trie}}
+\index{Menu\+Choix\+Trie@{Menu\+Choix\+Trie}!menu.\+c@{menu.\+c}}
+\subsubsection{\texorpdfstring{Menu\+Choix\+Trie()}{MenuChoixTrie()}}
+{\footnotesize\ttfamily \hyperlink{structmaillonloc}{Files} Menu\+Choix\+Trie (\begin{DoxyParamCaption}\item[{\hyperlink{structmaillonloc}{Files}}]{lc,  }\item[{int $\ast$}]{nbL }\end{DoxyParamCaption})}
+
+
+
+Choix du trie des locataire dans un tableau de pointeur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Files} & lc \+: file des locataire \\
+\hline
+{\em $\ast$nbL} & nombre de locataire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une file 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_a3cad3605436db20a47369da7b4b3e13a}\label{menu_8c_a3cad3605436db20a47369da7b4b3e13a}} 
+\index{menu.\+c@{menu.\+c}!Menu\+Dem\+Log@{Menu\+Dem\+Log}}
+\index{Menu\+Dem\+Log@{Menu\+Dem\+Log}!menu.\+c@{menu.\+c}}
+\subsubsection{\texorpdfstring{Menu\+Dem\+Log()}{MenuDemLog()}}
+{\footnotesize\ttfamily \hyperlink{structliste_dem}{Liste\+Dem} Menu\+Dem\+Log (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{ld,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Choix des fonctionnalité proposé pour les demandes de logements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & ld \+: Liste des demandeurs \\
+\hline
+{\em $\ast$nbD} & nombre demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+une liste 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_aff8db4e369910a0e3cc7f42eca845add}\label{menu_8c_aff8db4e369910a0e3cc7f42eca845add}} 
+\index{menu.\+c@{menu.\+c}!Menu\+Locataire@{Menu\+Locataire}}
+\index{Menu\+Locataire@{Menu\+Locataire}!menu.\+c@{menu.\+c}}
+\subsubsection{\texorpdfstring{Menu\+Locataire()}{MenuLocataire()}}
+{\footnotesize\ttfamily \hyperlink{structmaillonloc}{Files} Menu\+Locataire (\begin{DoxyParamCaption}\item[{\hyperlink{structmaillonloc}{Files}}]{lc,  }\item[{int $\ast$}]{nbL,  }\item[{\hyperlink{struct_logement}{Logement}}]{t\+Log\mbox{[}$\,$\mbox{]},  }\item[{int $\ast$}]{nb\+Log,  }\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{ld,  }\item[{int $\ast$}]{nbD }\end{DoxyParamCaption})}
+
+
+
+Menu \hyperlink{struct_locataire}{Locataire} proposant les différents fonctionnalité proposé pour les locataires. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Files} & lc \+: File des locataires \\
+\hline
+{\em $\ast$nbL} & nombre de locataire \\
+\hline
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log \+: Tableau des logements \\
+\hline
+{\em $\ast$nb\+Log} & nombre de logement \\
+\hline
+{\em Liste\+Dem} & ld \+: Liste des demandeurs \\
+\hline
+{\em $\ast$nbD} & nombre de demandeurs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une file 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_a6ce592f9c0ed9073100ab23120608ff5}\label{menu_8c_a6ce592f9c0ed9073100ab23120608ff5}} 
+\index{menu.\+c@{menu.\+c}!Menu\+Logement@{Menu\+Logement}}
+\index{Menu\+Logement@{Menu\+Logement}!menu.\+c@{menu.\+c}}
+\subsubsection{\texorpdfstring{Menu\+Logement()}{MenuLogement()}}
+{\footnotesize\ttfamily void Menu\+Logement (\begin{DoxyParamCaption}\item[{\hyperlink{struct_logement}{Logement}}]{t\+Log\mbox{[}$\,$\mbox{]},  }\item[{int $\ast$}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Choix des fonctionnalité des logements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log \+: tableau des logements \\
+\hline
+{\em $\ast$nb\+Log} & nombre de logement \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{menu_8c_af3444c35a3ce252e06f2eb6865ba42d3}\label{menu_8c_af3444c35a3ce252e06f2eb6865ba42d3}} 
+\index{menu.\+c@{menu.\+c}!sauvegarde\+Tout@{sauvegarde\+Tout}}
+\index{sauvegarde\+Tout@{sauvegarde\+Tout}!menu.\+c@{menu.\+c}}
+\subsubsection{\texorpdfstring{sauvegarde\+Tout()}{sauvegardeTout()}}
+{\footnotesize\ttfamily void sauvegarde\+Tout (\begin{DoxyParamCaption}\item[{\hyperlink{structliste_dem}{Liste\+Dem}}]{ld,  }\item[{char $\ast$}]{fic\+Dem,  }\item[{int}]{nbD,  }\item[{int}]{nbL,  }\item[{\hyperlink{structmaillonloc}{Files}}]{lc,  }\item[{char $\ast$}]{fic\+Loc,  }\item[{\hyperlink{struct_logement}{Logement} $\ast$}]{t\+Log,  }\item[{char $\ast$}]{fic\+Log,  }\item[{int}]{nb\+Log }\end{DoxyParamCaption})}
+
+
+
+Sauvegarde des les fichiers, les modification, ajout et suppression dans les fichiers appropriés. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Liste\+Dem} & ld Liste des demandeurs \\
+\hline
+{\em $\ast$fic\+Dem} & nom fichier demandeur \\
+\hline
+{\em nbD} & nombre de demandeur \\
+\hline
+{\em int} & nbL nombre de locataire \\
+\hline
+{\em Files} & lc File des locataires \\
+\hline
+{\em $\ast$fic\+Loc} & fichier des locataire \\
+\hline
+{\em nb\+Log} & nombre de logement \\
+\hline
+{\em \hyperlink{struct_logement}{Logement}} & $\ast$t\+Log tableau des logements \\
+\hline
+{\em $\ast$fic\+Log} & fichier des logements \\
+\hline
+\end{DoxyParams}
