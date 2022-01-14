@@ -126,6 +126,8 @@ int insertionLog(Logement *tLog, int nbLog);
 
 Booleen numLogExiste(Logement *tLog, int value, int nbLog);
 
+void affichageLogDispo(Logement *tLog, int nbLog);
+
 /* Locataire */
 
 Locataire lireLocataire(FILE *fLoca);

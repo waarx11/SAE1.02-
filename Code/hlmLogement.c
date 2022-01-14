@@ -1,6 +1,7 @@
 #include "hlm.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 Logement lireLog(FILE *fe)
 {
@@ -43,6 +44,7 @@ void affichageLog(Logement tLog[], int nbLog)
 int supprime(Logement *tLog, int nbLog)
 {
     int pos, value;
+    Logement *tRel;
     printf("Saisir Le numéro de logement a supprimer : ");
     scanf("%d",&value);
     pos = rechercheDico(tLog, nbLog, value);
@@ -53,7 +55,14 @@ int supprime(Logement *tLog, int nbLog)
             tLog[i] = tLog[i+1];
         }
         nbLog--;
-        tLog=(Logement*)realloc(tLog, sizeof(Logement)-1);
+        tRel=(Logement*)realloc(tLog, sizeof(Logement) * nbLog);
+        if (tRel==NULL) 
+        {
+            printf("Problème de reallocation de memoire");
+            return nbLog+1;
+        }
+        else
+            tLog=tRel;  
     }
     else
         printf("Le logement est louer vous nous pouvez pas le vendre\n");
@@ -84,32 +93,86 @@ Booleen numLogExiste(Logement *tLog, int value, int nbLog)
 
 int insertionLog(Logement *tLog, int nbLog)
 {
-    int pos, value, numLog;
+    int pos=0, value, numLog, nbChambre, jours, mois, an;
+    float surf, achat;
+    char type[5];
     Booleen existe;
-    numLog=rand() %5000;
+    Logement *tRel;
+    numLog=rand() %4999 +1;
     existe=numLogExiste(tLog,numLog, nbLog);
     while (existe==Vrai)
     {
-        numLog=rand() %5000;
+        numLog=rand() %4999 +1;
         existe=numLogExiste(tLog,numLog, nbLog);
     }
-    printf("Saisir Le numéro de logement a supprimer : ");
-    scanf("%d",&value);
-    pos = rechercheDico(tLog, nbLog, value);
-    if (strcmp(tLog[pos].dispo,"Oui")==0)
+    printf("Saisir le type du logement : ");
+    fgets(type,4, stdin);
+    type[strlen(type)-1]='\0';
+    printf("Nombre de chambre : ");
+    scanf("%d", &nbChambre);
+    printf("La surface du logement : ");
+    scanf("%f", &surf);
+    printf("Le prix du logement a l'achat : ");
+    scanf("%f", &achat);
+    printf("La date de l'achat (dd mm yyyy): ");
+    scanf("%d %d %d%*c", &jours, &mois, &an);
+    pos = rechercheDico(tLog, nbLog, numLog);
+    tRel=(Logement*)realloc(tLog, sizeof(Logement));
+    if (tRel==NULL) 
     {
-        for(int i = pos;i<nbLog-1;i++)
-        {
-            tLog[i] = tLog[i+1];
-        }
-        nbLog--;
-        tLog=(Logement*)realloc(tLog, sizeof(Logement)-1);
+        printf("Problème de reallocation de memoire");
+        return nbLog;
     }
-    else
-        printf("Le logement est louer vous nous pouvez pas le vendre\n");
+    tLog=tRel;
+    for(int i=0;i<nbLog;i++)
+    {
+        printf("-----------------------------------------------------------------------------------------------------\n\n");
+        printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
+        printf("-----------------------------------------------------------------------------------------------------\n\n"); 
+    }
+    for(int i=nbLog;i>=pos;i--)
+        tLog[i+1] = tLog[i];
+    tLog[pos].numLogement=numLog;
+    strcpy(tLog[pos].typeLog,type);
+    tLog[pos].nbChambre=nbChambre;
+    tLog[pos].surfaceLog=surf;
+    tLog[pos].prixLog=achat;
+    tLog[pos].dateAchat.jours=jours;
+    tLog[pos].dateAchat.mois=mois;
+    tLog[pos].dateAchat.annee=an;
+    strcpy(tLog[pos].dispo,"Oui");
+    nbLog++;
+    printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[pos].numLogement, tLog[pos].typeLog, tLog[pos].nbChambre, tLog[pos].surfaceLog, tLog[pos].prixLog, tLog[pos].dateAchat.jours, tLog[pos].dateAchat.mois, tLog[pos].dateAchat.annee, tLog[pos].dispo);
     return nbLog;
 }
 
+void affichageParType(Logement tLog[], int nbLog)
+{
+    printf("Les logement disponible\n");
+    for(int i=0;i<nbLog;i++)
+    {
+        if (strcmp(tLog[i].dispo,"Oui")==0)
+        {
+            printf("-----------------------------------------------------------------------------------------------------\n\n");
+            printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
+            printf("-----------------------------------------------------------------------------------------------------\n\n"); 
+        }
+    }
+}
+
+void affichageLogDispo(Logement tLog[], int nbLog)
+{
+    printf("Les logement disponible\n");
+    for(int i=0;i<nbLog;i++)
+    {
+        if (strcmp(tLog[i].dispo,"Oui")==0)
+        {
+            printf("-----------------------------------------------------------------------------------------------------\n\n");
+            printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
+            printf("-----------------------------------------------------------------------------------------------------\n\n"); 
+        }
+    }
+}
 
 
 // int supprime(Logement **tArt, int nbart)

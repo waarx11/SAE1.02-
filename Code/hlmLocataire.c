@@ -29,11 +29,10 @@ Files chargementLoc (Files f, int *nbelem, char *fic2)
         return NULL;
     }
     fscanf(fLoca, "%d", nbelem);
-    loc = lireLocataire(fLoca);
     for (int i=0; i< *nbelem; i++)
     {
-    	f = Enfillercharge(f, loc);
     	loc = lireLocataire(fLoca);
+    	f = Enfillercharge(f, loc);
     }
     fclose(fLoca);
 	return f;

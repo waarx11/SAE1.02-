@@ -21,7 +21,7 @@ void affichMenuLogement(void)
 	printf("| 2. Supprimer un logement \t\t\t |\n");
 	printf("| 3. Afficher posséder par des HLM63 \t\t |\n");
 	printf("| 4. Afficher les types de logement \t\t |\n");
-	printf("| 5. Afficher les types de logement disponuble   |\n");
+	printf("| 5. Afficher les types de logement disponible   |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -81,8 +81,8 @@ void menu(void)
 	ld = chargementDem(ld, &nbD, ficDem);
 	ld = expirationDem(ld, &nbD);
 
-	lc = FileVide();
-	lc = chargementLoc(lc, &nbL, ficLoc);
+	// lc = FileVide();
+	// lc = chargementLoc(lc, &nbL, ficLoc);
 
     fl=fopen(ficlog, "r");
     if(fl==NULL)
@@ -269,7 +269,7 @@ void MenuLogement (Logement tLog[],int *nbLog)
 		switch (choixLoge)
 		{
 			case 1:
-				// Fonction d'ajout logement
+				*nbLog=insertionLog(tLog, *nbLog);
 			break;
 
 			case 2:
@@ -285,7 +285,7 @@ void MenuLogement (Logement tLog[],int *nbLog)
 			break;
 
 			case 5:
-				// Fonction d'affichage des logements disponiblent
+				affichageLogDispo(tLog, *nbLog);
 			break;
 		}
 		affichMenuLogement();
@@ -334,11 +334,11 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD)
 				scanf("%d",&nbPers);
 				printf("Saisir le revenu brut de l'individu : \n");
 				scanf("%f%*c", &revenu);
-				numDemande=rand() %5000 + 1;
+				numDemande=rand() %4999 + 1;
     			existe=numExiste(ld,numDemande);
 				while (existe==Vrai)
 				{
-					numDemande=rand() % 5000 + 1;
+					numDemande=rand() % 4999 + 1;
 					existe=numExiste(ld,numDemande);
 				}
 				printf("Saisir sa nationalité (2 carac): \n");
