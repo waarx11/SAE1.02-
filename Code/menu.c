@@ -20,8 +20,7 @@ void affichMenuLogement(void)
 	printf("| 1. Ajouter un logement  \t \t \t |\n");
 	printf("| 2. Supprimer un logement \t\t\t |\n");
 	printf("| 3. Afficher posséder par des HLM63 \t\t |\n");
-	printf("| 4. Afficher les types de logement \t\t |\n");
-	printf("| 5. Afficher les types de logement disponible   |\n");
+	printf("| 4. Afficher les types de logement disponible\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -269,7 +268,7 @@ void MenuLogement (Logement tLog[],int *nbLog)
 		switch (choixLoge)
 		{
 			case 1:
-				*nbLog=insertionLog(tLog, *nbLog);
+				tLog=insertionLog(tLog, nbLog);
 			break;
 
 			case 2:
@@ -281,10 +280,6 @@ void MenuLogement (Logement tLog[],int *nbLog)
 			break;
 
 			case 4:
-				// Fonction d'affichage des types des logements
-			break;
-
-			case 5:
 				affichageLogDispo(tLog, *nbLog);
 			break;
 		}
@@ -411,4 +406,5 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc)
 	// fL=fopen(ficLoc, "w");
 	// sauvegardeLoc(f, fL);
 	// fclose(fL);
+
 }

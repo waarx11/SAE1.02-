@@ -124,7 +124,7 @@ int supprime(Logement *tLog, int nbLog);
 
 int rechercheDico(Logement *tLog, int nbLog, int value);
 
-int insertionLog(Logement *tLog, int nbLog);
+Logement* insertionLog(Logement *tLog, int *nbLog);
 
 Booleen numLogExiste(Logement *tLog, int value, int nbLog);
 

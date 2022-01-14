@@ -91,19 +91,19 @@ Booleen numLogExiste(Logement *tLog, int value, int nbLog)
     return Faux;
 }
 
-int insertionLog(Logement *tLog, int nbLog)
+Logement* insertionLog(Logement *tLog, int *nbLog)
 {
     int pos=0, value, numLog, nbChambre, jours, mois, an;
     float surf, achat;
     char type[5];
     Booleen existe;
     Logement *tRel;
-    numLog=rand() %10 +1;
-    existe=numLogExiste(tLog,numLog, nbLog);
+    numLog=rand() %4999 +1;
+    existe=numLogExiste(tLog,numLog, *nbLog);
     while (existe==Vrai)
     {
         numLog=rand() %4999 +1;
-        existe=numLogExiste(tLog,numLog, nbLog);
+        existe=numLogExiste(tLog,numLog, *nbLog);
     }
     printf("Saisir le type du logement : ");
     fgets(type,4, stdin);
@@ -116,16 +116,16 @@ int insertionLog(Logement *tLog, int nbLog)
     scanf("%f", &achat);
     printf("La date de l'achat (dd mm yyyy): ");
     scanf("%d %d %d%*c", &jours, &mois, &an);
-    pos = rechercheDico(tLog, nbLog, numLog);
-    tRel=(Logement*)realloc(tLog, sizeof(Logement)*(nbLog+1));
+    pos = rechercheDico(tLog, *nbLog, numLog);
+    tRel=(Logement*)realloc(tLog, sizeof(Logement)*(*nbLog+1));
     if (tRel==NULL) 
     {
         printf("Problème de reallocation de memoire");
-        return nbLog;
+        exit(1);
     }
     tLog=tRel;
-    for(int i=nbLog;i>=pos;i--)
-        tLog[i+1] = tLog[i];
+    for(int i=*nbLog;i>pos;i--)
+        tLog[i] = tLog[i-1];
     tLog[pos].numLogement=numLog;
     strcpy(tLog[pos].typeLog,type);
     tLog[pos].nbChambre=nbChambre;
@@ -135,22 +135,8 @@ int insertionLog(Logement *tLog, int nbLog)
     tLog[pos].dateAchat.mois=mois;
     tLog[pos].dateAchat.annee=an;
     strcpy(tLog[pos].dispo,"Oui");
-    nbLog++;
-    return nbLog;
-}
-
-void affichageParType(Logement tLog[], int nbLog)
-{
-    printf("Les logement disponible\n");
-    for(int i=0;i<nbLog;i++)
-    {
-        if (strcmp(tLog[i].dispo,"Oui")==0)
-        {
-            printf("-----------------------------------------------------------------------------------------------------\n\n");
-            printf("Numero du logement : %d\n\nType de logement : %s\nNombre de chambre : %d\nPrix de la location : %.2f\nPrix de l'achat : %.2f\n\nDate de l'achat : %d/%d/%d\nLogement louer : %s\n\n", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
-            printf("-----------------------------------------------------------------------------------------------------\n\n"); 
-        }
-    }
+    (*nbLog)++;
+    return tLog;
 }
 
 void affichageLogDispo(Logement tLog[], int nbLog)
