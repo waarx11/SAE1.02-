@@ -81,8 +81,8 @@ void menu(void)
 	ld = chargementDem(ld, &nbD, ficDem);
 	ld = expirationDem(ld, &nbD);
 
-	// lc = FileVide();
-	// lc = chargementLoc(lc, &nbL, ficLoc);
+	lc = FileVide();
+	lc = chargementLoc(lc, &nbL, ficLoc);
 
     fl=fopen(ficlog, "r");
     if(fl==NULL)
@@ -301,9 +301,10 @@ void MenuLogement (Logement tLog[],int *nbLog)
 
 ListeDem MenuDemLog (ListeDem ld, int *nbD)
 {
-	int choixDemLoge, rechDemandeur, suppDemandeur, numModif, nbPoint, nbPers, numTel;
+	int choixDemLoge, numDemande, rechDemandeur, suppDemandeur, numModif, nbPoint, nbPers, numTel;
 	float revenu;
 	char nomF[32], prenomD[32], nationa[4], passe;
+	Booleen existe;
 	affichMenuDemLog();
 	scanf("%d%*c", &choixDemLoge);
 
@@ -333,16 +334,23 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD)
 				scanf("%d",&nbPers);
 				printf("Saisir le revenu brut de l'individu : \n");
 				scanf("%f%*c", &revenu);
+				numDemande=rand() %5000 + 1;
+    			existe=numExiste(ld,numDemande);
+				while (existe==Vrai)
+				{
+					numDemande=rand() % 5000 + 1;
+					existe=numExiste(ld,numDemande);
+				}
 				printf("Saisir sa nationalité (2 carac): \n");
 				fgets(nationa,4,stdin);
 				nationa[strlen(nationa)-1]='\0';
-				if(strcmp(nationa,"FR\0")!=0) 
+				if(strcmp(nationa,"FR\0")!=0)
 				{
 					printf("La personne pocède t-il un passe (O pour oui) : ");
 					scanf("%c%*c", &passe);
 					if (passe == 'O' || passe == 'o')
 					{
-						ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+						ld=insertionDem(ld, numDemande, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
 						printf("Insertion reussie!");
 						(*nbD)++;
 					}
@@ -351,7 +359,7 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD)
 				}
 				else
 				{
-					ld=insertionDem(ld, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
+					ld=insertionDem(ld, numDemande, nbPoint, nbPers, revenu, nomF, prenomD, nationa);
 					printf("Insertion reussie!");
 					(*nbD)++;
 				}

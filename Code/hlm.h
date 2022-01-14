@@ -189,9 +189,9 @@ void affichageDem(ListeDem l);
 
 Booleen numExiste(ListeDem l, int value);
 
-ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
+ListeDem insertionEnTeteDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
-ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
+ListeDem insertionDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite);
 
 ListeDem rechercheUnDemandeur(ListeDem l, int value);
 

@@ -123,12 +123,11 @@ ListeDem expirationDemEnTete(ListeDem l, int *nbD)
 }
 
 
-ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
+ListeDem insertionEnTeteDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
 {
-    int jours, mois, an, h, min, s, numDemande, nbNum;
+    int jours, mois, an, h, min, s, nbNum;
     char libelle[32], numTel[16];
     MaillonDem *m;
-    Booleen existe;
     m=(MaillonDem *)malloc(sizeof(MaillonDem));
     if(m==NULL)
     {
@@ -137,13 +136,6 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     }
     //Valeur aléatoire compris entre 0 et 5000
     srand(time(NULL));
-    numDemande=rand() %5000;
-    existe=numExiste(l,numDemande);
-    while (existe==Vrai)
-    {
-        numDemande=rand() %5000;
-        existe=numExiste(l,numDemande);
-    }
     //date courant
     time_t now;
     time(&now);
@@ -154,7 +146,7 @@ ListeDem insertionEnTeteDem(ListeDem l, int nbPoint, int nbPersonne, float reven
     jours=local->tm_mday;
     mois=local->tm_mon+1;
     an=local->tm_year+1900;
-    m->demandeurs.numDemande=numDemande+1;
+    m->demandeurs.numDemande=numDemande;
     m->demandeurs.nbPoint=nbPoint;
     m->demandeurs.nbPersonne=nbPersonne;
     m->demandeurs.revenueBrut=revenueBrut;
@@ -212,13 +204,13 @@ ListeDem rechercheUnDemandeur(ListeDem l, int value)
     return rechercheUnDemandeur(l->suivant, value);
 }
 
-ListeDem insertionDem(ListeDem l, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
+ListeDem insertionDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
 {
     if(l==NULL)
-        return insertionEnTeteDem(l, nbPoint, nbPersonne, revenueBrut, nomDeFamille, prenom, nationalite);
+        return insertionEnTeteDem(l, numDemande, nbPoint, nbPersonne, revenueBrut, nomDeFamille, prenom, nationalite);
     if (l->demandeurs.nbPoint>nbPoint) 
-        return insertionEnTeteDem(l, nbPoint, nbPersonne, revenueBrut, nomDeFamille, prenom, nationalite);
-    l->suivant=insertionDem(l->suivant, nbPoint, nbPersonne, revenueBrut, nomDeFamille, prenom, nationalite);
+        return insertionEnTeteDem(l, numDemande, nbPoint, nbPersonne, revenueBrut, nomDeFamille, prenom, nationalite);
+    l->suivant=insertionDem(l->suivant, numDemande, nbPoint, nbPersonne, revenueBrut, nomDeFamille, prenom, nationalite);
     return l;
 }
 
