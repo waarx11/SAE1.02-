@@ -75,6 +75,7 @@ typedef struct
     int nbChambre;
     float surfaceLog;
     float prixLog;
+    char dispo[5];
     Date dateAchat;
 } Logement;
 
@@ -91,7 +92,7 @@ void menu(void);
 
 void affichMenu(void);
 
-void MenuLogement(Logement *tLog[],int *nbLog);
+void MenuLogement(Logement tLog[],int *nbLog);
 
 void affichMenuLogement(void);
 
@@ -113,9 +114,17 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc);
 
 Logement lireLog(FILE *fe);
 
-int chargeLogement(char *nomFich, Logement *tLog[], int taillemax);
+Logement* chargeLogement(FILE *fe, int *nbL);
 
-void affichageLog(Logement *tLog[], int nb);
+void affichageLog(Logement tLog[], int nbLog);
+
+int supprime(Logement *tLog, int nbLog);
+
+int rechercheDico(Logement *tLog, int nbLog, int value);
+
+int insertionLog(Logement *tLog, int nbLog);
+
+Booleen numLogExiste(Logement *tLog, int value, int nbLog);
 
 /* Locataire */
 

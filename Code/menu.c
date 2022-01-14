@@ -66,7 +66,7 @@ void affichMenuDemLog(void)
 
 void menu(void)
 {
-	int nbD, nbL, nbLog=5, choix;
+	int nbD, nbL, nbLog, choix;
 	char ficDem[30] = "FichierDemLoge.txt";
 	char ficLoc[30] = "FichierLoca.txt";
 	char ficlog[30] = "FichierLoge.txt";
@@ -74,17 +74,23 @@ void menu(void)
 	ListeDem ld;
 	Files lc;
 	PileLog lg;
-	Logement **tLog;
+	Logement *tLog;
+	FILE *fl;
 
 	ld = initliste();
 	ld = chargementDem(ld, &nbD, ficDem);
 	ld = expirationDem(ld, &nbD);
 
-	lc = FileVide();
-	lc = chargementLoc(lc, &nbL, ficLoc);
+	// lc = FileVide();
+	// lc = chargementLoc(lc, &nbL, ficLoc);
 
-	// nbLog = chargeLogement(ficlog, tLog, nbLog);
-
+    fl=fopen(ficlog, "r");
+    if(fl==NULL)
+    {
+        printf("Problème a l'ouverture du fichier logement");
+        return;
+    }
+	tLog = chargeLogement(fl, &nbLog);
 
 	affichMenu();
 	scanf("%d%*c", &choix);
@@ -170,6 +176,7 @@ Files MenuLocataire(Files lc, int *nbL)
 			scanf("%d%*c", &choixLoca);
 		}
 	 }
+	 return lc;
 }
 
 Files MenuChoixTrie (Files lc, int *nbL)
@@ -244,7 +251,7 @@ Files MenuChoixTrie (Files lc, int *nbL)
 	 ViderTab(tloc, nbtl);
 	 return lc;
 }
-void MenuLogement (Logement *tLog[],int *nbLog)
+void MenuLogement (Logement tLog[],int *nbLog)
 {
 	int choixLoge;
 
@@ -266,7 +273,7 @@ void MenuLogement (Logement *tLog[],int *nbLog)
 			break;
 
 			case 2:
-				// Fonction suppression de logement
+				*nbLog=supprime(tLog, *nbLog);
 			break;
 
 			case 3:
