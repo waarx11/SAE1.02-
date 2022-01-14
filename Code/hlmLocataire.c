@@ -317,7 +317,6 @@ int RechMinDate (Locataire *tloc[], int nbtl, int i)
 				if (tloc[k]->datedebutloca.annee == tloc[date]->datedebutloca.annee)
 					if (tloc[k]->datedebutloca.mois < tloc[date]->datedebutloca.mois)
 						date = k;
-			
 						for ( l = i ; l < k ; l ++)
 						{
 							if(tloc[l]->datedebutloca.mois == tloc[date]->datedebutloca.mois)

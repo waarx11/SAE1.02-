@@ -98,7 +98,7 @@ void MenuLogement(Logement tLog[],int *nbLog);
 
 void affichMenuLogement(void);
 
-Files MenuLocataire(Files lc, int *nbL);
+Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld, int *nbD);
 
 void affichMenuLocataire(void);
 
@@ -110,7 +110,8 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD);
 
 void affichMenuDemLog(void);
 
-void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc);
+void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc);
+
 
 /* Logement */
 
@@ -128,7 +129,7 @@ Logement* insertionLog(Logement *tLog, int *nbLog);
 
 Booleen numLogExiste(Logement *tLog, int value, int nbLog);
 
-void affichageLogDispo(Logement *tLog, int nbLog);
+void affichageLogDispo(Logement tLog[], int nbLog);
 
 /* Locataire */
 
@@ -144,9 +145,15 @@ void AffichTab (Locataire *tloc[], int nbtl);
 
 Files Enfillercharge (Files f, Locataire loc);
 
-Files EnfilerLoca (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge);
+Files EnfillerLoca (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, float prixlog, int nbNumTel, char *libelle, char *numTel);
+
+Booleen numExiste2(Files f, int value);
 
 Files Defiler (Files f);
+
+Files defiler2(Files f, int *nbL);
+
+Files defilerLocaPrecis (Files f, int numlocataire);
 
 Files ViderFile (Files *pf);
 
@@ -158,9 +165,7 @@ void RechLoca (Files f, int numlocataire);
 
 int TransfertTab (Files f, Locataire *tloc[], int tmax);
 
-Locataire ViderTab (Locataire *tloc[], int nbtl);
-
-Files TransfertFiles (Files f, Locataire *tloc[], int nbtl);
+void ViderTab (Locataire *tloc[], int nbtl);
 
 int RechMinPrixLoge (Locataire *tloc[], int nbtl, int i);
 
@@ -181,6 +186,8 @@ void TriePermuteNumLoca (Locataire *tloc[], int nbtl);
 void TriePermuteNomLoca (Locataire *tloc[], int nbtl);
 
 void sauvegardeLoc(Files f, FILE *fLoc);
+
+void suppressionAll2(Files f, int *nbL);
 
 /* Demandeur */
 ListeDem initliste(void);

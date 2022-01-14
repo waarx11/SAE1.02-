@@ -30,10 +30,9 @@ void affichChoixTrieLoca(void)
 	printf("\t Comment souhaitez vous triez la liste : \n");
 	printf("+------------------------------------------------+\n");
 	printf("| 1. Le nom par ordre alphabétique \t\t |\n");
-	printf("| 2. Par numéro de logement\t\t\t |\n");
-	printf("| 3. En fonction du prix du logement\t \t |\n");
-	printf("| 4. Ordre croissant d'arrivée au logement\t |\n");
-	printf("| 5. Test affichage \t\t\t\t |\n");
+	printf("| 2. En fonction du prix du logement\t \t |\n");
+	printf("| 3. Ordre croissant d'arrivée au logement\t |\n");
+	printf("| 4. Affichage de la File sans modification\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
 }
@@ -44,7 +43,7 @@ void affichMenuLocataire(void)
 	printf("+------------------------------------------------+\n");
 	printf("| 1. Afficher la liste des locataires \t\t |\n");
 	printf("| 2. Recherche d'un locataire \t\t\t |\n");
-	printf("| 3. Ajouter un locataire \t\t\t\t|\n");
+	printf("| 3. Ajouter un locataire \t \t\t |\n");
 	printf("| 4. Supprimer un locataire   \t\t\t |\n");
 	printf("| 9. Retour \t\t\t\t\t |\n");
 	printf("+------------------------------------------------+\n");
@@ -80,8 +79,8 @@ void menu(void)
 	ld = chargementDem(ld, &nbD, ficDem);
 	ld = expirationDem(ld, &nbD);
 
-	// lc = FileVide();
-	// lc = chargementLoc(lc, &nbL, ficLoc);
+	lc = FileVide();
+	lc = chargementLoc(lc, &nbL, ficLoc);
 
     fl=fopen(ficlog, "r");
     if(fl==NULL)
@@ -105,7 +104,7 @@ void menu(void)
 		switch (choix)
 		{
 			case 1:
-				lc = MenuLocataire(lc, &nbL);
+				lc = MenuLocataire(lc, &nbL, tLog, &nbLog, ld, &nbD);
 			break;
 
 			case 2:
@@ -127,12 +126,12 @@ void menu(void)
 		}
 	 }
 	ld = expirationDem(ld, &nbD);
-	sauvegardeTout(ld, ficDem, nbD, lc, ficLoc);
+	sauvegardeTout(ld, ficDem, nbD, nbL, lc, ficLoc);
 }
 
-Files MenuLocataire(Files lc, int *nbL)
+Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld, int *nbD)
 {
-	int choixLoca, locataire;
+	int choixLoca, locataire, numLoc, existe2, value, i;
 
 	affichMenuLocataire();
 	scanf("%d%*c", &choixLoca);
@@ -159,11 +158,32 @@ Files MenuLocataire(Files lc, int *nbL)
 			break;
 
 			case 3:
-
+				// Fonction ajout de locataire
+				numLoc=rand() %4999 + 1;
+    			existe2=numExiste2(lc,numLoc);
+				while (existe2 == Vrai)
+				{
+					numLoc=rand() % 4999 + 1;
+					existe2=numExiste2(lc,numLoc);
+				}
+				printf("Saisir le numéro de logement que vous souhaitez attribué au locataire : \n");
+				scanf("%d", &value);
+				i = rechercheDico(tLog, *nbL, value);
+				while (strcmp(tLog[i].dispo,"Non"))
+				{
+					printf("Le logement n'est pas disponible, ressaisissez un n°logement : \n");
+					scanf("%d", &value);
+					i = rechercheDico(tLog, *nbL, value);
+				}
+				EnfillerLoca(lc, numLoc, ld->demandeurs.nomDeFamille, ld->demandeurs.prenom, ld->demandeurs.nationalite, ld->demandeurs.nbPersonne, ld->demandeurs.revenueBrut, tLog[i].numLogement, tLog[i].prixLog, ld->demandeurs.nbNum, ld->demandeurs.numTel->libelle, ld->demandeurs.numTel->num);
+				// suppression(ld, l->demandeurs.numDemande, nbD);
 			break;
 
 			case 4:
-
+				// Fonction suppression locataire
+				printf("Saisir le numéro de locataire que vous souhaitez supprimer : \n");
+				scanf("%d", &locataire);
+				defilerLocaPrecis(lc, locataire);
 			break;
 		}
 		affichMenuLocataire();
@@ -184,14 +204,13 @@ Files MenuChoixTrie (Files lc, int *nbL)
 	Locataire *tloc[TAILLE];
 	int tmax = TAILLE;
 	nbtl = TransfertTab(lc, tloc, tmax);
-	// ViderFile(&lc);
 	affichChoixTrieLoca();
 	scanf("%d%*c", &choixTrie);
 
 
-	while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 5 && choixTrie != 9)
+	while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 9)
 	{
-		printf("Choix doit être égale à 1, 2, 3, 4, 5 ou 9. Retapez : ");
+		printf("Choix doit être égale à 1, 2, 3, 4 ou 9. Retapez : ");
 		scanf("%d%*c", &choixTrie);
 	}
 
@@ -209,21 +228,13 @@ Files MenuChoixTrie (Files lc, int *nbL)
 
 			case 2:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				printf("\t -- Affichage des locataires triés en fonction du numéro de locataire --\n");
-				printf("+---------------------------------------------------------------------------------------+\n");
-				TriePermuteNumLoca(tloc, nbtl);
-				AffichTab(tloc, nbtl);
-			break;
-
-			case 3:
-				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
-				printf("\t -- Affichage des locataires triés en fonction du logement --\n");
+				printf("\t -- Affichage des locataires triés en fonction du prix du logement --\n");
 				printf("+---------------------------------------------------------------------------------------+\n");
 				TriePermuteLoge(tloc, nbtl);
 				AffichTab(tloc, nbtl);
 			break;
 
-			case 4:
+			case 3:
 				//faire avant l'appel un printf de ce que va contenir le fichier ex : prix | nbChambre ....
 				printf("\t -- Affichage des locataires triés en fonction de l'arrivé au logement --\n");
 				printf("+---------------------------------------------------------------------------------------+\n");
@@ -231,7 +242,7 @@ Files MenuChoixTrie (Files lc, int *nbL)
 				AffichTab(tloc, nbtl);
 			break;
 
-			case 5:
+			case 4:
 				// Teste des fonctions d'affichage 
 				printf("\t -- Toutes les informations sur le locataire --\n");
 				printf("+---------------------------------------------------------------------------------------+\n");
@@ -241,15 +252,16 @@ Files MenuChoixTrie (Files lc, int *nbL)
 		affichChoixTrieLoca();
 		scanf("%d%*c", &choixTrie);
 
-		while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 5 && choixTrie != 9)
+		while (choixTrie != 1 && choixTrie != 2 && choixTrie != 3 && choixTrie !=4 && choixTrie != 9)
 		{
-			printf("Choix doit être égale à 1, 2, 3, 4, 5 ou 9. Retapez : ");
+			printf("Choix doit être égale à 1, 2, 3, 4 ou 9. Retapez : ");
 			scanf("%d%*c", &choixTrie);
 		}
 	 }
 	 ViderTab(tloc, nbtl);
 	 return lc;
 }
+
 void MenuLogement (Logement tLog[],int *nbLog)
 {
 	int choixLoge;
@@ -395,7 +407,7 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD)
 	return ld;
 }
 
-void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc)
+void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc)
 {
 	FILE *pf;
 	pf=fopen(ficDem, "w");
@@ -403,8 +415,9 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, Files f, char *ficLoc)
 	sauvegardeDem(ld, pf);
 	suppressionAll(ld, &nbD);
 	fclose(pf);
-	// fL=fopen(ficLoc, "w");
-	// sauvegardeLoc(f, fL);
-	// fclose(fL);
-
+	FILE *fL;
+	fL=fopen(ficLoc, "w");
+	sauvegardeLoc(lc, fL);
+	suppressionAll2(lc, &nbL);
+	fclose(fL);
 }
