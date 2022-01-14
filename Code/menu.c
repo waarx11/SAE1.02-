@@ -415,6 +415,7 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char 
 	sauvegardeDem(ld, pf);
 	suppressionAll(ld, &nbD);
 	fclose(pf);
+	
 	FILE *fL;
 	fL=fopen(ficLoc, "w");
 	sauvegardeLoc(lc, fL);

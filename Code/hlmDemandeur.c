@@ -26,6 +26,9 @@ ListeDem initliste(void)
 
 /**
  * \brief 
+ * \param *fDem : Fichier demandeurs
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur les demandeurs
+ * \return Une liste
  */
 ListeDem lireMenage(FILE *fDem, ListeDem l)
 {
@@ -52,6 +55,13 @@ ListeDem lireMenage(FILE *fDem, ListeDem l)
     return m;
 }
 
+/**
+ * \brief chargement demandeurs
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur les demandeurs
+ * \param *nbD nombre de demandeurs dans le fichier
+ * \param *fic nom du fichier
+ * \return Une liste
+ */
 ListeDem chargementDem(ListeDem l, int *nbD, char *fic)
 {
     FILE *fDem;
@@ -68,6 +78,10 @@ ListeDem chargementDem(ListeDem l, int *nbD, char *fic)
     return l;
 }
 
+/**
+ * \brief Affichage liste demandeurs
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur un demandeurs
+ */
 void affichageDem(ListeDem l)
 {
     if (l==NULL)
@@ -84,6 +98,10 @@ void affichageDem(ListeDem l)
     printf("-----------------------------------------------------------------------------------------------------\n\n");
 }
 
+/** 
+ * \brief Affiche un seul demandeurs
+ * \param ListeDem l : c'est un pointeur sur maillon pointant sur un demandeurs
+ */
 void affichageUnDem(ListeDem l)
 {
     if (l==NULL)
@@ -100,6 +118,12 @@ void affichageUnDem(ListeDem l)
     printf("-----------------------------------------------------------------------------------------------------\n\n");
 }
 
+/**
+ * \brief Supprime un demandeurs ayant fait une demande dépassant les 1 an
+ * \param ListeDem l: c'est un pointeur d'un maillon sur les demandeurs
+ * \param *nbD nombre de demandeurs
+ * \return Une liste
+ */
 ListeDem expirationDem(ListeDem l, int *nbD)
 {
     if (l==NULL)
@@ -110,6 +134,12 @@ ListeDem expirationDem(ListeDem l, int *nbD)
 
 }
 
+/**
+ * \brief Supprime un demandeurs en tête
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur les demandeurs
+ * \param *nbD nombre de demandeurs
+ * \return Une liste
+ */
 ListeDem expirationDemEnTete(ListeDem l, int *nbD)
 {
     int jours, mois, an;
@@ -139,7 +169,18 @@ ListeDem expirationDemEnTete(ListeDem l, int *nbD)
         return suppressionEnTete(l, nbD);
 }
 
-
+/** 
+ * \brief Insère en tête de liste un demandeurs
+ * \param Liste l : c'est un pointeur sur un maillon pointant sur un demandeurs
+ * \param numDemande numéro demandeurs
+ * \param nbPoint nombre de point
+ * \param nbPersonne nombre de personne
+ * \param revenueBrut revenu du demandeurs
+ * \param *nomDeFamille nom de famille du demandeurs
+ * \param *prenom prénom du demandeurs
+ * \*nationalite nationalite du demandeurs
+ * \return Une liste
+ */
 ListeDem insertionEnTeteDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
 {
     int jours, mois, an, h, min, s, nbNum;
@@ -200,6 +241,12 @@ ListeDem insertionEnTeteDem(ListeDem l, int numDemande, int nbPoint, int nbPerso
     return m;
 }
 
+/**
+ * \brief Regarde si le numéro de demandeurs existe
+ * \param ListeDem l : c'est un pointeur d'un maillon pointant sur les demandeurs
+ * \param value : le futur numéro des demandeurs
+ * \return Vrai ou Faux
+ */
 Booleen numExiste(ListeDem l, int value)
 {
     if(l==NULL)
@@ -209,6 +256,12 @@ Booleen numExiste(ListeDem l, int value)
     return numExiste(l->suivant, value);
 }
 
+/**
+ * \brief recherche un demandeurs dans la liste
+ * \param ListeDem l : c'est un pointeur d'une maillon pointant sur un demandeurs
+ * \param value numéro de demandeurs
+ * \return Une liste
+ */
 ListeDem rechercheUnDemandeur(ListeDem l, int value)
 {
     if(l==NULL)
@@ -221,6 +274,18 @@ ListeDem rechercheUnDemandeur(ListeDem l, int value)
     return rechercheUnDemandeur(l->suivant, value);
 }
 
+/**
+ * \brief insère dans la liste un demandeurs
+ * \param ListeDem l : c'est un pointeur d'un maillon pointant sur un demandeurs
+ * \param numDemande numéro demandeurs
+ * \param nbPoint nombre de point
+ * \param nbPersonne nombre de personne
+ * \param revenueBrut revenu du demandeurs
+ * \param *nomDeFamille nom de famille du demandeurs
+ * \param *prenom prénom du demandeurs
+ * \*nationalite nationalite du demandeurs
+ * \return Une liste
+ */
 ListeDem insertionDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, float revenueBrut, char *nomDeFamille, char *prenom, char *nationalite)
 {
     if(l==NULL)
@@ -231,6 +296,11 @@ ListeDem insertionDem(ListeDem l, int numDemande, int nbPoint, int nbPersonne, f
     return l;
 }
 
+/**
+ * \brief Affiche un demandeur
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur un demandeurs
+ * \param value numéro du demandeurs
+ */
 void afficherUnDemandeur(ListeDem l, int value)
 {
     if (l==NULL)
@@ -254,6 +324,12 @@ void afficherUnDemandeur(ListeDem l, int value)
     }
 }
 
+/**
+ * \brief Supprime un élément en tête de liste
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur les demandeurs
+ * \param *nbD nombre de demandeur
+ * \return Une liste
+ */
 ListeDem suppressionEnTete(ListeDem l, int *nbD)
 {
     ListeDem t;
@@ -264,6 +340,13 @@ ListeDem suppressionEnTete(ListeDem l, int *nbD)
     return t;
 }
 
+/**
+ * \brief Supprime un élément de la liste
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur un demandeurs
+ * \param suppDem Supprime se numéro de demandeurs
+ * \param *nbD Nombre de demandeurs
+ * \return Une liste
+ */
 ListeDem suppression(ListeDem l, int suppDem, int *nbD)
 {
     if(l==NULL)
@@ -280,6 +363,11 @@ ListeDem suppression(ListeDem l, int suppDem, int *nbD)
     return l;
 }
 
+/**
+ * \brief Supprime tout les éléments du fichier
+ * \param ListeDem l : c'est un pointeur sur maillon pointant sur les demandeurs
+ * \param *nbD c'est le nombre d'élément dans le fichier
+ */
 void suppressionAll(ListeDem l, int *nbD)
 {
     if(l==NULL)
@@ -289,7 +377,11 @@ void suppressionAll(ListeDem l, int *nbD)
     return;
 }
 
-
+/**
+ * \brief Modification d'une demande en tête de liste
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur les demandeurs
+ * \return Une liste
+ */
 ListeDem modificationEnTete(ListeDem l)
 {
     int nbPoint, nbPersonne, revenueBrut, nbNum;
@@ -329,7 +421,12 @@ ListeDem modificationEnTete(ListeDem l)
     }
     return l;
 }
-
+/**
+ * \brief Modifie les informations d'une demande de logement dans la liste
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur un demandeurs
+ * \modif numéro de locataire a modifier
+ * \return une Liste
+ */
 ListeDem modification(ListeDem l, int modif)
 {
     if(l==NULL)
@@ -342,6 +439,11 @@ ListeDem modification(ListeDem l, int modif)
     return l;
 }
 
+/**
+ * \brief Sauvegarde dans le fichier l'ajout ou la modification d'une demandes de logement
+ * \param ListeDem l :c'est un pointeur sur un maillon pointant sur un demandeurs
+ * \param *fDem : ficher des demandeurs
+ */
 void sauvegardeDem(ListeDem l, FILE *fDem)
 {
     if (l==NULL)

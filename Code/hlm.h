@@ -88,6 +88,8 @@ typedef struct maillonLog
 } MaillonLog, *PileLog;
 
 
+
+
 /* Menu */
 
 void menu(void);
@@ -111,6 +113,8 @@ ListeDem MenuDemLog (ListeDem ld, int *nbD);
 void affichMenuDemLog(void);
 
 void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char *ficLoc);
+
+
 
 
 /* Logement */
