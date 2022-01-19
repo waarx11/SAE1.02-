@@ -96,7 +96,7 @@ int supprime(Logement *tLog, int nbLog)
             return nbLog+1;
         }
         else
-            tLog=tRel;  
+            tLog=tRel;
     }
     else
         printf("Le logement est louer vous nous pouvez pas le vendre\n");
@@ -221,7 +221,7 @@ void affichageLogDispo(Logement tLog[], int nbLog)
 void sauvegardeLog(Logement tLog[], int nbLog, FILE *fe)
 {
     for (int i=0; i<nbLog; i++)
-        fprintf(fe, "%d %s %d %f %f %d %d %d %s", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
+        fprintf(fe, "%d %s %d %.2f %.2f %d %d %d %s\n", tLog[i].numLogement, tLog[i].typeLog, tLog[i].nbChambre, tLog[i].surfaceLog, tLog[i].prixLog, tLog[i].dateAchat.jours, tLog[i].dateAchat.mois, tLog[i].dateAchat.annee, tLog[i].dispo);
 }
 
 

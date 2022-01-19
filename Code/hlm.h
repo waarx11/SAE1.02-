@@ -96,7 +96,7 @@ void menu(void);
 
 void affichMenu(void);
 
-void MenuLogement(Logement tLog[],int *nbLog);
+Logement* MenuLogement(Logement tLog[],int *nbLog);
 
 void affichMenuLogement(void);
 
@@ -190,7 +190,9 @@ void TriePermuteNomLoca (Locataire *tloc[], int nbtl);
 
 void sauvegardeLoc(Files f, FILE *fLoc);
 
-void suppressionAll2(Files f, int *nbL);
+void suppressionAll2(Files f);
+
+MaillonDem* ajoutLoc(ListeDem ld);
 
 /* Demandeur */
 ListeDem initliste(void);

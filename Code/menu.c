@@ -133,7 +133,7 @@ void menu(void)
 			break;
 
 			case 2:
-				MenuLogement(tLog, &nbLog);
+				tLog = MenuLogement(tLog, &nbLog);
 			break;
 
 			case 3:
@@ -167,7 +167,7 @@ void menu(void)
 Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld, int *nbD)
 {
 	int choixLoca, locataire, numLoc, numLog, existe2, value, i;
-
+	MaillonDem *md;
 	affichMenuLocataire();
 	scanf("%d%*c", &choixLoca);
 
@@ -210,9 +210,10 @@ Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld
 					scanf("%d", &value);
 					i = rechercheDico(tLog, *nbL, value);
 				}
-				EnfillerLoca(lc, numLoc, ld->demandeurs.nomDeFamille, ld->demandeurs.prenom, ld->demandeurs.nationalite, ld->demandeurs.nbPersonne, ld->demandeurs.revenueBrut, tLog[i].numLogement, tLog[i].prixLog, ld->demandeurs.nbNum, ld->demandeurs.numTel->libelle, ld->demandeurs.numTel->num);
-				suppression(ld, ld->demandeurs.numDemande, nbD);
-				strcpy(tLog[i].dispo,"Oui");
+				md=ajoutLoc(ld);
+				lc=EnfillerLoca(lc, numLoc, md->demandeurs.nomDeFamille, md->demandeurs.prenom, md->demandeurs.nationalite, md->demandeurs.nbPersonne, md->demandeurs.revenueBrut, tLog[i].numLogement, tLog[i].prixLog, md->demandeurs.nbNum, md->demandeurs.numTel->libelle, md->demandeurs.numTel->num);
+				ld=suppression(ld, md->demandeurs.numDemande, nbD);
+				strcpy(tLog[i].dispo,"Non");
 			break;
 
 			case 4:
@@ -311,7 +312,7 @@ Files MenuChoixTrie (Files lc, int *nbL)
  * \param Logement *tLog : tableau des logements
  * \param *nbLog nombre de logement
  */
-void MenuLogement (Logement tLog[],int *nbLog)
+Logement* MenuLogement (Logement tLog[],int *nbLog)
 {
 	int choixLoge;
 
@@ -353,6 +354,7 @@ void MenuLogement (Logement tLog[],int *nbLog)
 			scanf("%d%*c", &choixLoge);
 		}
 	}
+	return tLog;
 }
 
 /**
@@ -485,12 +487,15 @@ void sauvegardeTout(ListeDem ld, char *ficDem, int nbD, int nbL, Files lc, char 
 
 	FILE *fL;
 	fL=fopen(ficLoc, "w");
+	fprintf(fL,"%d\n",nbL);
 	sauvegardeLoc(lc, fL);
-	suppressionAll2(lc, &nbL);
+	suppressionAll2(lc);
 	fclose(fL);
 
 	FILE *fLog;
 	fLog=fopen(ficLog, "w");
+	fprintf(fLog,"%d\n",nbLog);
 	sauvegardeLog(tLog, nbLog, fLog);
+	free(tLog);
 	fclose(fLog);
 }

@@ -156,13 +156,13 @@ Booleen numExiste2(Files f, int value)
 Files EnfillerLoca (Files f,int numloca, char prenom[], char nom[], char nationalite[], int plafond, float revenu, int numloge, float prixlog, int nbNumTel, char *libelle, char *numTel)
 {
 	MaillonLoc *m;
-	int jours, mois, an, numLoc, nbNum, s;
+	int jours, mois, an, numLoc, s;
 	Booleen existe;
 	m = (MaillonLoc *)malloc(sizeof(MaillonLoc));
 	if (m == NULL)
 	{
 		printf("Problème de malloc");
-		exit(1);
+	 	exit(1);
 	}
 	//Valeur aléatoire compris entre 0 et 5000
     srand(time(NULL));
@@ -184,9 +184,9 @@ Files EnfillerLoca (Files f,int numloca, char prenom[], char nom[], char nationa
 	m->loc.datedebutloca.annee = an;
 	m->loc.datedebutloca.mois = mois;
 	m->loc.datedebutloca.jours = jours;
-    m->loc.nbNumTel=nbNum;
-    m->loc.numTel = (Tel *) malloc(sizeof(Tel)*nbNum);
-    for (int i=0; i<nbNum; i++) 
+    m->loc.nbNumTel=nbNumTel;
+    m->loc.numTel=(Tel*)malloc(sizeof(Tel)*nbNumTel);
+    for (int i=0; i<nbNumTel; i++)
     {
         strcpy(m->loc.numTel->libelle,libelle);
         strcpy(m->loc.numTel->num,numTel);
@@ -199,7 +199,24 @@ Files EnfillerLoca (Files f,int numloca, char prenom[], char nom[], char nationa
 	}
 	m->suiv = f->suiv;
 	f->suiv = m;
-	return m;
+	return f;
+}
+
+/**
+ * \brief Supprime un élément en tête de liste
+ * \param ListeDem l : c'est un pointeur sur un maillon pointant sur les demandeurs
+ * \param *nbD nombre de demandeur
+ * \return Une liste
+ */
+MaillonDem* ajoutLoc(ListeDem ld)
+{
+	MaillonDem *m;
+    if (ld->suivant==NULL)
+    {
+		m=ld;
+        return m;
+    }
+    return ajoutLoc(ld->suivant);
 }
 
 /**
@@ -295,13 +312,20 @@ Files defilerLocaPrecis (Files f, int numlocataire, int *log)
  */
 void sauvegardeLoc(Files f, FILE *fLoc)
 {
-    if (f == NULL)
-        return;
-    sauvegardeLoc(f->suiv, fLoc);
-    fprintf(fLoc, "%d %s %s %s %d %f %d %f %d %d %d %d ", f->loc.numloca ,f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.prixLog, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee, f->loc.nbNumTel);
+	Files tmp=f->suiv;
+	while(f!=tmp){
+		fprintf(fLoc, "%d %s %s %s %d %.2f %d %.2f %d %d %d %d ", tmp->loc.numloca, tmp->loc.prenom, tmp->loc.nom, tmp->loc.nationalite, tmp->loc.plafond, tmp->loc.revenu, tmp->loc.numlogement, tmp->loc.prixLog, tmp->loc.datedebutloca.jours, tmp->loc.datedebutloca.mois, tmp->loc.datedebutloca.annee, tmp->loc.nbNumTel);
+    	for (int i=0 ; i<tmp->loc.nbNumTel ; i++) 
+    	{
+        	fprintf(fLoc, "%s %s ", tmp->loc.numTel[i].libelle, tmp->loc.numTel[i].num);
+    	}
+    	fprintf(fLoc,"\n");
+		tmp=tmp->suiv;
+	}
+	fprintf(fLoc, "%d %s %s %s %d %.2f %d %.2f %d %d %d %d ", f->loc.numloca, f->loc.prenom, f->loc.nom, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.prixLog, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee, f->loc.nbNumTel);
     for (int i=0 ; i<f->loc.nbNumTel ; i++) 
     {
-        fprintf(fLoc, "%s %s ", f->loc.numTel[i].libelle, f->loc.numTel[i].num);
+       	fprintf(fLoc, "%s %s ", f->loc.numTel[i].libelle, f->loc.numTel[i].num);
     }
     fprintf(fLoc,"\n");
 }
@@ -311,13 +335,16 @@ void sauvegardeLoc(Files f, FILE *fLoc)
  * \param Files f : c'est un pointeur d'un maillon pointant sur un locataire
  * \param *nbL entier du nombre de locataire dans le fichier
  */
-void suppressionAll2(Files f, int *nbL)
+void suppressionAll2(Files f)
 {
-    if (f == NULL)
-        return ;
-    suppressionAll2(f->suiv, nbL);
-   	defiler2(f, nbL);
-    return;
+    Files tmp=f->suiv, sup;
+	while(f!=tmp){
+		sup=tmp;
+		tmp=tmp->suiv;
+    	free(sup->loc.numTel);
+		free(sup);
+	}
+	free(f);
 }
 
 /**

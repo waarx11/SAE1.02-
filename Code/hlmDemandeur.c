@@ -98,26 +98,6 @@ void affichageDem(ListeDem l)
     printf("-----------------------------------------------------------------------------------------------------\n\n");
 }
 
-/** 
- * \brief Affiche un seul demandeurs
- * \param ListeDem l : c'est un pointeur sur maillon pointant sur un demandeurs
- */
-void affichageUnDem(ListeDem l)
-{
-    if (l==NULL)
-        return;
-    affichageDem(l->suivant);
-    printf("-----------------------------------------------------------------------------------------------------\n");
-    printf("Numero de dossier : %d\n\n", l->demandeurs.numDemande);
-    printf("Point : %d \nPersonne a charge : %d \nRevenue brut : %.2f \nNom : %s %s\n Nationaliter : %s \n\n", l->demandeurs.nbPoint, l->demandeurs.nbPersonne, l->demandeurs.revenueBrut, l->demandeurs.nomDeFamille, l->demandeurs.prenom, l->demandeurs.nationalite);
-    for (int i=0;i<l->demandeurs.nbNum;i++) 
-    {
-        printf("%s :\n%s\n\n", l->demandeurs.numTel[i].libelle, l->demandeurs.numTel[i].num);
-    }
-    printf("Fait le : %02d/%02d/%02d a %02d:%02d:%d\n", l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde);
-    printf("-----------------------------------------------------------------------------------------------------\n\n");
-}
-
 /**
  * \brief Supprime un demandeurs ayant fait une demande dépassant les 1 an
  * \param ListeDem l: c'est un pointeur d'un maillon sur les demandeurs
