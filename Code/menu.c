@@ -213,6 +213,7 @@ Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld
 				md=ajoutLoc(ld);
 				lc=EnfillerLoca(lc, numLoc, md->demandeurs.nomDeFamille, md->demandeurs.prenom, md->demandeurs.nationalite, md->demandeurs.nbPersonne, md->demandeurs.revenueBrut, tLog[i].numLogement, tLog[i].prixLog, md->demandeurs.nbNum, md->demandeurs.numTel->libelle, md->demandeurs.numTel->num);
 				ld=suppression(ld, md->demandeurs.numDemande, nbD);
+				(*nbL)++;
 				strcpy(tLog[i].dispo,"Non");
 			break;
 
@@ -220,7 +221,7 @@ Files MenuLocataire(Files lc, int *nbL, Logement tLog[], int *nbLog, ListeDem ld
 				// Fonction suppression locataire
 				printf("Saisir le numéro de locataire que vous souhaitez supprimer : \n");
 				scanf("%d", &locataire);
-				defilerLocaPrecis(lc, locataire, &numLog);
+				defilerLocaPrecis(lc, locataire, &numLog, nbL);
 				i=rechercheDico(tLog, *nbL, numLog);
 				strcpy(tLog[i].dispo,"Oui");
 			break;

@@ -272,7 +272,7 @@ Files defiler2(Files f, int *nbL)
  * \param numlocataire entier du locataire a supprimer dans la file
  * \return Une file
  */
-Files defilerLocaPrecis (Files f, int numlocataire, int *log)
+Files defilerLocaPrecis (Files f, int numlocataire, int *log, int *nbL)
 {
 	Files tmp;
 	if (EstVide(f))
@@ -282,7 +282,7 @@ Files defilerLocaPrecis (Files f, int numlocataire, int *log)
 
 	if (f->suiv->loc.numloca == numlocataire)
 	{
-		defiler(f);
+		defiler2(f, nbL);
 		return f;
 	}
 	tmp=f->suiv;
@@ -292,14 +292,14 @@ Files defilerLocaPrecis (Files f, int numlocataire, int *log)
 			return f;
 		if (tmp->suiv->loc.numloca == numlocataire)
 		{
-			defiler(tmp);
+			defiler2(tmp, nbL);
 			*log=tmp->suiv->loc.numlogement;
 		}
 		tmp=tmp->suiv;
 	}
 	if (numlocataire == f->loc.numloca)
 	{
-		defiler(f);
+		defiler2(f, nbL);
 		*log=f->loc.numlogement;
 	}
 	return f;
@@ -411,7 +411,7 @@ void AffichLocataire(Files f)
  */
 void AffichLocatairePrecis(Files f)
 {
-	printf("\t -- Toutes les informations sur le n°%s %s --\n", f->loc.nom, f->loc.prenom);
+	printf("\t -- Toutes les informations sur %s %s --\n", f->loc.nom, f->loc.prenom);
 	printf("+-------------------------------------------------------------------------------+\n");
 	printf("> N°locataire %d \n> Nationalite : %s\n> Plafond : %d\n> Revenu : %.2f\n> N°logement : %d\n> Prix du logement : %.2f€/mois \n> Date d'arrivé au logement : %d/%d/%d\n", f->loc.numloca, f->loc.nationalite, f->loc.plafond, f->loc.revenu, f->loc.numlogement, f->loc.prixLog, f->loc.datedebutloca.jours, f->loc.datedebutloca.mois, f->loc.datedebutloca.annee);
 }

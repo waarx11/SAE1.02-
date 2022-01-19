@@ -156,7 +156,7 @@ Files Defiler (Files f);
 
 Files defiler2(Files f, int *nbL);
 
-Files defilerLocaPrecis (Files f, int numlocataire, int *log);
+Files defilerLocaPrecis (Files f, int numlocataire, int *log, int *nbL);
 
 Files ViderFile (Files *pf);
 
