@@ -219,6 +219,8 @@ ListeDem suppression(ListeDem l, int suppDem, int *nbD);
 
 ListeDem modification(ListeDem l, int modif);
 
+ListeDem modificationEnTete(ListeDem l);
+
 ListeDem expirationDemEnTete(ListeDem l, int *nbD);
 
 ListeDem expirationDem(ListeDem l, int *nbD);

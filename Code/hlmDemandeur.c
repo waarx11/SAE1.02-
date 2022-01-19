@@ -288,7 +288,6 @@ void afficherUnDemandeur(ListeDem l, int value)
         printf("Demandeur introuvable !\n");
         return;
     }
-    afficherUnDemandeur(l->suivant,value);
     if (l->demandeurs.numDemande==value) 
     {
         printf("-----------------------------------------------------------------------------------------------------\n");
@@ -300,8 +299,9 @@ void afficherUnDemandeur(ListeDem l, int value)
         }
         printf("Fait le : %d/%d/%d a %d:%d:%d\n", l->demandeurs.dateDemande.jours, l->demandeurs.dateDemande.mois, l->demandeurs.dateDemande.annee, l->demandeurs.dateDemande.heure, l->demandeurs.dateDemande.minute, l->demandeurs.dateDemande.seconde);
         printf("-----------------------------------------------------------------------------------------------------\n\n");
-
+        return;
     }
+    afficherUnDemandeur(l->suivant,value);
 }
 
 /**
@@ -366,10 +366,6 @@ ListeDem modificationEnTete(ListeDem l)
 {
     int nbPoint, nbPersonne, revenueBrut, nbNum;
     char choixNum, libelle[32], numTel[16];
-    printf("Pour rappel : \n");
-    printf("Les personnes handicapees : 30 points\nLes personnes victimes de violences au sein du couple :15 points\nLes personnes hébergées ou logées temporairement : 15 points\nLes personnes sans aucun logement ou menacées dexpulsion sans relogement : 10 points\nLes personnes logées dans un logement insalubre ou dangereux : 8 points\n");
-    printf("Combien de point avez-vous : ");
-    scanf("%d",&nbPoint);
     printf("Combien de personne avez-vous a charge : ");
     scanf("%d",&nbPersonne);
     printf("Qu'elle sont vos revenue : ");
@@ -410,9 +406,15 @@ ListeDem modificationEnTete(ListeDem l)
 ListeDem modification(ListeDem l, int modif)
 {
     if(l==NULL)
+    {
+        printf("Demandeur introuvable\n");
         return l;//équivaux a null
+    }
     if (modif<l->demandeurs.numDemande)
+    {
+        printf("Demandeur introuvable\n");
         return l;//équivaux a null
+    }
     if (l->demandeurs.numDemande==modif)
         return modificationEnTete(l);
     l->suivant=modification(l->suivant, modif);
